@@ -168,22 +168,17 @@ module.exports = function (app, swig, gestorBD) {
             criterio = {
                 $or: [
                     {
-                        "nombre": {
+                        "email": {
                             $regex: ".*" + req.query.busqueda + ".*"
                         }
                     },
                     {
-                        "genero": {
+                        "name": {
                             $regex: ".*" + req.query.busqueda + ".*"
                         }
                     },
                     {
-                        "precio": {
-                            $regex: ".*" + req.query.busqueda + ".*"
-                        }
-                    },
-                    {
-                        "autor": {
+                        "lastname": {
                             $regex: ".*" + req.query.busqueda + ".*"
                         }
                     }
@@ -194,8 +189,8 @@ module.exports = function (app, swig, gestorBD) {
         if (req.query.pg == null) { // Puede no venir el param
             pg = 1;
         }
-        gestorBD.obtenerCancionesPg(criterio, pg, function (canciones, total) {
-            if (canciones == null) {
+        gestorBD.obtenerUsuariosPg(criterio, pg, function (usuarios, total) {
+            if (usuarios == null) {
                 res.send("Error al listar ");
             } else {
                 let ultimaPg = total / 4;
@@ -209,7 +204,7 @@ module.exports = function (app, swig, gestorBD) {
                     }
                 }
                 let respuesta = swig.renderFile('views/btienda.html', {
-                    canciones: canciones,
+                    usuarios: usuarios,
                     paginas: paginas,
                     actual: pg
                 });

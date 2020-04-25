@@ -30,15 +30,15 @@
         <thead>
         <tr>
             <th>Nombre</th>
-            <th>Genero</th>
+            <th>Apellidos</th>
             <th class="col-md-1"></th>
         </tr>
         </thead>
         <tbody>
-        {% for cancion in canciones %}
+        {% for usuario in usuarios %}
         <tr>
-            <td>{{ cancion.nombre }}</td>
-            <td>{{ cancion.genero }}</td>
+            <td>{{ usuario.name }}</td>
+            <td>{{ usuario.email }}</td>
             <td><a href="/cancion/modificar/{{ cancion._id.toString() }}">Modificar</a> <br>
                 <a href="/cancion/eliminar/{{ cancion._id.toString() }}">Eliminar</a> <br>
             </td>
