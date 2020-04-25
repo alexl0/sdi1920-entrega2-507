@@ -91,6 +91,7 @@ routerUsuarioSession.use(function (req, res, next) {
     }
 });
 //Aplicar routerUsuarioSession
+app.use("/tienda", routerUsuarioSession);
 app.use("/canciones/agregar", routerUsuarioSession);
 app.use("/publicaciones", routerUsuarioSession);
 app.use("/comentarios", routerUsuarioSession);

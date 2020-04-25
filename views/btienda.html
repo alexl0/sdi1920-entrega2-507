@@ -25,22 +25,27 @@
 
 
 <h2>Canciones</h2>
-<div class="row">
-    <!-- http://librosweb.es/libro/bootstrap_3/capitulo_2/tipos_de_rejillas.html -->
-    <!-- Inicio del Bloque canción -->
-    {% for cancion in canciones %}
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
-        <div style="width: 200px">
-            <a href="/cancion/{{ cancion._id.toString() }}"> <img src="/portadas/{{ cancion._id.toString() }}.png" alt="logo" />
-                <!-- http://www.socicon.com/generator.php -->
-                <div class="wrap">{{ cancion.nombre }}</div>
-                <div class="small">Autor: {{ cancion.autor }}</div>
-                <div class="text-right">{{ cancion.precio }} €</div>
-            </a>
-        </div>
-    </div>
-    {% endfor %}
-    <!-- Fin del Bloque canción -->
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Genero</th>
+            <th class="col-md-1"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cancion in canciones %}
+        <tr>
+            <td>{{ cancion.nombre }}</td>
+            <td>{{ cancion.genero }}</td>
+            <td><a href="/cancion/modificar/{{ cancion._id.toString() }}">Modificar</a> <br>
+                <a href="/cancion/eliminar/{{ cancion._id.toString() }}">Eliminar</a> <br>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 </div>
 
 <!-- Paginación mostrar la actual y 2 anteriores y dos siguientes -->

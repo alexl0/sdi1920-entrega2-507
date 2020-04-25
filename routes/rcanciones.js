@@ -166,9 +166,28 @@ module.exports = function (app, swig, gestorBD) {
         let criterio = {};
         if (req.query.busqueda != null) {
             criterio = {
-                "nombre": {
-                    $regex: ".*" + req.query.busqueda + ".*"
-                }
+                $or: [
+                    {
+                        "nombre": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
+                    },
+                    {
+                        "genero": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
+                    },
+                    {
+                        "precio": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
+                    },
+                    {
+                        "autor": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
+                    }
+                ]
             };
         }
         let pg = parseInt(req.query.pg); // Es String !!!
