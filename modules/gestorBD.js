@@ -34,7 +34,7 @@ module.exports = {
                             if (err) {
                                 funcionCallback(null);
                             } else {
-                                funcionCallback(usuarios);
+                                funcionCallback(usuarios, count);
                             }
                             db.close();
                         });
