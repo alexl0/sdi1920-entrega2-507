@@ -166,21 +166,33 @@ module.exports = function (app, swig, gestorBD) {
         let criterio = {};
         if (req.query.busqueda != null) {
             criterio = {
-                $or: [
+                $and: [
                     {
-                        "email": {
-                            $regex: ".*" + req.query.busqueda + ".*"
-                        }
+                        $or: [
+                            {
+                                "email": {
+                                    $regex: ".*" + req.query.busqueda + ".*"
+                                }
+                            },
+                            {
+                                "name": {
+                                    $regex: ".*" + req.query.busqueda + ".*"
+                                }
+                            },
+                            {
+                                "lastname": {
+                                    $regex: ".*" + req.query.busqueda + ".*"
+                                }
+                            }
+                        ]
                     },
                     {
-                        "name": {
-                            $regex: ".*" + req.query.busqueda + ".*"
-                        }
-                    },
-                    {
-                        "lastname": {
-                            $regex: ".*" + req.query.busqueda + ".*"
-                        }
+                        $not:
+                            {
+                                "email": {
+                                    $regex: ".*" + req.query.usuario + ".*"
+                                }
+                            }
                     }
                 ]
             };
@@ -189,7 +201,7 @@ module.exports = function (app, swig, gestorBD) {
         if (req.query.pg == null) { // Puede no venir el param
             pg = 1;
         }
-        gestorBD.obtenerUsuariosPg(criterio, pg, function (usuarios, total) {
+        gestorBD.obtenerUsuariosPg(criterio, pg, req.session.usuario, function (usuarios, total) {
             if (usuarios == null) {
                 res.send("Error al listar ");
             } else {

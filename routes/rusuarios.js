@@ -87,4 +87,17 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
+    app.get("/usuario/invitar/:email", function (req, res) {
+        if (req.session.usuario && req.session.usuario === req.params.email) {
+            res.redirect("/identificarse" + "?mensaje=No se puede enviar una invitación de amistad a ti mismo" + "&tipoMensaje=alert-danger ");
+        } else {
+            gestorBD.insertarInvitacion(req.session.usuario, req.params.email, function (idInvitacion) {
+                if (idInvitacion == null)
+                    res.redirect("/tienda?mensaje=Error al enviar la invitación&tipoMensaje=alert-danger");
+                else
+                    res.redirect("/tienda?mensaje=Invitación enviada correctamente&tipoMensaje=alert-success");
+            });
+        }
+    });
+
 };
