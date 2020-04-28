@@ -115,7 +115,7 @@ module.exports = function (app, swig, gestorBD) {
                     if (result == null) {
                         res.send("Error en la modificación");
                     } else {
-                        res.redirect("/publicaciones");
+                        res.redirect("/invitaciones");
                     }
                 });
             }

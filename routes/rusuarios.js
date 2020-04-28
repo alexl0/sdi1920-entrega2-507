@@ -1,15 +1,11 @@
 module.exports = function (app, swig, gestorBD) {
 
-    app.get("/usuarios", function (req, res) {
-        res.send("ver usuarios");
-    });
-
     app.get("/registrarse", function (req, res) {
         let respuesta = swig.renderFile('views/bregistro.html', {});
         res.send(respuesta);
     });
 
-    app.post('/usuario', function (req, res) {
+    app.post('/registrarse', function (req, res) {
         //password
         let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
             .update(req.body.password).digest('hex');
@@ -72,7 +68,7 @@ module.exports = function (app, swig, gestorBD) {
         res.send("Usuario desconectado");
     });
 
-    app.get("/publicaciones", function (req, res) {
+    app.get("/invitaciones", function (req, res) {
         let criterio = {usuarioTo: req.session.usuario};
         gestorBD.obtenerInvitaciones(criterio, function (invitaciones) {
             if (invitaciones == null) {
@@ -104,11 +100,11 @@ module.exports = function (app, swig, gestorBD) {
         if (req.session.usuario && req.session.usuario === req.params.email) {
             //Este caso es imposible que se de, ya que en la lista de usuarios no aparece el usuario mismo,
             //pero aun asi lo compruebo
-            res.redirect("/publicaciones" + "?mensaje=No te puedes agregar a ti mismo" + "&tipoMensaje=alert-danger ");
+            res.redirect("/invitaciones" + "?mensaje=No te puedes agregar a ti mismo" + "&tipoMensaje=alert-danger ");
         } else {
             gestorBD.insertarAmigos(req.session.usuario, req.params.email, function (idInvitacion) {
                 if (idInvitacion == null)
-                    res.redirect("/publicaciones?mensaje=Error al aceptar la invitación&tipoMensaje=alert-danger");
+                    res.redirect("/invitaciones?mensaje=Error al aceptar la invitación&tipoMensaje=alert-danger");
                 else {
                     let criterio2 = {
                         $or: [
@@ -130,7 +126,7 @@ module.exports = function (app, swig, gestorBD) {
                         if (invitaciones == null) {
                             res.send(respuesta);
                         } else {
-                            res.redirect("/publicaciones?mensaje=Invitación aceptada correctamente&tipoMensaje=alert-success");
+                            res.redirect("/invitaciones?mensaje=Invitación aceptada correctamente&tipoMensaje=alert-success");
                         }
                     });
                 }
