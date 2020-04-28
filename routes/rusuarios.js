@@ -217,14 +217,30 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get('/amigos', function (req, res) {
-        gestorBD.obtenerAmigos(req.session.usuario, function (amigos) {
+        let pg = parseInt(req.query.pg); // Es String !!!
+        if (req.query.pg == null) { // Puede no venir el param
+            pg = 1;
+        }
+        gestorBD.obtenerAmigosPg(req.session.usuario, pg, function (amigos, total) {
             if (amigos == null) {
                 res.send("Error al listar");
             } else {
+                let ultimaPg = total / 5;
+                if (total % 5 > 0) { // Sobran decimales
+                    ultimaPg = ultimaPg + 1;
+                }
+                let paginas = []; // paginas mostrar
+                for (let i = pg - 2; i <= pg + 2; i++) {
+                    if (i > 0 && i <= ultimaPg) {
+                        paginas.push(i);
+                    }
+                }
                 let respuesta = swig.renderFile('views/bamigos.html',
                     {
                         amigos: amigos,
-                        email: req.session.usuario
+                        email: req.session.usuario,
+                        paginas: paginas,
+                        actual: pg
                     });
                 res.send(respuesta);
             }

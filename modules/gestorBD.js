@@ -164,5 +164,35 @@ module.exports = {
                 });
             }
         });
+    },
+    obtenerAmigosPg: function (usuario, pg, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let criterio = {
+                    $or: [
+                        {
+                            "email1": usuario
+                        },
+                        {
+                            "email2": usuario
+                        }
+                    ]
+                }
+                let collection = db.collection('amigos');
+                collection.count(function (err, count) {
+                    collection.find(criterio).skip((pg - 1) * 5).limit(5)
+                        .toArray(function (err, amigos) {
+                        if (err) {
+                            funcionCallback(null);
+                        } else {
+                            funcionCallback(amigos, count);
+                        }
+                        db.close();
+                    });
+                });
+            }
+        });
     }
 };
