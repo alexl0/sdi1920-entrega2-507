@@ -15,7 +15,7 @@
 		{% for invitacion in invitaciones %}
 			<tr>
 				<td>{{ invitacion.usuarioFrom }}</td>
-				<td><a href="/usuario/aceptar/{{ invitacion.usuarioFrom }}">Aceptar</a></td>
+				<td><a class="btn btn-primary" href="/usuario/aceptar/{{ invitacion.usuarioFrom }}">Aceptar</a></td>
 			</tr>
 		{% endfor %}
 		</tbody>
