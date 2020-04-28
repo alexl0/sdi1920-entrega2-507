@@ -100,4 +100,19 @@ module.exports = function (app, swig, gestorBD) {
         }
     });
 
+    app.get("/usuario/aceptar/:email", function (req, res) {
+        if (req.session.usuario && req.session.usuario === req.params.email) {
+            //Este caso es imposible que se de, ya que en la lista de usuarios no aparece el usuario mismo,
+            //pero aun asi lo compruebo
+            res.redirect("/publicaciones" + "?mensaje=No te puedes agregar a ti mismo" + "&tipoMensaje=alert-danger ");
+        } else {
+            gestorBD.insertarAmigos(req.session.usuario, req.params.email, function (idInvitacion) {
+                if (idInvitacion == null)
+                    res.redirect("/publicaciones?mensaje=Error al aceptar la invitación&tipoMensaje=alert-danger");
+                else
+                    res.redirect("/publicaciones?mensaje=Invitación aceptada correctamente&tipoMensaje=alert-success");
+            });
+        }
+    });
+
 };
