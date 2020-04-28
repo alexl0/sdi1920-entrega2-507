@@ -7,7 +7,7 @@
 <!-- Búsqueda -->
 <div class="row">
     <div id="custom-search-input ">
-        <form method="get" action="/tienda" >
+        <form method="get" action="/verUsuarios" >
             <div
                     class="input-group col-xs-8 col-sm-6 col-md-4 col-lg-5 pull-right">
                 <input type="text" class="search-query form-control"
@@ -57,7 +57,7 @@
     <ul class="pagination">
         {% for pagina in paginas %}
         <li class="page-item" id="pi-{{pagina}}">
-            <a class="page-link" href="/tienda?pg={{pagina}}">{{pagina}}</a>
+            <a class="page-link" href="/verUsuarios?pg={{pagina}}">{{pagina}}</a>
         </li>
         {% endfor %}
         <script>$("#pi-"+"{{actual}}").addClass("active");</script>

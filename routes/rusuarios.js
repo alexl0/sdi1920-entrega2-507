@@ -58,7 +58,7 @@ module.exports = function (app, swig, gestorBD) {
                 res.redirect("/identificarse" + "?mensaje=Email o password incorrecto" + "&tipoMensaje=alert-danger ");
             } else {
                 req.session.usuario = usuarios[0].email;
-                res.redirect("/tienda");
+                res.redirect("/verUsuarios");
             }
         });
     });
@@ -68,13 +68,93 @@ module.exports = function (app, swig, gestorBD) {
         res.send("Usuario desconectado");
     });
 
+    app.get("/verUsuarios", function (req, res) {
+        let criterio = {};
+        if (req.query.busqueda != null) {
+            criterio = {
+                $or: [
+                    {
+                        "email": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
+                    },
+                    {
+                        "name": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
+                    },
+                    {
+                        "lastname": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
+                    }
+                ]
+            };
+        }
+        let pg = parseInt(req.query.pg); // Es String !!!
+        if (req.query.pg == null) { // Puede no venir el param
+            pg = 1;
+        }
+        gestorBD.obtenerUsuariosPg(criterio, pg, req.session.usuario, function (usuarios, total) {
+            if (usuarios == null) {
+                res.send("Error al listar ");
+            } else {
+                let ultimaPg = total / 4;
+                if (total % 4 > 0) { // Sobran decimales
+                    ultimaPg = ultimaPg + 1;
+                }
+                let paginas = []; // paginas mostrar
+                for (let i = pg - 2; i <= pg + 2; i++) {
+                    if (i > 0 && i <= ultimaPg) {
+                        paginas.push(i);
+                    }
+                }
+
+                //Personas con las que hay invitaciones pendientes
+                //(para no mostrar boton de agregar)
+                let criterio2 = {$or: [{usuarioTo: req.session.usuario}, {usuarioFrom: req.session.usuario}]};
+                gestorBD.obtenerInvitaciones(criterio2, function (invitaciones) {
+                    if (invitaciones == null) {
+                        res.send("Error al listar ");
+                    } else {
+                        //Personas con las que ya se es amigo
+                        //(para no mostrar boton de agregar)
+                        gestorBD.obtenerAmigos(req.session.usuario, function (amigos) {
+                            if (amigos == null) {
+                                res.send("Error al listar");
+                            } else {
+                                for (i=0;i<usuarios.length;i++) {
+                                    //Es amigo o esta en proceso de serlo
+                                    let esAmigo = "false";
+                                    for (j=0;j<amigos.length;j++)
+                                        if (amigos[j].email1 === usuarios[i].email || amigos[j].email2 === usuarios[i].email)
+                                            esAmigo = "true";
+                                    for (k=0;k<invitaciones.length;k++)
+                                        if (invitaciones[k].usuarioFrom === usuarios[i].email || invitaciones[k].usuarioTo === usuarios[i].email)
+                                            esAmigo = "true";
+                                    usuarios[i].esAmigo = esAmigo;
+                                }
+                                let respuesta = swig.renderFile('views/busuarios.html', {
+                                    usuarios: usuarios,
+                                    paginas: paginas,
+                                    actual: pg
+                                });
+                                res.send(respuesta);
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    });
+
     app.get("/invitaciones", function (req, res) {
         let criterio = {usuarioTo: req.session.usuario};
         gestorBD.obtenerInvitaciones(criterio, function (invitaciones) {
             if (invitaciones == null) {
                 res.send("Error al listar ");
             } else {
-                let respuesta = swig.renderFile('views/bpublicaciones.html',
+                let respuesta = swig.renderFile('views/binvitaciones.html',
                     {
                         invitaciones: invitaciones
                     });
@@ -89,9 +169,9 @@ module.exports = function (app, swig, gestorBD) {
         } else {
             gestorBD.insertarInvitacion(req.session.usuario, req.params.email, function (idInvitacion) {
                 if (idInvitacion == null)
-                    res.redirect("/tienda?mensaje=Error al enviar la invitación&tipoMensaje=alert-danger");
+                    res.redirect("/verUsuarios?mensaje=Error al enviar la invitación&tipoMensaje=alert-danger");
                 else
-                    res.redirect("/tienda?mensaje=Invitación enviada correctamente&tipoMensaje=alert-success");
+                    res.redirect("/verUsuarios?mensaje=Invitación enviada correctamente&tipoMensaje=alert-success");
             });
         }
     });
@@ -132,6 +212,21 @@ module.exports = function (app, swig, gestorBD) {
                 }
             });
         }
+    });
+
+    app.get('/amigos', function (req, res) {
+        gestorBD.obtenerAmigos(req.session.usuario, function (amigos) {
+            if (amigos == null) {
+                res.send("Error al listar");
+            } else {
+                let respuesta = swig.renderFile('views/bamigos.html',
+                    {
+                        amigos: amigos,
+                        usuario: req.session.usuario
+                    });
+                res.send(respuesta);
+            }
+        });
     });
 
 };

@@ -91,12 +91,12 @@ routerUsuarioSession.use(function (req, res, next) {
     }
 });
 //Aplicar routerUsuarioSession
-app.use("/tienda", routerUsuarioSession);
+app.use("/verUsuarios", routerUsuarioSession);
 app.use("/canciones/agregar", routerUsuarioSession);
 app.use("/invitaciones", routerUsuarioSession);
 app.use("/comentarios", routerUsuarioSession);
 app.use("/cancion/comprar", routerUsuarioSession);
-app.use("/compras", routerUsuarioSession);
+app.use("/amigos", routerUsuarioSession);
 app.use("/cancion/:id", routerUsuarioSession);
 
 //routerAudios
@@ -119,7 +119,7 @@ routerAudios.use(function (req, res, next) {
                     if (compras != null && compras.length > 0) {
                         next();
                     } else {
-                        res.redirect("/tienda");
+                        res.redirect("/verUsuarios");
                     }
                 })
             }
@@ -143,7 +143,7 @@ routerUsuarioAutor.use(function (req, res, next) {
             if (canciones[0].autor == req.session.usuario) {
                 next();
             } else {
-                res.redirect("/tienda");
+                res.redirect("/verUsuarios");
             }
         })
 });
@@ -165,7 +165,7 @@ require("./routes/rerrores.js")(app, swig); // (app, param1, param2, etc.)
 require("./routes/rapicanciones.js")(app, gestorBD);
 
 app.get('/', function (req, res) {
-    res.redirect('/tienda');
+    res.redirect('/verUsuarios');
 })
 
 app.use(function (err, req, res, next) {
