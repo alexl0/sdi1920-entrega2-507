@@ -310,17 +310,7 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
     app.get('/compras', function (req, res) {
-        let criterio = {
-            $or: [
-                {
-                    "email1": req.session.usuario
-                },
-                {
-                    "email2": req.session.usuario
-                }
-            ]
-        }
-        gestorBD.obtenerAmigos(criterio, function (amigos) {
+        gestorBD.obtenerAmigos(req.session.usuario, function (amigos) {
             if (amigos == null) {
                 res.send("Error al listar");
             } else {

@@ -280,11 +280,21 @@ module.exports = {
             }
         });
     },
-    obtenerAmigos: function (criterio, funcionCallback) {
+    obtenerAmigos: function (usuario, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
+                let criterio = {
+                    $or: [
+                        {
+                            "email1": usuario
+                        },
+                        {
+                            "email2": usuario
+                        }
+                    ]
+                }
                 let collection = db.collection('amigos');
                 collection.find(criterio).toArray(function (err, amigos) {
                     if (err) {
