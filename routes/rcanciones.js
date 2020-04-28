@@ -322,23 +322,26 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
     app.get('/compras', function (req, res) {
-        let criterio = {"usuario": req.session.usuario};
-        gestorBD.obtenerCompras(criterio, function (compras) {
-            if (compras == null) {
+        let criterio = {
+            $or: [
+                {
+                    "email1": req.session.usuario
+                },
+                {
+                    "email2": req.session.usuario
+                }
+            ]
+        }
+        gestorBD.obtenerAmigos(criterio, function (amigos) {
+            if (amigos == null) {
                 res.send("Error al listar");
             } else {
-                let cancionesCompradasIds = [];
-                for (i = 0; i < compras.length; i++) {
-                    cancionesCompradasIds.push(compras[i].cancionId);
-                }
-                let criterio = {"_id": {$in: cancionesCompradasIds}}
-                gestorBD.obtenerCanciones(criterio, function (canciones) {
-                    let respuesta = swig.renderFile('views/bcompras.html',
-                        {
-                            canciones: canciones
-                        });
-                    res.send(respuesta);
-                })
+                let respuesta = swig.renderFile('views/bcompras.html',
+                    {
+                        amigos: amigos,
+                        usuario: req.session.usuario
+                    });
+                res.send(respuesta);
             }
         })
     });

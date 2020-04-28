@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block titulo %} Mis publicaciones {% endblock %} 
+{% extends "base.html" %} {% block titulo %} Mis publicaciones {% endblock %}
 
 {% block contenido_principal %}
 <h2>Mis compras</h2>
@@ -8,22 +8,21 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>Nombre</th>
-				<th>Genero</th>
+				<th>email</th>
 				<th class="col-md-1"></th>
 			</tr>
 		</thead>
 		<tbody>
-		{% for cancion in canciones %}
-			<tr>
-				<td>{{ cancion.nombre }}</td>
-				<td>{{ cancion.genero }}</td>
-				<td>
-					 <audio controls>
-					   <source src="/audios/{{ cancion._id.toString() }}.mp3" type="audio/mpeg">
-					</audio>  
-			    </td>
-			</tr>
+		{% for amigo in amigos %}
+			{% if amigo.email1 == usuario %}
+				<tr>
+					<td>{{ amigo.email2 }}</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td>{{ amigo.email1 }}</td>
+				</tr>
+			{% endif %}
 		{% endfor %}
 		</tbody>
 	</table>
