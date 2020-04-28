@@ -33,7 +33,7 @@ module.exports = function (app, swig, gestorBD) {
 
         let respuesta = swig.renderFile('views/bagregar.html', {});
         res.send(respuesta);
-    })
+    });
 
     app.get('/canciones/:id', function (req, res) {
         let respuesta = 'id: ' + req.params.id;
@@ -99,7 +99,7 @@ module.exports = function (app, swig, gestorBD) {
                                         comprada: canciones[0].estaComprada
                                     });
                                 res.send(respuesta);
-                            })
+                            });
                         }
                     });
 
@@ -160,7 +160,7 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get('/promo*', function (req, res) {
         res.send('Respuesta patrón promo* ');
-    })
+    });
 
     app.get("/tienda", function (req, res) {
         let criterio = {};
@@ -203,12 +203,41 @@ module.exports = function (app, swig, gestorBD) {
                         paginas.push(i);
                     }
                 }
-                let respuesta = swig.renderFile('views/btienda.html', {
-                    usuarios: usuarios,
-                    paginas: paginas,
-                    actual: pg
+
+                //Personas con las que hay invitaciones pendientes
+                //(para no mostrar boton de agregar)
+                let criterio2 = {$or: [{usuarioTo: req.session.usuario}, {usuarioFrom: req.session.usuario}]};
+                gestorBD.obtenerInvitaciones(criterio2, function (invitaciones) {
+                    if (invitaciones == null) {
+                        res.send("Error al listar ");
+                    } else {
+                        //Personas con las que ya se es amigo
+                        //(para no mostrar boton de agregar)
+                        gestorBD.obtenerAmigos(req.session.usuario, function (amigos) {
+                            if (amigos == null) {
+                                res.send("Error al listar");
+                            } else {
+                                for (i=0;i<usuarios.length;i++) {
+                                    //Es amigo o esta en proceso de serlo
+                                    let esAmigo = "false";
+                                    for (j=0;j<amigos.length;j++)
+                                        if (amigos[j].email1 === usuarios[i].email || amigos[j].email2 === usuarios[i].email)
+                                            esAmigo = "true";
+                                    for (k=0;k<invitaciones.length;k++)
+                                        if (invitaciones[k].usuarioFrom === usuarios[i].email || invitaciones[k].usuarioTo === usuarios[i].email)
+                                            esAmigo = "true";
+                                    usuarios[i].esAmigo = esAmigo;
+                                }
+                                let respuesta = swig.renderFile('views/btienda.html', {
+                                    usuarios: usuarios,
+                                    paginas: paginas,
+                                    actual: pg
+                                });
+                                res.send(respuesta);
+                            }
+                        });
+                    }
                 });
-                res.send(respuesta);
             }
         });
     });
@@ -321,7 +350,7 @@ module.exports = function (app, swig, gestorBD) {
                     });
                 res.send(respuesta);
             }
-        })
+        });
     });
 
 };

@@ -31,17 +31,22 @@
         <tr>
             <th>Nombre</th>
             <th>Apellidos</th>
+            <th>email</th>
             <th class="col-md-1"></th>
         </tr>
         </thead>
         <tbody>
         {% for usuario in usuarios %}
-        <tr>
-            <td>{{ usuario.name }}</td>
-            <td>{{ usuario.email }}</td>
-            <td><a href="/usuario/invitar/{{ usuario.email.toString() }}">Agregar</a>
-            </td>
-        </tr>
+            {% if !(amigos.includes(usuarioSesion) || invitaciones.includes(usuarioSesion)) %}
+                <tr>
+                    <td>{{ usuario.name }}</td>
+                    <td>{{ usuario.lastname }}</td>
+                    <td>{{ usuario.email }}</td>
+                    {% if usuario.esAmigo=="false" %}
+                        <td><a href="/usuario/invitar/{{ usuario.email.toString() }}">Agregar</a></td>
+                    {% endif %}
+                </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>
