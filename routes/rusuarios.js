@@ -73,7 +73,7 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/publicaciones", function (req, res) {
-        let criterio = {usuasrioTo: req.session.usuario};
+        let criterio = {usuarioTo: req.session.usuario};
         gestorBD.obtenerInvitaciones(criterio, function (invitaciones) {
             if (invitaciones == null) {
                 res.send("Error al listar ");
@@ -109,8 +109,31 @@ module.exports = function (app, swig, gestorBD) {
             gestorBD.insertarAmigos(req.session.usuario, req.params.email, function (idInvitacion) {
                 if (idInvitacion == null)
                     res.redirect("/publicaciones?mensaje=Error al aceptar la invitación&tipoMensaje=alert-danger");
-                else
-                    res.redirect("/publicaciones?mensaje=Invitación aceptada correctamente&tipoMensaje=alert-success");
+                else {
+                    let criterio2 = {
+                        $or: [
+                            {
+                                $and: [
+                                    {"usuarioFrom": req.session.usuario},
+                                    {"usuarioTo": req.params.email}
+                                ]
+                            },
+                            {
+                                $and: [
+                                    {"usuarioTo": req.session.usuario},
+                                    {"usuarioFrom": req.params.email}
+                                ]
+                            }
+                        ]
+                    };
+                    gestorBD.eliminarInvitacion(criterio2, function (invitaciones) {
+                        if (invitaciones == null) {
+                            res.send(respuesta);
+                        } else {
+                            res.redirect("/publicaciones?mensaje=Invitación aceptada correctamente&tipoMensaje=alert-success");
+                        }
+                    });
+                }
             });
         }
     });

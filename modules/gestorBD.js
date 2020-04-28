@@ -228,7 +228,7 @@ module.exports = {
                 let collection = db.collection('invitaciones');
                 var invitacion = {
                     usuarioFrom: usuarioFrom,
-                    usuasrioTo: usuarioTo
+                    usuarioTo: usuarioTo
                 };
                 collection.insert(invitacion, function (err, result) {
                     if (err) {
@@ -258,6 +258,7 @@ module.exports = {
             }
         });
     },
+    //Aceptar invitación
     insertarAmigos: function (email1, email2, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
@@ -290,6 +291,23 @@ module.exports = {
                         funcionCallback(null);
                     } else {
                         funcionCallback(amigos);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    eliminarInvitacion: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('invitaciones');
+                collection.remove(criterio, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
                     }
                     db.close();
                 });
