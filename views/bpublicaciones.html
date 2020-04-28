@@ -12,17 +12,16 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th>Nombre</th>
+				<th>email</th>
 				<th>Genero</th>
 				<th class="col-md-1"></th>
 			</tr>
 		</thead>
 		<tbody>
-		{% for cancion in canciones %}
+		{% for invitacion in invitaciones %}
 			<tr>
-				<td>{{ cancion.nombre }}</td>
-				<td>{{ cancion.genero }}</td>
-				<td><a href="/cancion/modificar/{{ cancion._id.toString() }}">Modificar</a> <br>
+				<td>{{ invitacion.usuarioFrom }}</td>
+				<td><a href="/cancion/modificar/{{ cancion._id.toString() }}">Aceptar</a> <br>
 					<a href="/cancion/eliminar/{{ cancion._id.toString() }}">Eliminar</a> <br>
 			    </td>
 			</tr>

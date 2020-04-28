@@ -73,14 +73,14 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/publicaciones", function (req, res) {
-        let criterio = {autor: req.session.usuario};
-        gestorBD.obtenerCanciones(criterio, function (canciones) {
-            if (canciones == null) {
+        let criterio = {usuasrioTo: req.session.usuario};
+        gestorBD.obtenerInvitaciones(criterio, function (invitaciones) {
+            if (invitaciones == null) {
                 res.send("Error al listar ");
             } else {
                 let respuesta = swig.renderFile('views/bpublicaciones.html',
                     {
-                        canciones: canciones
+                        invitaciones: invitaciones
                     });
                 res.send(respuesta);
             }
