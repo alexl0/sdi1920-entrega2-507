@@ -166,33 +166,21 @@ module.exports = function (app, swig, gestorBD) {
         let criterio = {};
         if (req.query.busqueda != null) {
             criterio = {
-                $and: [
+                $or: [
                     {
-                        $or: [
-                            {
-                                "email": {
-                                    $regex: ".*" + req.query.busqueda + ".*"
-                                }
-                            },
-                            {
-                                "name": {
-                                    $regex: ".*" + req.query.busqueda + ".*"
-                                }
-                            },
-                            {
-                                "lastname": {
-                                    $regex: ".*" + req.query.busqueda + ".*"
-                                }
-                            }
-                        ]
+                        "email": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
                     },
                     {
-                        $not:
-                            {
-                                "email": {
-                                    $regex: ".*" + req.query.usuario + ".*"
-                                }
-                            }
+                        "name": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
+                    },
+                    {
+                        "lastname": {
+                            $regex: ".*" + req.query.busqueda + ".*"
+                        }
                     }
                 ]
             };
