@@ -30,11 +30,11 @@
                 <li id="mCompras"><a href="/amigos">Amigos</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if !estaLogueado %}
-                <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
-                <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
+                {% if email==null %}
+                    <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
+                    <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
                 {% else %}
-                <li><a href="/desconectarse"><span class="glyphicon glyphicon-log-out"></span> Desconectarse</a></li>
+                    <li><a href="/desconectarse"><span class="glyphicon glyphicon-log-out"></span> Desconectarse</a></li>
                 {% endif %}
             </ul>
         </div>

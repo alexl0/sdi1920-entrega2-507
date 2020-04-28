@@ -65,7 +65,7 @@ module.exports = function (app, swig, gestorBD) {
 
     app.get('/desconectarse', function (req, res) {
         req.session.usuario = null;
-        res.send("Usuario desconectado");
+        res.redirect("/identificarse?mensaje=Se ha desconectado con éxito.");
     });
 
     app.get("/verUsuarios", function (req, res) {
@@ -137,7 +137,8 @@ module.exports = function (app, swig, gestorBD) {
                                 let respuesta = swig.renderFile('views/busuarios.html', {
                                     usuarios: usuarios,
                                     paginas: paginas,
-                                    actual: pg
+                                    actual: pg,
+                                    email: req.session.usuario
                                 });
                                 res.send(respuesta);
                             }
@@ -156,7 +157,8 @@ module.exports = function (app, swig, gestorBD) {
             } else {
                 let respuesta = swig.renderFile('views/binvitaciones.html',
                     {
-                        invitaciones: invitaciones
+                        invitaciones: invitaciones,
+                        email: req.session.usuario
                     });
                 res.send(respuesta);
             }
@@ -222,7 +224,7 @@ module.exports = function (app, swig, gestorBD) {
                 let respuesta = swig.renderFile('views/bamigos.html',
                     {
                         amigos: amigos,
-                        usuario: req.session.usuario
+                        email: req.session.usuario
                     });
                 res.send(respuesta);
             }
