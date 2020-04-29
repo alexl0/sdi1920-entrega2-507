@@ -214,5 +214,38 @@ module.exports = {
                 });
             }
         });
+    },
+    comprobarSiSonAmigos: function (usuario1, usuario2, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let criterio = {
+                    $or: [
+                        {
+                            $and: [
+                                {"email1": usuario1},
+                                {"email2": usuario2}
+                            ]
+                        },
+                        {
+                            $and: [
+                                {"email2": usuario1},
+                                {"email1": usuario2}
+                            ]
+                        }
+                    ]
+                };
+                let collection = db.collection('amigos');
+                collection.find(criterio).toArray(function (err, amigos) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(amigos.length>0);
+                    }
+                    db.close();
+                });
+            }
+        });
     }
 };

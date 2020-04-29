@@ -123,13 +123,13 @@ module.exports = function (app, swig, gestorBD) {
                             if (amigos == null) {
                                 res.send("Error al listar");
                             } else {
-                                for (i=0;i<usuarios.length;i++) {
+                                for (i = 0; i < usuarios.length; i++) {
                                     //Es amigo o esta en proceso de serlo
                                     let esAmigo = "false";
-                                    for (j=0;j<amigos.length;j++)
+                                    for (j = 0; j < amigos.length; j++)
                                         if (amigos[j].email1 === usuarios[i].email || amigos[j].email2 === usuarios[i].email)
                                             esAmigo = "true";
-                                    for (k=0;k<invitaciones.length;k++)
+                                    for (k = 0; k < invitaciones.length; k++)
                                         if (invitaciones[k].usuarioFrom === usuarios[i].email || invitaciones[k].usuarioTo === usuarios[i].email)
                                             esAmigo = "true";
                                     usuarios[i].esAmigo = esAmigo;
@@ -195,40 +195,77 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/usuario/aceptar/:email", function (req, res) {
-        if (req.session.usuario && req.session.usuario === req.params.email) {
-            //Este caso es imposible que se de, ya que en la lista de usuarios no aparece el usuario mismo,
-            //pero aun asi lo compruebo
-            res.redirect("/invitaciones" + "?mensaje=No te puedes agregar a ti mismo" + "&tipoMensaje=alert-danger ");
-        } else {
-            gestorBD.insertarAmigos(req.session.usuario, req.params.email, function (idInvitacion) {
-                if (idInvitacion == null)
-                    res.redirect("/invitaciones?mensaje=Error al aceptar la invitación&tipoMensaje=alert-danger");
-                else {
-                    let criterio2 = {
-                        $or: [
-                            {
-                                $and: [
-                                    {"usuarioFrom": req.session.usuario},
-                                    {"usuarioTo": req.params.email}
-                                ]
-                            },
-                            {
-                                $and: [
-                                    {"usuarioTo": req.session.usuario},
-                                    {"usuarioFrom": req.params.email}
-                                ]
+        /**
+         * Voy a hacer una serie de comprobaciones basicamente para que no se pueda meter la url en el navegador
+         * por ejemplo https://localhost:8081/usuario/aceptar/:email
+         *      de un email que no te haya mandado la invitación,
+         *      que ya sea amigo
+         *      que sea tu propio email
+         *      que no exista ese email en la base de datos
+         *      no estas logueado
+         */
+        if (req.session.usuario == null)
+            res.redirect("/identificarse?mensaje=Debe identificarse primero");
+        else {
+            if (req.session.usuario && req.session.usuario === req.params.email)
+                //Usuario no se puede agregar a si mismo
+                res.redirect("/invitaciones" + "?mensaje=No se puede agregar a si mismo" + "&tipoMensaje=alert-danger ");
+            else {
+                criterio = {"email": req.params.email};
+                gestorBD.obtenerUsuarios(criterio, function (usuariobd) {
+                    if (usuariobd.length == 0)
+                        res.redirect("/invitaciones" + "?mensaje=No existe el usuario que se desea agregar" + "&tipoMensaje=alert-danger ");
+                    else {
+                        //Si no tiene una invitacion, no se puede aceptar la invitacion
+                        let criterio2 = {$and: [{usuarioTo: req.session.usuario}, {usuarioFrom: req.params.email}]};
+                        gestorBD.obtenerInvitaciones(criterio2, function (invitaciones) {
+                            if (invitaciones.length==0)
+                                res.redirect("/invitaciones" + "?mensaje=No tiene una invitación de esa persona" + "&tipoMensaje=alert-danger ");
+                            else {
+                                //Si ya son amigos, no se vuelve a añadir a la base de datos.
+                                //(No es posible que se de este caso porque se comprueba para enviar una petición si ya
+                                //es amigo, y como antes se ha comprobado que no tenga peticiones, pues es imposible)
+                                gestorBD.comprobarSiSonAmigos(req.session.usuario, req.params.email, function (yaSonAmigos) {
+                                    if (yaSonAmigos)
+                                        res.redirect("/invitaciones" + "?mensaje=Ya es amigo de esa persona" + "&tipoMensaje=alert-danger ");
+                                    else
+                                        //Se añaden los amigos a la base de datos
+                                        gestorBD.insertarAmigos(req.session.usuario, req.params.email, function (idInvitacion) {
+                                            if (idInvitacion == null)
+                                                res.redirect("/invitaciones?mensaje=Error al aceptar la invitación&tipoMensaje=alert-danger");
+                                            else {
+                                                let criterio3 = {
+                                                    $or: [
+                                                        {
+                                                            $and: [
+                                                                {"usuarioFrom": req.session.usuario},
+                                                                {"usuarioTo": req.params.email}
+                                                            ]
+                                                        },
+                                                        {
+                                                            $and: [
+                                                                {"usuarioTo": req.session.usuario},
+                                                                {"usuarioFrom": req.params.email}
+                                                            ]
+                                                        }
+                                                    ]
+                                                };
+                                                //Y se borra la invitación
+                                                gestorBD.eliminarInvitacion(criterio3, function (invitaciones) {
+                                                    if (invitaciones == null) {
+                                                        res.send(respuesta);
+                                                    } else {
+                                                        res.redirect("/invitaciones?mensaje=Invitación aceptada correctamente&tipoMensaje=alert-success");
+                                                    }
+                                                });
+                                            }
+                                        });
+                                });
                             }
-                        ]
-                    };
-                    gestorBD.eliminarInvitacion(criterio2, function (invitaciones) {
-                        if (invitaciones == null) {
-                            res.send(respuesta);
-                        } else {
-                            res.redirect("/invitaciones?mensaje=Invitación aceptada correctamente&tipoMensaje=alert-success");
-                        }
-                    });
-                }
-            });
+                        });
+                    }
+                });
+            }
         }
     });
 
