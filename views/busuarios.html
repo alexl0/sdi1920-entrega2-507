@@ -10,10 +10,10 @@
         <form method="get" action="/verUsuarios" >
             <div
                     class="input-group col-xs-8 col-sm-6 col-md-4 col-lg-5 pull-right">
-                <input type="text" class="search-query form-control"
-                       placeholder="Buscar personas" name="busqueda"/>
+                <input type="text" id="searchText" class="search-query form-control"
+                       placeholder="Buscar personas"/>
                 <span class="input-group-btn">
-                    <button class="btn" type="submit">
+                    <button id="searchButton" name="searchButton" class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
                 </span>
@@ -58,9 +58,9 @@
 <div class="row text-center">
     <ul class="pagination">
         {% for pagina in paginas %}
-        <li class="page-item" id="pi-{{pagina}}">
-            <a class="page-link" href="/verUsuarios?pg={{pagina}}">{{pagina}}</a>
-        </li>
+            <li class="page-item" id="pi-{{pagina}}">
+                <a class="page-link" href="/verUsuarios?pg={{pagina}}">{{pagina}}</a>
+            </li>
         {% endfor %}
         <script>$("#pi-"+"{{actual}}").addClass("active");</script>
     </ul>

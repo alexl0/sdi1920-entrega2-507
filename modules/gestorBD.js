@@ -247,5 +247,23 @@ module.exports = {
                 });
             }
         });
+    },
+    eliminarUsuarios: function () {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('usuarios');
+                let criterio = {};
+                collection.remove(criterio, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }
+                    db.close();
+                });
+            }
+        });
     }
 };
