@@ -248,12 +248,79 @@ module.exports = {
             }
         });
     },
+    comprobarSiHayInvitaciones: function (usuario1, usuario2, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let criterio = {
+                    $or: [
+                        {
+                            $and: [
+                                {"usuarioFrom": usuario1},
+                                {"usuarioTo": usuario2}
+                            ]
+                        },
+                        {
+                            $and: [
+                                {"usuarioTo": usuario1},
+                                {"usuarioFrom": usuario2}
+                            ]
+                        }
+                    ]
+                };
+                let collection = db.collection('invitaciones');
+                collection.find(criterio).toArray(function (err, amigos) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(amigos.length>0);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
     eliminarUsuarios: function (funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('usuarios');
+                collection.remove( {}, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    eliminarInvitaciones: function (funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('invitaciones');
+                collection.remove( {}, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    eliminarAmigos: function (funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('amigos');
                 collection.remove( {}, function (err, result) {
                     if (err) {
                         funcionCallback(null);

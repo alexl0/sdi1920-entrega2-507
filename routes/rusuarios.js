@@ -211,11 +211,16 @@ module.exports = function (app, swig, gestorBD) {
                             if (yaSonAmigos)
                                 res.redirect("/invitaciones" + "?mensaje=Ya es amigo de esa persona" + "&tipoMensaje=alert-danger ");
                             else
-                                gestorBD.insertarInvitacion(req.session.usuario, req.params.email, function (idInvitacion) {
-                                    if (idInvitacion == null)
-                                        res.redirect("/verUsuarios?mensaje=Error al enviar la invitación&tipoMensaje=alert-danger");
+                                gestorBD.comprobarSiHayInvitaciones(req.session.usuario, req.params.email, function (yaSonAmigos) {
+                                    if (yaSonAmigos)
+                                        res.redirect("/invitaciones" + "?mensaje=Hay invitaciones pendientes entre usted y esa persona" + "&tipoMensaje=alert-danger ");
                                     else
-                                        res.redirect("/verUsuarios?mensaje=Invitación enviada correctamente&tipoMensaje=alert-success");
+                                        gestorBD.insertarInvitacion(req.session.usuario, req.params.email, function (idInvitacion) {
+                                            if (idInvitacion == null)
+                                                res.redirect("/verUsuarios?mensaje=Error al enviar la invitación&tipoMensaje=alert-danger");
+                                            else
+                                                res.redirect("/verUsuarios?mensaje=Invitación enviada correctamente&tipoMensaje=alert-success");
+                                        });
                                 });
                         });
                     }
@@ -338,12 +343,24 @@ module.exports = function (app, swig, gestorBD) {
     //circunstancia. Solo tiene la intención de facilitar la
     //ejecución de los test.
     app.get('/borrarUsuarios', function (req, res) {
-        gestorBD.eliminarUsuarios( function (result) {
+        gestorBD.eliminarUsuarios(function (result) {
             if (result == null) {
                 console.log("Error al borrar usuarios");
-            }else{
-                let respuesta = swig.renderFile('views/bregistro.html', {});
-                res.send(respuesta);
+            } else {
+                gestorBD.eliminarInvitaciones(function (result) {
+                    if (result == null) {
+                        console.log("Error al borrar invitaciones");
+                    } else {
+                        gestorBD.eliminarAmigos(function (result) {
+                            if (result == null) {
+                                console.log("Error al borrar amigos");
+                            } else {
+                                let respuesta = swig.renderFile('views/bregistro.html', {});
+                                res.send(respuesta);
+                            }
+                        });
+                    }
+                });
             }
         });
     });
