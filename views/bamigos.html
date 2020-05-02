@@ -8,19 +8,33 @@
 		<thead>
 			<tr>
 				<th>email</th>
-				<th class="col-md-1"></th>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th class="col-md-3"></th>
 			</tr>
 		</thead>
 		<tbody>
 		{% for amigo in amigos %}
 			{% if amigo.email1 == email %}
-				<tr>
-					<td>{{ amigo.email2 }}</td>
-				</tr>
+				{% for usuario in usuarios %}
+					{% if amigo.email2 == usuario.email %}
+						<tr>
+							<td>{{ amigo.email2 }}</td>
+							<td>{{ usuario.name }}
+							<td>{{ usuario.lastname }}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
 			{% else %}
-				<tr>
-					<td>{{ amigo.email1 }}</td>
-				</tr>
+				{% for usuario in usuarios %}
+					{% if amigo.email2 == usuario.email %}
+						<tr>
+							<td>{{ amigo.email1 }}</td>
+							<td>{{ usuario.name }}
+							<td>{{ usuario.lastname }}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
 			{% endif %}
 		{% endfor %}
 		</tbody>

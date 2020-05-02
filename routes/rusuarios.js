@@ -169,14 +169,27 @@ module.exports = function (app, swig, gestorBD) {
                         paginas.push(i);
                     }
                 }
-                let respuesta = swig.renderFile('views/binvitaciones.html',
-                    {
-                        invitaciones: invitaciones,
-                        email: req.session.usuario,
-                        paginas: paginas,
-                        actual: pg
-                    });
-                res.send(respuesta);
+
+
+                /**
+                 * Para no tener almacenados el nombre y los apellidos del usuario
+                 * en las tablas amigos y invitaciones, se accede a esos campos
+                 * a través de la tabla usuarios, ya que si en un futuro se añadieran
+                 * otros campos, sería muy fácil añadirlos a la lista.
+                 */
+                gestorBD.obtenerUsuarios({}, function (usuarios) {
+                    if (usuarios != null && usuarios.length > 0) {
+                        let respuesta = swig.renderFile('views/binvitaciones.html',
+                            {
+                                usuarios: usuarios,
+                                invitaciones: invitaciones,
+                                email: req.session.usuario,
+                                paginas: paginas,
+                                actual: pg
+                            });
+                        res.send(respuesta);
+                    }
+                });
             }
         });
     });
@@ -324,14 +337,26 @@ module.exports = function (app, swig, gestorBD) {
                         paginas.push(i);
                     }
                 }
-                let respuesta = swig.renderFile('views/bamigos.html',
-                    {
-                        amigos: amigos,
-                        email: req.session.usuario,
-                        paginas: paginas,
-                        actual: pg
-                    });
-                res.send(respuesta);
+
+                /**
+                 * Para no tener almacenados el nombre y los apellidos del usuario
+                 * en las tablas amigos y invitaciones, se accede a esos campos
+                 * a través de la tabla usuarios, ya que si en un futuro se añadieran
+                 * otros campos, sería muy fácil añadirlos a la lista.
+                 */
+                gestorBD.obtenerUsuarios({}, function (usuarios) {
+                    if (usuarios != null && usuarios.length > 0) {
+                        let respuesta = swig.renderFile('views/bamigos.html',
+                            {
+                                usuarios: usuarios,
+                                amigos: amigos,
+                                email: req.session.usuario,
+                                paginas: paginas,
+                                actual: pg
+                            });
+                        res.send(respuesta);
+                    }
+                });
             }
         });
     });

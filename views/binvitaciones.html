@@ -8,15 +8,23 @@
 		<thead>
 			<tr>
 				<th>email</th>
-				<th class="col-md-1"></th>
+				<th>Nombre</th>
+				<th>Apellidos</th>
+				<th>Aceptar invitación de amistad</th>
 			</tr>
 		</thead>
 		<tbody>
 		{% for invitacion in invitaciones %}
-			<tr>
-				<td>{{ invitacion.usuarioFrom }}</td>
-				<td><a class="btn btn-primary" href="/usuario/aceptar/{{ invitacion.usuarioFrom }}">Aceptar</a></td>
-			</tr>
+			{% for usuario in usuarios %}
+				{% if invitacion.usuarioFrom == usuario.email %}
+					<tr>
+						<td>{{ invitacion.usuarioFrom }}</td>
+						<td>{{ usuario.name }}
+						<td>{{ usuario.lastname }}</td>
+						<td><a class="btn btn-primary" href="/usuario/aceptar/{{ invitacion.usuarioFrom }}">Aceptar</a></td>
+					</tr>
+				{% endif %}
+			{% endfor %}
 		{% endfor %}
 		</tbody>
 	</table>
