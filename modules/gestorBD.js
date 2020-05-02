@@ -248,14 +248,13 @@ module.exports = {
             }
         });
     },
-    eliminarUsuarios: function () {
+    eliminarUsuarios: function (funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('usuarios');
-                let criterio = {};
-                collection.remove(criterio, function (err, result) {
+                collection.remove( {}, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {

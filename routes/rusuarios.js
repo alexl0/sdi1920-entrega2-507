@@ -337,8 +337,15 @@ module.exports = function (app, swig, gestorBD) {
     //En una aplicación comercial no se haría esto bajo ninguna
     //circunstancia. Solo tiene la intención de facilitar la
     //ejecución de los test.
-    app.get('/borrarUsuarios/:contra', function (req, res) {
-        gestorBD.eliminarUsuarios();
+    app.get('/borrarUsuarios', function (req, res) {
+        gestorBD.eliminarUsuarios( function (result) {
+            if (result == null) {
+                console.log("Error al borrar usuarios");
+            }else{
+                let respuesta = swig.renderFile('views/bregistro.html', {});
+                res.send(respuesta);
+            }
+        });
     });
 
 };
