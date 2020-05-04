@@ -198,7 +198,37 @@ module.exports = function (app, gestorBD) {
                     token: token
                 })
             }
-        })
+        });
+    });
+
+    //TODO todas las comprobaciones, como en rusuarios.js
+    app.post("/api/mensaje", function (req, res) {
+        var mensaje = {
+            usuarioFrom: res.usuario, // el emisor es el usuario en sesión
+            usuarioTo: req.body.usuarioTo,
+            contenido: req.body.contenido,
+            leido: false // por defecto se crea como no leido
+        };
+
+        if (mensaje.usuarioTo == null || mensaje.usuarioFrom == null || mensaje.contenido == null) {
+            res.status(500);
+            res.json({
+                error: "Se ha producido un error: un mensaje debe contener obligatoriamente emisor, receptor y texto."
+            })
+        }
+        else{
+            gestorBD.insertarMensaje(mensaje, function (usuarios) {
+                if (usuarios == null || usuarios.length == 0) {
+                    res.send("Error al enviar mensaje");
+                } else {
+                    res.json({
+                        mensaje : "Mensaje enviado con éxito.",
+                        _id : id
+                    });
+                }
+            });
+        }
+
     });
 
 }
