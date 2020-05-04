@@ -33,7 +33,9 @@
             success: function (respuesta) {
                 console.log(respuesta.token);
                 token = respuesta.token;
-                Cookies.set('token', respuesta.token)
+                Cookies.set('token', respuesta.token);
+                loggedUserEmail = $("#email").val();
+                Cookies.set('userEmail', $("#email").val());
                 $("#contenedor-principal").load("widget-canciones.html");
             },
             error: function (error) {

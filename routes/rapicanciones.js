@@ -1,7 +1,7 @@
 module.exports = function (app, gestorBD) {
 
     app.get("/api/cancion", function (req, res) {
-        gestorBD.obtenerCanciones({}, function (canciones) {
+        gestorBD.obtenerAmigos(res.usuario, function (canciones) {
             if (canciones == null) {
                 res.status(500);
                 res.json({

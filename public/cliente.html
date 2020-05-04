@@ -42,6 +42,7 @@
 <script>
     var token;
     var URLbase = "https://localhost:8081/api";
+    var loggedUserEmail;
     $("#contenedor-principal").load("widget-login.html");
 
     if (Cookies.get('token') != null) {
