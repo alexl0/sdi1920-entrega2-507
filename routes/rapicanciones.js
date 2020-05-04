@@ -202,7 +202,7 @@ module.exports = function (app, gestorBD) {
     });
 
     //TODO todas las comprobaciones, como en rusuarios.js
-    app.post("/api/mensaje", function (req, res) {
+    app.post("/api/mensaje/", function (req, res) {
         var mensaje = {
             usuarioFrom: res.usuario, // el emisor es el usuario en sesión
             usuarioTo: req.body.usuarioTo,
