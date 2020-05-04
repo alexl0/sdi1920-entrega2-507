@@ -14,6 +14,20 @@ module.exports = function (app, gestorBD) {
         });
     });
 
+    app.get("/api/usuarios", function (req, res) {
+        gestorBD.obtenerUsuarios({}, function (canciones) {
+            if (canciones == null) {
+                res.status(500);
+                res.json({
+                    error: "se ha producido un error"
+                })
+            } else {
+                res.status(200);
+                res.send(JSON.stringify(canciones));
+            }
+        });
+    });
+
     app.get("/api/cancion/:id", function (req, res) {
         var criterio = {"_id": gestorBD.mongo.ObjectID(req.params.id)}
 

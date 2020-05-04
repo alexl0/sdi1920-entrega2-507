@@ -21,7 +21,6 @@
 
     window.history.pushState("", "", "/cliente.html?w=canciones");
 
-
     $('#filtro-nombre').on('input', function (e) {
         var cancionesFiltradas = [];
         var nombreFiltro = $("#filtro-nombre").val();
@@ -36,6 +35,7 @@
         actualizarTabla(cancionesFiltradas);
     });
 
+    var usuarios;
     var canciones;
 
     function cargarCanciones() {
@@ -47,7 +47,7 @@
             headers: {"token": token},
             success: function (respuesta) {
                 canciones = respuesta;
-                actualizarTabla(canciones);
+                actualizarTabla(canciones, usuarios);
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -55,31 +55,51 @@
         });
     }
 
-    function actualizarTabla(cancionesMostrar) {
+    function cargarUsuarios() {
+        $.ajax({
+            url: URLbase + "/usuarios",
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (respuesta) {
+                usuarios = respuesta;
+            },
+            error: function (error) {
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function actualizarTabla(cancionesMostrar, todosLosUsuarios) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < cancionesMostrar.length; i++) {
-            if (loggedUserEmail == cancionesMostrar[i].email1)
-                $("#tablaCuerpo").append(
-                    "<tr id=" + cancionesMostrar[i]._id + ">" +
-                    "<td>" + cancionesMostrar[i].email2 + "</td>" +
-                    "<td>" + cancionesMostrar[i].email2 + "</td>" +
-                    "<td>" + cancionesMostrar[i].email2 + "</td>" +
-                    "<td>" +
-                    "<a onclick=detalles('" + cancionesMostrar[i]._id + "')>Detalles</a><br>" +
-                    "<a onclick=eliminar('" + cancionesMostrar[i]._id + "')>Eliminar</a>" +
-                    "</td>" +
-                    "</tr>");
-            else
-                $("#tablaCuerpo").append(
-                    "<tr id=" + cancionesMostrar[i]._id + ">" +
-                    "<td>" + cancionesMostrar[i].email1 + "</td>" +
-                    "<td>" + cancionesMostrar[i].email1 + "</td>" +
-                    "<td>" + cancionesMostrar[i].email1 + "</td>" +
-                    "<td>" +
-                    "<a onclick=detalles('" + cancionesMostrar[i]._id + "')>Detalles</a><br>" +
-                    "<a onclick=eliminar('" + cancionesMostrar[i]._id + "')>Eliminar</a>" +
-                    "</td>" +
-                    "</tr>");
+            if (loggedUserEmail == cancionesMostrar[i].email1) {
+                for (j = 0; j < todosLosUsuarios.length; j++)
+                    if (cancionesMostrar[i].email2 == todosLosUsuarios[j].email)
+                        $("#tablaCuerpo").append(
+                            "<tr id=" + cancionesMostrar[i]._id + ">" +
+                            "<td>" + cancionesMostrar[i].email2 + "</td>" +
+                            "<td>" + todosLosUsuarios[j].name + "</td>" +
+                            "<td>" + todosLosUsuarios[j].lastname + "</td>" +
+                            "<td>" +
+                            "<a onclick=detalles('" + cancionesMostrar[i]._id + "')>Detalles</a><br>" +
+                            "<a onclick=eliminar('" + cancionesMostrar[i]._id + "')>Eliminar</a>" +
+                            "</td>" +
+                            "</tr>");
+            } else
+                for (j = 0; j < usuarios.length; j++)
+                    if (cancionesMostrar[i].email1 == usuarios[j].email)
+                        $("#tablaCuerpo").append(
+                            "<tr id=" + cancionesMostrar[i]._id + ">" +
+                            "<td>" + cancionesMostrar[i].email1 + "</td>" +
+                            "<td>" + todosLosUsuarios[j].name + "</td>" +
+                            "<td>" + todosLosUsuarios[j].lastname + "</td>" +
+                            "<td>" +
+                            "<a onclick=detalles('" + cancionesMostrar[i]._id + "')>Detalles</a><br>" +
+                            "<a onclick=eliminar('" + cancionesMostrar[i]._id + "')>Eliminar</a>" +
+                            "</td>" +
+                            "</tr>");
             // Mucho cuidado con las comillas del eliminarCancion
             //la id tiene que ir entre comillas ' '
         }
@@ -102,6 +122,7 @@
         });
     }
 
+    cargarUsuarios();
     cargarCanciones();
 
     function detalles(_id) {
