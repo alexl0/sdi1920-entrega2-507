@@ -25,13 +25,14 @@
         var cancionesFiltradas = [];
         var nombreFiltro = $("#filtro-nombre").val();
 
-        for (i = 0; i < canciones.length; i++) {
-            if (canciones[i].email1.indexOf(nombreFiltro) != -1) {
-                cancionesFiltradas.push(canciones[i]);
-            } else if (canciones[i].email2.indexOf(nombreFiltro) != -1) {
-                cancionesFiltradas.push(canciones[i]);
+        for (i = 0; i < canciones.length; i++)
+            if (loggedUserEmail == canciones[i].email1) {
+                if (canciones[i].email2.indexOf(nombreFiltro) != -1)
+                    cancionesFiltradas.push(canciones[i]);
+            } else {
+                if (canciones[i].email1.indexOf(nombreFiltro) != -1)
+                    cancionesFiltradas.push(canciones[i]);
             }
-        }
         actualizarTabla(cancionesFiltradas);
     });
 
@@ -47,7 +48,7 @@
             headers: {"token": token},
             success: function (respuesta) {
                 canciones = respuesta;
-                actualizarTabla(canciones, usuarios);
+                actualizarTabla(canciones);
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -64,6 +65,7 @@
             headers: {"token": token},
             success: function (respuesta) {
                 usuarios = respuesta;
+                cargarCanciones();
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -71,39 +73,39 @@
         });
     }
 
-    function actualizarTabla(cancionesMostrar, todosLosUsuarios) {
+    function actualizarTabla(canciones) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
-        for (i = 0; i < cancionesMostrar.length; i++) {
-            if (loggedUserEmail == cancionesMostrar[i].email1) {
+        for (i = 0; i < canciones.length; i++) {
+            if (loggedUserEmail == canciones[i].email1) {
                 /**
                  * Para no tener almacenados el nombre y los apellidos del usuario
                  * en las tablas amigos y invitaciones, se accede a esos campos
                  * a través de la tabla usuarios, ya que si en un futuro se añadieran
                  * otros campos, sería muy fácil añadirlos a la lista.
                  */
-                for (j = 0; j < todosLosUsuarios.length; j++)
-                    if (cancionesMostrar[i].email2 == todosLosUsuarios[j].email)
+                for (j = 0; j < usuarios.length; j++)
+                    if (canciones[i].email2 == usuarios[j].email)
                         $("#tablaCuerpo").append(
-                            "<tr id=" + cancionesMostrar[i]._id + ">" +
-                            "<td>" + cancionesMostrar[i].email2 + "</td>" +
-                            "<td>" + todosLosUsuarios[j].name + "</td>" +
-                            "<td>" + todosLosUsuarios[j].lastname + "</td>" +
+                            "<tr id=" + canciones[i]._id + ">" +
+                            "<td>" + canciones[i].email2 + "</td>" +
+                            "<td>" + usuarios[j].name + "</td>" +
+                            "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + cancionesMostrar[i]._id + "')>Detalles</a><br>" +
-                            "<a onclick=eliminar('" + cancionesMostrar[i]._id + "')>Eliminar</a>" +
+                            "<a onclick=detalles('" + canciones[i]._id + "')>Detalles</a><br>" +
+                            "<a onclick=eliminar('" + canciones[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
             } else
                 for (j = 0; j < usuarios.length; j++)
-                    if (cancionesMostrar[i].email1 == usuarios[j].email)
+                    if (canciones[i].email1 == usuarios[j].email)
                         $("#tablaCuerpo").append(
-                            "<tr id=" + cancionesMostrar[i]._id + ">" +
-                            "<td>" + cancionesMostrar[i].email1 + "</td>" +
-                            "<td>" + todosLosUsuarios[j].name + "</td>" +
-                            "<td>" + todosLosUsuarios[j].lastname + "</td>" +
+                            "<tr id=" + canciones[i]._id + ">" +
+                            "<td>" + canciones[i].email1 + "</td>" +
+                            "<td>" + usuarios[j].name + "</td>" +
+                            "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + cancionesMostrar[i]._id + "')>Detalles</a><br>" +
-                            "<a onclick=eliminar('" + cancionesMostrar[i]._id + "')>Eliminar</a>" +
+                            "<a onclick=detalles('" + canciones[i]._id + "')>Detalles</a><br>" +
+                            "<a onclick=eliminar('" + canciones[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
             // Mucho cuidado con las comillas del eliminarCancion
@@ -129,7 +131,6 @@
     }
 
     cargarUsuarios();
-    cargarCanciones();
 
     function detalles(_id) {
         idCancionSeleccionada = _id;
