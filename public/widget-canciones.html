@@ -75,6 +75,12 @@
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < cancionesMostrar.length; i++) {
             if (loggedUserEmail == cancionesMostrar[i].email1) {
+                /**
+                 * Para no tener almacenados el nombre y los apellidos del usuario
+                 * en las tablas amigos y invitaciones, se accede a esos campos
+                 * a través de la tabla usuarios, ya que si en un futuro se añadieran
+                 * otros campos, sería muy fácil añadirlos a la lista.
+                 */
                 for (j = 0; j < todosLosUsuarios.length; j++)
                     if (cancionesMostrar[i].email2 == todosLosUsuarios[j].email)
                         $("#tablaCuerpo").append(

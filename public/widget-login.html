@@ -35,13 +35,12 @@
                 token = respuesta.token;
                 Cookies.set('token', respuesta.token);
                 loggedUserEmail = $("#email").val();
-                Cookies.set('userEmail', $("#email").val());
+                Cookies.set('loggedUserEmail', $("#email").val());
                 $("#contenedor-principal").load("widget-canciones.html");
             },
             error: function (error) {
                 Cookies.remove('token');
-                $("#widget-login")
-                    , prepend("<div class='alert alert-danger'>Usuario no encontrado</div>");
+                $("#widget-login").prepend("<div class='alert alert-danger'>Usuario o contraseña incorrectos</div>");
             }
         });
     });
