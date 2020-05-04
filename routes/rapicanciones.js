@@ -231,4 +231,18 @@ module.exports = function (app, gestorBD) {
 
     });
 
+    app.get("/api/mensaje/", function (req, res) {
+        gestorBD.obtenerMensajes(res.usuario, function (canciones) {
+            if (canciones == null) {
+                res.status(500);
+                res.json({
+                    error: "se ha producido un error"
+                })
+            } else {
+                res.status(200);
+                res.send(JSON.stringify(canciones));
+            }
+        });
+    });
+
 }

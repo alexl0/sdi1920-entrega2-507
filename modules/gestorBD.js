@@ -109,13 +109,13 @@ module.exports = {
                 collection.count(function (err, count) {
                     collection.find(criterio).skip((pg - 1) * 5).limit(5)
                         .toArray(function (err, invitaciones) {
-                        if (err) {
-                            funcionCallback(null);
-                        } else {
-                            funcionCallback(invitaciones, count);
-                        }
-                        db.close();
-                    });
+                            if (err) {
+                                funcionCallback(null);
+                            } else {
+                                funcionCallback(invitaciones, count);
+                            }
+                            db.close();
+                        });
                 });
             }
         });
@@ -204,13 +204,13 @@ module.exports = {
                 collection.count(function (err, count) {
                     collection.find(criterio).skip((pg - 1) * 5).limit(5)
                         .toArray(function (err, amigos) {
-                        if (err) {
-                            funcionCallback(null);
-                        } else {
-                            funcionCallback(amigos, count);
-                        }
-                        db.close();
-                    });
+                            if (err) {
+                                funcionCallback(null);
+                            } else {
+                                funcionCallback(amigos, count);
+                            }
+                            db.close();
+                        });
                 });
             }
         });
@@ -241,7 +241,7 @@ module.exports = {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        funcionCallback(amigos.length>0);
+                        funcionCallback(amigos.length > 0);
                     }
                     db.close();
                 });
@@ -274,7 +274,7 @@ module.exports = {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        funcionCallback(amigos.length>0);
+                        funcionCallback(amigos.length > 0);
                     }
                     db.close();
                 });
@@ -287,7 +287,7 @@ module.exports = {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('usuarios');
-                collection.remove( {}, function (err, result) {
+                collection.remove({}, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
@@ -304,7 +304,7 @@ module.exports = {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('invitaciones');
-                collection.remove( {}, function (err, result) {
+                collection.remove({}, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
@@ -321,7 +321,7 @@ module.exports = {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('amigos');
-                collection.remove( {}, function (err, result) {
+                collection.remove({}, function (err, result) {
                     if (err) {
                         funcionCallback(null);
                     } else {
@@ -343,6 +343,23 @@ module.exports = {
                         funcionCallback(null);
                     } else {
                         funcionCallback(result.ops[0]._id);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
+    obtenerMensajes: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                let collection = db.collection('mensajes');
+                collection.find(criterio).toArray(function (err, invitaciones) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(invitaciones);
                     }
                     db.close();
                 });
