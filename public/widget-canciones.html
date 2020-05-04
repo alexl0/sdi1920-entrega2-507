@@ -113,7 +113,7 @@
                             "<td>" + usuarios[j].name + "</td>" +
                             "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + canciones[i]._id + "')>Detalles</a><br>" +
+                            "<a onclick=detalles('" + canciones[i]._id + "')>Chat</a><br>" +
                             "<a onclick=eliminar('" + canciones[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
@@ -126,7 +126,7 @@
                             "<td>" + usuarios[j].name + "</td>" +
                             "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + canciones[i]._id + "')>Detalles</a><br>" +
+                            "<a onclick=detalles('" + canciones[i]._id + "')>Chat</a><br>" +
                             "<a onclick=eliminar('" + canciones[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
@@ -156,7 +156,7 @@
 
     function detalles(_id) {
         idCancionSeleccionada = _id;
-        $("#contenedor-principal").load("widget-detalles.html");
+        $("#contenedor-principal").load("widget-chat.html");
     }
 
     function widgetAgregar() {
