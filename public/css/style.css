@@ -1,0 +1,31 @@
+/*
+Fixed div
+https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fixed-element-scrollable-only-when-it-exceeds-t
+*/
+.stuck {
+    position: fixed;
+    top: 5em;
+    left: 5em;
+    bottom: 10em;
+    right: 5em;
+    overflow-y: scroll;
+}
+
+.item1 {
+    grid-area: header;
+}
+
+.item2 {
+    grid-area: menu;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas: 'header header header header header header header header header header header header header header header header header header header header header header header header menu';
+    grid-gap: 10px;
+    padding: 10px;
+    position: fixed;
+    left: 5em;
+    bottom: 5em;
+    right: 5em;
+}

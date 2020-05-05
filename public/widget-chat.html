@@ -1,12 +1,17 @@
 <div id="widget-chat">
 
+    <div class="stuck" id="panel-mensajes">
 
-    <input type="text" class="form-control" placeholder="Escribir mensaje"
-           id="escribir-mensaje"/>
-    <button onclick="insertarMensaje()" class="btn btn-primary">Enviar</button>
+    </div>
 
-    <div id="panel-mensajes">
-
+    <div class="grid-container">
+        <div class="item1">
+            <input type="text" class="form-control" placeholder="Escribir mensaje"
+                   id="escribir-mensaje"/>
+        </div>
+        <div class="item2">
+            <button onclick="insertarMensaje()" class="btn btn-primary">Enviar</button>
+        </div>
     </div>
 
 </div>
@@ -14,6 +19,15 @@
 <script>
 
     window.history.pushState("", "", "/cliente.html?w=chat");
+
+    var numberOfUpdates = 0;
+
+    //Move scroll to bottom
+    function updateScroll() {
+        var element = document.getElementById("panel-mensajes");
+        var elementHeight = element.scrollHeight;
+        element.scrollTop = elementHeight
+    }
 
     setInterval(function () {
         mostrarMensajes();
@@ -43,6 +57,9 @@
                         $("#panel-mensajes").append(
                             "<h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + "</h5>");
                 }
+                if (numberOfUpdates < 1)
+                    updateScroll();
+                numberOfUpdates++;
             },
             error: function (error) {
                 console.log(error);
@@ -70,6 +87,8 @@
             success: function (response) {
                 console.log("Mensaje enviado");
                 $("#escribir-mensaje").val("");
+                //Bajar la barra pa bajo pa que se vea el mensaje nuevo
+                window.setTimeout("updateScroll()", 2000);
             },
             error: function (error) {
                 console.log(error);
