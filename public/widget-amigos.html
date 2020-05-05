@@ -6,7 +6,7 @@
         <thead>
         <tr>
             <th><a onclick="ordenarPorNombre()">Nombre</a></th>
-            <th><a onclick="ordenarPorGenero()">Genero</th>
+            <th><a onclick="ordenarPorGenero()">Genero</a></th>
             <th><a onclick="ordenarPorPrecio()">Precio</a></th>
             <th class="col-md-1"></th>
         </tr>
@@ -34,6 +34,9 @@
             }
         actualizarTabla(amigosFiltrados);
     });
+
+    $('#ususario-logueado').empty();
+    $('#ususario-logueado').append("Usuario en sesión: " + loggedUserEmail)
 
     var usuarios;
     var amigos;
@@ -85,26 +88,22 @@
                 for (j = 0; j < usuarios.length; j++)
                     if (amigos[i].email2 == usuarios[j].email)
                         $("#tablaCuerpo").append(
-                            "<tr id=" + amigos[i]._id + ">" +
+                            "<tr onclick=detalles('" + amigos[i].email1 + "') id=" + amigos[i]._id + ">" +
                             "<td>" + amigos[i].email2 + "</td>" +
                             "<td>" + usuarios[j].name + "</td>" +
                             "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + amigos[i].email2 + "')>Chat</a><br>" +
-                            "<a onclick=eliminar('" + amigos[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
             } else
                 for (j = 0; j < usuarios.length; j++)
                     if (amigos[i].email1 == usuarios[j].email)
                         $("#tablaCuerpo").append(
-                            "<tr id=" + amigos[i]._id + ">" +
+                            "<tr onclick=detalles('" + amigos[i].email1 + "') id=" + amigos[i]._id + ">" +
                             "<td>" + amigos[i].email1 + "</td>" +
                             "<td>" + usuarios[j].name + "</td>" +
                             "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + amigos[i].email1 + "')>Chat</a><br>" +
-                            "<a onclick=eliminar('" + amigos[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
         }
