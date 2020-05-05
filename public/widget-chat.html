@@ -11,7 +11,7 @@
                    id="escribir-mensaje"/>
         </div>
         <div class="item2">
-            <button onclick="insertarMensaje()" class="btn btn-primary">Enviar</button>
+            <button id="botonEnviarMensaje" onclick="insertarMensaje()" class="btn btn-primary">Enviar</button>
         </div>
     </div>
 
@@ -30,9 +30,19 @@
         element.scrollTop = elementHeight
     }
 
+    //Intervalo para que se actualize automáticamente la lista de mensajes
     setInterval(function () {
         mostrarMensajes();
     }, 1000);
+
+    //Para que al pulsar enter se envie el mensaje
+    var input = document.getElementById("escribir-mensaje");
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("botonEnviarMensaje").click();
+        }
+    });
 
     /**
      * Mostrar mensajes
