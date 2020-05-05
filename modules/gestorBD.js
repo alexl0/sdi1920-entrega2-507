@@ -349,13 +349,16 @@ module.exports = {
             }
         });
     },
-    obtenerMensajesDeUsuario1ParaUsuario2: function (usuarioFrom, usuarioTo, funcionCallback) {
+    obtenerMensajes: function (usuarioFrom, usuarioTo, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('mensajes');
-                var criterio = {"usuarioTo": usuarioTo, "usuarioFrom": usuarioFrom};
+                var criterio = {
+                    $or: [{"usuarioTo": usuarioTo, "usuarioFrom": usuarioFrom},
+                        {"usuarioTo": usuarioFrom, "usuarioFrom": usuarioTo}]
+                };
                 collection.find(criterio).toArray(function (err, invitaciones) {
                     if (err) {
                         funcionCallback(null);

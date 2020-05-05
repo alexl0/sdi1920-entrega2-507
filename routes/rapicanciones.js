@@ -204,9 +204,9 @@ module.exports = function (app, gestorBD) {
     //TODO todas las comprobaciones, como en rusuarios.js
     app.post("/api/mensaje/", function (req, res) {
         //Conseguir usuario en sesión (no, no vale con res.usuario por una razón desconocida)
-        cadena=req.headers.cookie.split("=");
-        cadena2=cadena[3];
-        usuarioEnSesionEmail=cadena2.split(";")[0];
+        cadena = req.headers.cookie.split("=");
+        cadena2 = cadena[3];
+        usuarioEnSesionEmail = cadena2.split(";")[0];
         var mensaje = {
             usuarioFrom: usuarioEnSesionEmail, // el emisor es el usuario en sesión
             usuarioTo: req.body.usuarioTo,
@@ -219,15 +219,14 @@ module.exports = function (app, gestorBD) {
             res.json({
                 error: "Se ha producido un error: un mensaje debe contener obligatoriamente emisor, receptor y texto."
             })
-        }
-        else{
-            gestorBD.insertarMensaje(mensaje, function (usuarios) {
-                if (usuarios == null || usuarios.length == 0) {
+        } else {
+            gestorBD.insertarMensaje(mensaje, function (id) {
+                if (id == null) {
                     res.send("Error al enviar mensaje");
                 } else {
                     res.json({
-                        mensaje : "Mensaje enviado con éxito.",
-                        _id : id
+                        mensaje: "Mensaje enviado con éxito.",
+                        _id: id
                     });
                 }
             });
@@ -236,7 +235,7 @@ module.exports = function (app, gestorBD) {
     });
 
     app.get("/api/mensaje", function (req, res) {
-        gestorBD.obtenerMensajesDeUsuario1ParaUsuario2(req.query.usuarioFrom, req.query.usuarioTo, function (canciones) {
+        gestorBD.obtenerMensajes(req.query.usuarioFrom, req.query.usuarioTo, function (canciones) {
             if (canciones == null) {
                 res.status(500);
                 res.json({
