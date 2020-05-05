@@ -204,9 +204,10 @@ module.exports = function (app, gestorBD) {
     //TODO todas las comprobaciones, como en rusuarios.js
     app.post("/api/mensaje/", function (req, res) {
         //Conseguir usuario en sesión (no, no vale con res.usuario por una razón desconocida)
-        cadena = req.headers.cookie.split("=");
-        cadena2 = cadena[3];
-        usuarioEnSesionEmail = cadena2.split(";")[0];
+        var ussuariosesion=res.usuario;
+        cadena = req.headers.cookie.split("loggedUserEmail=");
+        cadena2 = cadena[1].split(";");
+        usuarioEnSesionEmail = cadena2[0];
         var mensaje = {
             usuarioFrom: usuarioEnSesionEmail, // el emisor es el usuario en sesión
             usuarioTo: req.body.usuarioTo,
