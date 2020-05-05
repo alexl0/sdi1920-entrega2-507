@@ -13,31 +13,44 @@
 
 <script>
 
+    window.history.pushState("", "", "/cliente.html?w=chat");
+
+    setInterval(function () {
+        mostrarMensajes();
+    }, 1000);
+
     /**
      * Mostrar mensajes
      */
-    $.ajax({
-        url: URLbase +"/mensaje?usuarioFrom=" + loggedUserEmail + "&usuarioTo=" + chattingWithEmail,
-        type: "GET",
-        data: {},
-        dataType: 'json',
-        headers: {
-            "token": token
-        },
-        success: function (mensajes) {
-            for (i = 0; i < mensajes.length; i++) {
-                if (loggedUserEmail == mensajes[i].usuarioFrom)
-                    $("#panel-mensajes").append(
-                        "<h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + mensajes[i].contenido + "</h5>");
-                else
-                    $("#panel-mensajes").append(
-                        "<h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + "</h5>");
+    function mostrarMensajes() {
+        $.ajax({
+            url: URLbase + "/mensaje?usuarioFrom=" + loggedUserEmail + "&usuarioTo=" + chattingWithEmail,
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {
+                "token": token
+            },
+            success: function (mensajes) {
+                //Vaciar mensajes
+                $("#panel-mensajes").empty();
+                //Cargarlos y añadirlos de nuevo
+                for (i = 0; i < mensajes.length; i++) {
+                    if (loggedUserEmail == mensajes[i].usuarioFrom)
+                        $("#panel-mensajes").append(
+                            "<h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + mensajes[i].contenido + "</h5>");
+                    else
+                        $("#panel-mensajes").append(
+                            "<h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + "</h5>");
+                }
+            },
+            error: function (error) {
+                console.log(error);
             }
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
+        });
+    }
+
+    mostrarMensajes();
 
     /**
      * Insertar mensaje
