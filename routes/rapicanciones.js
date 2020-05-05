@@ -204,7 +204,7 @@ module.exports = function (app, gestorBD) {
     //TODO todas las comprobaciones, como en rusuarios.js
     app.post("/api/mensaje/", function (req, res) {
         //Conseguir usuario en sesión (no, no vale con res.usuario por una razón desconocida)
-        var ussuariosesion=res.usuario;
+        //var ussuariosesion=res.usuario;
         cadena = req.headers.cookie.split("loggedUserEmail=");
         cadena2 = cadena[1].split(";");
         usuarioEnSesionEmail = cadena2[0];
@@ -245,6 +245,39 @@ module.exports = function (app, gestorBD) {
             } else {
                 res.status(200);
                 res.send(JSON.stringify(canciones));
+            }
+        });
+    });
+
+    app.put("/api/mensaje", function (req, res) {
+
+        //Conseguir usuario en sesión (no, no vale con res.usuario por una razón desconocida)
+        //var ussuariosesion=res.usuario;
+        cadena = req.headers.cookie.split("loggedUserEmail=");
+        cadena2 = cadena[1].split(";");
+        usuarioEnSesionEmail = cadena2[0];
+
+        let criterio = {
+            $and: [
+                {"usuarioTo": usuarioEnSesionEmail},
+                {"usuarioFrom": req.body.usuarioFrom},
+            ]
+        };
+
+        let mensaje = {"leido": true}; // Solo los atributos a modificar
+
+        gestorBD.modificarMensajeMarcarLeido(criterio, mensaje, function (result) {
+            if (result == null) {
+                res.status(500);
+                res.json({
+                    error: "Se ha producido un error al marcar un mensaje como leido"
+                })
+            } else {
+                res.status(200);
+                res.json({
+                    mensaje: "Mensajes recibidos marcados como leidos",
+                    _id: req.params.id
+                })
             }
         });
     });

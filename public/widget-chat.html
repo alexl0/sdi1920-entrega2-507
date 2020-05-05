@@ -23,7 +23,8 @@
 
     var numberOfUpdates = 0;
 
-    //Move scroll to bottom
+    //Mover scrollbar hasta abajo para que el usuario vea los mensajes de abajo directamente
+    //como en whatsapp por ejemplo
     function updateScroll() {
         var element = document.getElementById("panel-mensajes");
         var elementHeight = element.scrollHeight;
@@ -37,7 +38,7 @@
 
     //Para que al pulsar enter se envie el mensaje
     var input = document.getElementById("escribir-mensaje");
-    input.addEventListener("keyup", function(event) {
+    input.addEventListener("keyup", function (event) {
         if (event.keyCode === 13) {
             event.preventDefault();
             document.getElementById("botonEnviarMensaje").click();
@@ -63,14 +64,16 @@
                 for (i = 0; i < mensajes.length; i++) {
                     if (loggedUserEmail == mensajes[i].usuarioFrom)
                         $("#panel-mensajes").append(
-                            "<h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + mensajes[i].contenido + "</h5>");
+                            "<h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + (mensajes[i].leido ? ' ✔' : '') + mensajes[i].contenido + "</h5>");
                     else
                         $("#panel-mensajes").append(
-                            "<h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + "</h5>");
+                            "<h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + (mensajes[i].leido ? ' ✔' : '') + "</h5>");
                 }
-                if (numberOfUpdates < 1)
+                if (numberOfUpdates < 1) {
                     updateScroll();
-                numberOfUpdates++;
+                    numberOfUpdates++;
+                }
+                marcarComoLeidos();
             },
             error: function (error) {
                 console.log(error);
@@ -103,6 +106,31 @@
             },
             error: function (error) {
                 console.log(error);
+                $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    /**
+     * Marcar como leídos todos los mensajes recibidos por el usuario en sesión
+     * y enviados por el usuario en el que se haya entrado en la conversación con el.
+     */
+    function marcarComoLeidos() {
+        var data = {
+            usuarioFrom: chattingWithEmail,
+        };
+        $.ajax({
+            url: URLbase + "/mensaje",
+            type: "PUT",
+            data: data,
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (response) {
+                console.log("Mensajes recibidos marcados como leidos");
+            },
+            error: function (error) {
+                console.log(error);
+                $("#contenedor-principal").load("widget-login.html");
             }
         });
     }
