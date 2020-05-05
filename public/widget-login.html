@@ -36,7 +36,7 @@
                 Cookies.set('token', respuesta.token);
                 loggedUserEmail = $("#email").val();
                 Cookies.set('loggedUserEmail', $("#email").val());
-                $("#contenedor-principal").load("widget-canciones.html");
+                $("#contenedor-principal").load("widget-amigos.html");
             },
             error: function (error) {
                 Cookies.remove('token');

@@ -1,4 +1,4 @@
-<div id="widget-canciones">
+<div id="widget-amigos">
     <input type="text" class="form-control" placeholder="Filtrar por nombre"
            id="filtro-nombre"/>
     <button class="btn" onclick="cargarCanciones()">Actualizar</button>
@@ -18,7 +18,7 @@
 </div>
 <script>
 
-    window.history.pushState("", "", "/cliente.html?w=canciones");
+    window.history.pushState("", "", "/cliente.html?w=amigos");
 
     $('#filtro-nombre').on('input', function (e) {
         var cancionesFiltradas = [];
