@@ -359,11 +359,11 @@ module.exports = {
                     $or: [{"usuarioTo": usuarioTo, "usuarioFrom": usuarioFrom},
                         {"usuarioTo": usuarioFrom, "usuarioFrom": usuarioTo}]
                 };
-                collection.find(criterio).toArray(function (err, invitaciones) {
+                collection.find(criterio).toArray(function (err, mensajes) {
                     if (err) {
                         funcionCallback(null);
                     } else {
-                        funcionCallback(invitaciones);
+                        funcionCallback(mensajes);
                     }
                     db.close();
                 });

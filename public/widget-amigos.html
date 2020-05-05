@@ -1,7 +1,7 @@
 <div id="widget-amigos">
     <input type="text" class="form-control" placeholder="Filtrar por nombre"
            id="filtro-nombre"/>
-    <button class="btn" onclick="cargarCanciones()">Actualizar</button>
+    <button class="btn" onclick="cargarAmigos()">Actualizar</button>
     <table class="table table-hover">
         <thead>
         <tr>
@@ -21,33 +21,33 @@
     window.history.pushState("", "", "/cliente.html?w=amigos");
 
     $('#filtro-nombre').on('input', function (e) {
-        var cancionesFiltradas = [];
+        var amigosFiltrados = [];
         var nombreFiltro = $("#filtro-nombre").val();
 
-        for (i = 0; i < canciones.length; i++)
-            if (loggedUserEmail == canciones[i].email1) {
-                if (canciones[i].email2.indexOf(nombreFiltro) != -1)
-                    cancionesFiltradas.push(canciones[i]);
+        for (i = 0; i < amigos.length; i++)
+            if (loggedUserEmail == amigos[i].email1) {
+                if (amigos[i].email2.indexOf(nombreFiltro) != -1)
+                    amigosFiltrados.push(amigos[i]);
             } else {
-                if (canciones[i].email1.indexOf(nombreFiltro) != -1)
-                    cancionesFiltradas.push(canciones[i]);
+                if (amigos[i].email1.indexOf(nombreFiltro) != -1)
+                    amigosFiltrados.push(amigos[i]);
             }
-        actualizarTabla(cancionesFiltradas);
+        actualizarTabla(amigosFiltrados);
     });
 
     var usuarios;
-    var canciones;
+    var amigos;
 
-    function cargarCanciones() {
+    function cargarAmigos() {
         $.ajax({
-            url: URLbase + "/cancion",
+            url: URLbase + "/amigos",
             type: "GET",
             data: {},
             dataType: 'json',
             headers: {"token": token},
             success: function (respuesta) {
-                canciones = respuesta;
-                actualizarTabla(canciones);
+                amigos = respuesta;
+                actualizarTabla(amigos);
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -64,7 +64,7 @@
             headers: {"token": token},
             success: function (respuesta) {
                 usuarios = respuesta;
-                cargarCanciones();
+                cargarAmigos();
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -72,10 +72,10 @@
         });
     }
 
-    function actualizarTabla(canciones) {
+    function actualizarTabla(amigos) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
-        for (i = 0; i < canciones.length; i++) {
-            if (loggedUserEmail == canciones[i].email1) {
+        for (i = 0; i < amigos.length; i++) {
+            if (loggedUserEmail == amigos[i].email1) {
                 /**
                  * Para no tener almacenados el nombre y los apellidos del usuario
                  * en las tablas amigos y invitaciones, se accede a esos campos
@@ -83,32 +83,30 @@
                  * otros campos, sería muy fácil añadirlos a la lista.
                  */
                 for (j = 0; j < usuarios.length; j++)
-                    if (canciones[i].email2 == usuarios[j].email)
+                    if (amigos[i].email2 == usuarios[j].email)
                         $("#tablaCuerpo").append(
-                            "<tr id=" + canciones[i]._id + ">" +
-                            "<td>" + canciones[i].email2 + "</td>" +
+                            "<tr id=" + amigos[i]._id + ">" +
+                            "<td>" + amigos[i].email2 + "</td>" +
                             "<td>" + usuarios[j].name + "</td>" +
                             "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + canciones[i].email2 + "')>Chat</a><br>" +
-                            "<a onclick=eliminar('" + canciones[i]._id + "')>Eliminar</a>" +
+                            "<a onclick=detalles('" + amigos[i].email2 + "')>Chat</a><br>" +
+                            "<a onclick=eliminar('" + amigos[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
             } else
                 for (j = 0; j < usuarios.length; j++)
-                    if (canciones[i].email1 == usuarios[j].email)
+                    if (amigos[i].email1 == usuarios[j].email)
                         $("#tablaCuerpo").append(
-                            "<tr id=" + canciones[i]._id + ">" +
-                            "<td>" + canciones[i].email1 + "</td>" +
+                            "<tr id=" + amigos[i]._id + ">" +
+                            "<td>" + amigos[i].email1 + "</td>" +
                             "<td>" + usuarios[j].name + "</td>" +
                             "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + canciones[i].email1 + "')>Chat</a><br>" +
-                            "<a onclick=eliminar('" + canciones[i]._id + "')>Eliminar</a>" +
+                            "<a onclick=detalles('" + amigos[i].email1 + "')>Chat</a><br>" +
+                            "<a onclick=eliminar('" + amigos[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
-            // Mucho cuidado con las comillas del eliminarCancion
-            //la id tiene que ir entre comillas ' '
         }
     }
 
@@ -148,51 +146,51 @@
 
     function ordenarPorPrecio() {
         if (precioDsc) {
-            canciones.sort(function (a, b) {
+            amigos.sort(function (a, b) {
                 return parseFloat(a.precio) - parseFloat(b.precio);
             });
         } else {
-            canciones.sort(function (a, b) {
+            amigos.sort(function (a, b) {
                 return parseFloat(b.precio) - parseFloat(a.precio);
             });
         }
-        actualizarTabla(canciones);
+        actualizarTabla(amigos);
         precioDsc = !precioDsc; //invertir
     }
 
     function ordenarPorNombre() {
         if (nombreDsc) {
-            canciones.sort(function (a, b) {
+            amigos.sort(function (a, b) {
                 if (a.nombre > b.nombre) return 1;
                 if (a.nombre < b.nombre) return -1;
                 return 0;
             });
         } else {
-            canciones.sort(function (a, b) {
+            amigos.sort(function (a, b) {
                 if (a.nombre < b.nombre) return 1;
                 if (a.nombre > b.nombre) return -1;
                 return 0;
             });
         }
-        actualizarTabla(canciones);
+        actualizarTabla(amigos);
         nombreDsc = !nombreDsc;
     }
 
     function ordenarPorGenero() {
         if (generoDsc) {
-            canciones.sort(function (a, b) {
+            amigos.sort(function (a, b) {
                 if (a.genero > b.genero) return 1;
                 if (a.genero < b.genero) return -1;
                 return 0;
             });
         } else {
-            canciones.sort(function (a, b) {
+            amigos.sort(function (a, b) {
                 if (a.genero < b.genero) return 1;
                 if (a.genero > b.genero) return -1;
                 return 0;
             });
         }
-        actualizarTabla(canciones);
+        actualizarTabla(amigos);
         generoDsc = !generoDsc;
     }
 
