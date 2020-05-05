@@ -203,8 +203,12 @@ module.exports = function (app, gestorBD) {
 
     //TODO todas las comprobaciones, como en rusuarios.js
     app.post("/api/mensaje/", function (req, res) {
+        //Conseguir usuario en sesión (no, no vale con res.usuario por una razón desconocida)
+        cadena=req.headers.cookie.split("=");
+        cadena2=cadena[3];
+        usuarioEnSesionEmail=cadena2.split(";")[0];
         var mensaje = {
-            usuarioFrom: res.usuario, // el emisor es el usuario en sesión
+            usuarioFrom: usuarioEnSesionEmail, // el emisor es el usuario en sesión
             usuarioTo: req.body.usuarioTo,
             contenido: req.body.contenido,
             leido: false // por defecto se crea como no leido
@@ -231,8 +235,8 @@ module.exports = function (app, gestorBD) {
 
     });
 
-    app.get("/api/mensaje/", function (req, res) {
-        gestorBD.obtenerMensajes(res.usuario, function (canciones) {
+    app.get("/api/mensaje", function (req, res) {
+        gestorBD.obtenerMensajesDeUsuario1ParaUsuario2(req.query.usuarioFrom, req.query.usuarioTo, function (canciones) {
             if (canciones == null) {
                 res.status(500);
                 res.json({

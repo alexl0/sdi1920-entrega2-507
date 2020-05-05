@@ -3,7 +3,7 @@
 
     <input type="text" class="form-control" placeholder="Escribir mensaje"
            id="escribir-mensaje"/>
-    <button class="btn btn-primary">Enviar</button>
+    <button onclick="insertarMensaje()" class="btn btn-primary">Enviar</button>
 
     <div id="panel-mensajes">
 
@@ -12,8 +12,12 @@
 </div>
 
 <script>
+
+    /**
+     * Mostrar mensajes
+     */
     $.ajax({
-        url: URLbase + "/mensaje/",
+        url: URLbase +"/mensaje?usuarioFrom=" + loggedUserEmail + "&usuarioTo=" + chattingWithEmail,
         type: "GET",
         data: {},
         dataType: 'json',
@@ -22,26 +26,42 @@
         },
         success: function (mensajes) {
             for (i = 0; i < mensajes.length; i++) {
-                if (loggedUserEmail == mensajes[i].usuarioFrom) {
-                    for (j = 0; j < usuarios.length; j++) {
-                        if (mensajes[i].usuarioTo == usuarios[j].email) {
-                            $("#panel-mensajes").append(
-                                "<h5 id=" + mensajes[0]._id + " align=\"right\" class='alert alert-success'>" + mensajes[0].contenido + "</h5>");
-                        }
-                    }
-                } else {
-                    for (j = 0; j < usuarios.length; j++) {
-                        if (mensajes[i].usuarioFrom == usuarios[j].email) {
-                            $("#panel-mensajes").append(
-                                "<h5 id=" + mensajes[0]._id + " align=\"left\" class='alert alert-info'>" + mensajes[0].contenido + "</h5>");
-                        }
-                    }
-                }
+                if (loggedUserEmail == mensajes[i].usuarioFrom)
+                    $("#panel-mensajes").append(
+                        "<h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + mensajes[i].contenido + "</h5>");
+                else
+                    $("#panel-mensajes").append(
+                        "<h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-success'>" + mensajes[i].contenido + "</h5>");
             }
-
         },
         error: function (error) {
             console.log(error);
         }
     });
+
+    /**
+     * Insertar mensaje
+     */
+    function insertarMensaje() {
+
+        var mensaje = {
+            usuarioTo: chattingWithEmail,
+            contenido: $("#escribir-mensaje").val(),
+        };
+        $.ajax({
+            url: URLbase + "/mensaje",
+            type: "POST",
+            data: mensaje,
+            dataType: 'json',
+            headers: {"token": token},
+            success: function (response) {
+                console.log("Mensaje enviado");
+                $("#escribir-mensaje").val("");
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+
 </script>

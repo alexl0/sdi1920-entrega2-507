@@ -1,7 +1,6 @@
 <div id="widget-canciones">
     <input type="text" class="form-control" placeholder="Filtrar por nombre"
            id="filtro-nombre"/>
-    <button class="btn btn-primary" onclick="insertarMensajePrueba()">Nueva Canción</button>
     <button class="btn" onclick="cargarCanciones()">Actualizar</button>
     <table class="table table-hover">
         <thead>
@@ -73,28 +72,6 @@
         });
     }
 
-    function insertarMensajePrueba() {
-
-        var mensaje = {
-            usuarioTo: "user2@email.com",
-            contenido: "hola user2, soy user1",
-        };
-
-        $.ajax({
-            url: URLbase + "/mensaje",
-            type: "POST",
-            data: mensaje,
-            dataType: 'json',
-            headers: {"token": token},
-            success: function (response) {
-                console.log("Mensaje de prueba enviado");
-            },
-            error: function (error) {
-                console.log(error);
-            }
-        });
-    }
-
     function actualizarTabla(canciones) {
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < canciones.length; i++) {
@@ -113,7 +90,7 @@
                             "<td>" + usuarios[j].name + "</td>" +
                             "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + canciones[i]._id + "')>Chat</a><br>" +
+                            "<a onclick=detalles('" + canciones[i].email2 + "')>Chat</a><br>" +
                             "<a onclick=eliminar('" + canciones[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
@@ -126,7 +103,7 @@
                             "<td>" + usuarios[j].name + "</td>" +
                             "<td>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
-                            "<a onclick=detalles('" + canciones[i]._id + "')>Chat</a><br>" +
+                            "<a onclick=detalles('" + canciones[i].email1 + "')>Chat</a><br>" +
                             "<a onclick=eliminar('" + canciones[i]._id + "')>Eliminar</a>" +
                             "</td>" +
                             "</tr>");
@@ -155,7 +132,9 @@
     cargarUsuarios();
 
     function detalles(_id) {
-        idCancionSeleccionada = _id;
+        chattingWithEmail = _id;
+        Cookies.set('chattingWithEmail', chattingWithEmail);
+
         $("#contenedor-principal").load("widget-chat.html");
     }
 
