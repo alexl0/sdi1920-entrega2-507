@@ -29,3 +29,63 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
     bottom: 5em;
     right: 5em;
 }
+
+.dark {
+    background-color: #141414 !important;
+}
+
+.light {
+    color: white !important;
+}
+
+.light2 {
+    color: #9d9d9d !important;
+}
+
+.form-group {
+    padding: 1em;
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #303030;
+}
+
+.table-hover tbody tr {
+    color: white;
+}
+
+body {
+    scrollbar-color: #303030 #141414 !important;
+}
+
+input[type="text"] {
+    background: rgba(0, 0, 0, .25);
+    border: 1px solid rgba(0, 0, 0, .5);
+    color: white;
+}
+
+input[type="email"] {
+    background: rgba(0, 0, 0, .25);
+    border: 1px solid rgba(0, 0, 0, .5);
+    color: white;
+}
+
+input[type="password"] {
+    background: rgba(0, 0, 0, .25);
+    border: 1px solid rgba(0, 0, 0, .5);
+    color: white;
+}
+
+.alert-success {
+    background-color: lawngreen !important;
+    color: #1c1c1c;
+    font-weight: bold;
+    border-color: gray;
+}
+
+.alert-info {
+    background-color: dodgerblue !important;
+    color: #1c1c1c;
+    font-weight: bold;
+    border-color: gray;
+}

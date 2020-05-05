@@ -1,5 +1,5 @@
 <div id="widget-chat">
-    <h4 id="ususario-chateando">Chat con: </h4>
+    <h4 class="light" id="ususario-chateando">Chat con: </h4>
 
     <div class="stuck" id="panel-mensajes">
 
@@ -44,6 +44,9 @@
             document.getElementById("botonEnviarMensaje").click();
         }
     });
+
+    //Chat con...
+    $('#ususario-chateando').append(chattingWithEmail);
 
     /**
      * Mostrar mensajes
