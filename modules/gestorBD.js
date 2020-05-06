@@ -178,6 +178,18 @@ module.exports = {
                     if (err) {
                         funcionCallback(null);
                     } else {
+                        /**
+                         * Los amigos ya se ordenan en widget-amigos.html
+                         * Pero está bien que la lista vaya ya ordenada porque así de
+                         * primeras ya se lista bien.
+                         */
+                        for (i = 0; i < amigos.length - 1; i++) {
+                            if ((amigos[i].time == null && amigos[i + 1].time != null) || amigos[i].time < amigos[i + 1].time) {
+                                var temp = amigos[i];
+                                amigos[i] = amigos[i + 1];
+                                amigos[i + 1] = temp;
+                            }
+                        }
                         funcionCallback(amigos);
                     }
                     db.close();
