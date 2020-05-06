@@ -306,17 +306,41 @@ module.exports = function (app, gestorBD) {
     }
 
     app.get("/api/mensaje", function (req, res) {
-        gestorBD.obtenerMensajes(req.query.usuarioFrom, req.query.usuarioTo, function (canciones) {
-            if (canciones == null) {
+
+        //Obtener usuario en sesión de las cookies
+        cadena = req.headers.cookie.split("loggedUserEmail=");
+        cadena2 = cadena[1].split(";");
+        usuarioEnSesionEmail = cadena2[0];
+
+        /**
+         * Comprobar que existe usuarioTo
+         */
+        var criterio = {"email": req.query.usuarioTo};
+        gestorBD.obtenerUsuarios(criterio, function (usuarioTo) {
+            if (usuarioTo == null) {
                 res.status(500);
                 res.json({
-                    error: "se ha producido un error"
+                    error: "Se ha producido un error al insertar un mensaje. Usuario destino no existe."
                 })
             } else {
-                res.status(200);
-                res.send(JSON.stringify(canciones));
+                /**
+                 * Recibir los mensajes
+                 */
+                gestorBD.obtenerMensajes(usuarioEnSesionEmail, req.query.usuarioTo, function (canciones) {
+                    if (canciones == null) {
+                        res.status(500);
+                        res.json({
+                            error: "se ha producido un error"
+                        })
+                    } else {
+                        res.status(200);
+                        res.send(JSON.stringify(canciones));
+                    }
+                });
             }
         });
+
+
     });
 
     app.put("/api/mensaje", function (req, res) {
