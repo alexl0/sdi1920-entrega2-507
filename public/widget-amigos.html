@@ -149,23 +149,6 @@
         return amigos;
     }
 
-    function eliminar(_id) {
-        $.ajax({
-            url: URLbase + "/cancion/" + _id,
-            type: "DELETE",
-            data: {},
-            dataType: 'json',
-            headers: {"token": token},
-            success: function (respuesta) {
-                console.log("Eliminada: " + _id);
-                $("#" + _id).remove(); // eliminar el <tr> de la canción
-            },
-            error: function (error) {
-                $("#contenedor-principal").load("widget-login.html");
-            }
-        });
-    }
-
     function obtenerMensajesRecibidosDelUsuarioEnSesion() {
         $.ajax({
             url: URLbase + "/mensaje/todos",
@@ -194,62 +177,5 @@
         $("#contenedor-principal").load("widget-chat.html");
     }
 
-    function widgetAgregar() {
-        $("#contenedor-principal").load("widget-agregar.html");
-    }
-
-    var precioDsc = true;
-    var nombreDsc = true;
-    var generoDsc = true;
-
-    function ordenarPorPrecio() {
-        if (precioDsc) {
-            amigos.sort(function (a, b) {
-                return parseFloat(a.precio) - parseFloat(b.precio);
-            });
-        } else {
-            amigos.sort(function (a, b) {
-                return parseFloat(b.precio) - parseFloat(a.precio);
-            });
-        }
-        actualizarTabla(amigos);
-        precioDsc = !precioDsc; //invertir
-    }
-
-    function ordenarPorNombre() {
-        if (nombreDsc) {
-            amigos.sort(function (a, b) {
-                if (a.nombre > b.nombre) return 1;
-                if (a.nombre < b.nombre) return -1;
-                return 0;
-            });
-        } else {
-            amigos.sort(function (a, b) {
-                if (a.nombre < b.nombre) return 1;
-                if (a.nombre > b.nombre) return -1;
-                return 0;
-            });
-        }
-        actualizarTabla(amigos);
-        nombreDsc = !nombreDsc;
-    }
-
-    function ordenarPorGenero() {
-        if (generoDsc) {
-            amigos.sort(function (a, b) {
-                if (a.genero > b.genero) return 1;
-                if (a.genero < b.genero) return -1;
-                return 0;
-            });
-        } else {
-            amigos.sort(function (a, b) {
-                if (a.genero < b.genero) return 1;
-                if (a.genero > b.genero) return -1;
-                return 0;
-            });
-        }
-        actualizarTabla(amigos);
-        generoDsc = !generoDsc;
-    }
 
 </script>
