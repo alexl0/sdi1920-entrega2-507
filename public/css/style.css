@@ -88,6 +88,9 @@ input[type="password"] {
     color: #1c1c1c;
     font-weight: bold;
     border-color: gray;
+
+    padding: 1em;
+    margin-bottom: -1em;
 }
 
 .alert-info {
@@ -95,6 +98,9 @@ input[type="password"] {
     color: #1c1c1c;
     font-weight: bold;
     border-color: gray;
+
+    padding: 1em;
+    margin-bottom: -1em;
 }
 
 #tabla-mensajes * {
