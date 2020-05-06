@@ -109,8 +109,6 @@
                         "<td class='light2'>" + userMostrar + "</td>" +
                         "<td class='light2'>" + usuarios[j].name + "</td>" +
                         "<td class='light2'>" + usuarios[j].lastname + "</td>" +
-                        "<td>" +
-                        "</td>" +
                         "</tr>");
             }
         }
@@ -149,9 +147,9 @@
         });
     }
 
-    function contarMensajes() {
+    function contarMensajes(userFrom) {
         $.ajax({
-            url: URLbase + "/mensaje?usuario=" + amigosAMostrar[i].email2,
+            url: URLbase + "/mensaje?usuario=" + userFrom,
             type: "GET",
             data: {},
             dataType: 'json',
@@ -165,9 +163,6 @@
                     if (loggedUserEmail == mensajes[i].usuarioTo)
                         num++;
                 }
-                $(amigosAMostrar[i]._id).append(
-                    "<td class='light2'>" + num + "</td>"
-                );
             },
             error: function (error) {
                 console.log(error);
