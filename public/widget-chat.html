@@ -2,7 +2,17 @@
     <h4 class="light" id="ususario-chateando">Chat con: </h4>
 
     <div class="stuck" id="panel-mensajes">
+        <table class="table" id="tabla-mensajes">
+            <thead>
+            <tr>
+                <th class="col-md-1"></th>
+                <th class="col-md-1"></th>
+            </tr>
+            </thead>
+            <tbody id="body-tabla-mensajes">
 
+            </tbody>
+        </table>
     </div>
 
     <div class="grid-container">
@@ -67,15 +77,23 @@
             },
             success: function (mensajes) {
                 //Vaciar mensajes
-                $("#panel-mensajes").empty();
+                $("#body-tabla-mensajes").empty();
                 //Cargarlos y añadirlos de nuevo
                 for (i = 0; i < mensajes.length; i++) {
                     if (loggedUserEmail == mensajes[i].usuarioFrom)
-                        $("#panel-mensajes").append(
-                            "<h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + (mensajes[i].leido ? ' ✔' : '') + mensajes[i].contenido + "</h5>");
+                        $("#body-tabla-mensajes").append(
+                            "<tr id=" + mensajes[i]._id + ">" +
+                            "<td></td>" +
+                            "<td><h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + (mensajes[i].leido ? ' ✔' : '') + mensajes[i].contenido + "</h5></td>" +
+                            "</tr>"
+                        );
                     else
-                        $("#panel-mensajes").append(
-                            "<h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + (mensajes[i].leido ? ' ✔' : '') + "</h5>");
+                        $("#body-tabla-mensajes").append(
+                            "<tr id=" + mensajes[i]._id + ">" +
+                            "<td><h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + (mensajes[i].leido ? ' ✔' : '') + "</h5></td>" +
+                            "<td></td>" +
+                            "</tr>"
+                        );
                 }
                 if (numberOfUpdates < 1) {
                     updateScroll();

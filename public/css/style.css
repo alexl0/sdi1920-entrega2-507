@@ -50,6 +50,13 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
     background-color: #303030;
 }
 
+.table-hover * {
+    border-top: none !important;
+    border-bottom: none !important;
+    border-right: none !important;
+    border-left: none !important;
+}
+
 .table-hover tbody tr {
     color: white;
 }
@@ -88,4 +95,11 @@ input[type="password"] {
     color: #1c1c1c;
     font-weight: bold;
     border-color: gray;
+}
+
+#tabla-mensajes * {
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
 }
