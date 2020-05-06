@@ -208,11 +208,14 @@ module.exports = function (app, gestorBD) {
         cadena = req.headers.cookie.split("loggedUserEmail=");
         cadena2 = cadena[1].split(";");
         usuarioEnSesionEmail = cadena2[0];
+        var fecha=new Date();
+        var time=fecha.getTime();
         var mensaje = {
             usuarioFrom: usuarioEnSesionEmail, // el emisor es el usuario en sesión
             usuarioTo: req.body.usuarioTo,
             contenido: req.body.contenido,
-            leido: false // por defecto se crea como no leido
+            leido: false, // por defecto se crea como no leido
+            time: time
         };
 
         if (mensaje.usuarioTo == null || mensaje.usuarioFrom == null || mensaje.contenido == null) {

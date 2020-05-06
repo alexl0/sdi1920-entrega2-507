@@ -59,19 +59,19 @@ body {
 }
 
 input[type="text"] {
-    background: rgba(0, 0, 0, .25);
+    background: #292929;
     border: 1px solid rgba(0, 0, 0, .5);
     color: white;
 }
 
 input[type="email"] {
-    background: rgba(0, 0, 0, .25);
+    background: #292929;
     border: 1px solid rgba(0, 0, 0, .5);
     color: white;
 }
 
 input[type="password"] {
-    background: rgba(0, 0, 0, .25);
+    background: #292929;
     border: 1px solid rgba(0, 0, 0, .5);
     color: white;
 }

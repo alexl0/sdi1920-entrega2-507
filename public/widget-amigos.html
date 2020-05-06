@@ -51,6 +51,7 @@
             success: function (respuesta) {
                 amigos = respuesta;
                 actualizarTabla(amigos);
+                cargarTiempos();
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -73,6 +74,47 @@
                 $("#contenedor-principal").load("widget-login.html");
             }
         });
+    }
+
+    function cargarTiempos() {
+
+        var amigosYTiempos = {};
+        for (i = 0; i < amigos.length; i++) {
+            var emailDelAmigo;
+            if (amigos[i].email1 == loggedUserEmail)
+                emailDelAmigo = amigos[i].email2;
+            else
+                emailDelAmigo = amigos[i].email1;
+            console.log(emailDelAmigo);
+            $.ajax({
+                url: URLbase + "/mensaje?usuarioFrom=" + loggedUserEmail + "&usuarioTo=" + emailDelAmigo,
+                type: "GET",
+                data: {},
+                dataType: 'json',
+                headers: {
+                    "token": token
+                },
+                success: function (mensajes) {
+                    var mayorTime = 0;
+                    //Calcular mensaje con time mayor
+                    for (j = 0; j < mensajes.length; j++) {
+                        if (mensajes[j].time > mayorTime) {
+                            mayorTime = mensajes[j].time;
+                        }
+                    }
+                    if (mensajes[0])
+                        if (mensajes[0].usuarioFrom == loggedUserEmail)
+                            amigosYTiempos[mensajes[0].usuarioTo] = mayorTime;
+                        else
+                            amigosYTiempos[mensajes[0].usuarioFrom] = mayorTime;
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        console.log(amigosYTiempos);
+
     }
 
     function actualizarTabla(amigos) {
