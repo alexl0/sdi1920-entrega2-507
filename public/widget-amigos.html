@@ -95,35 +95,23 @@
 
         $("#tablaCuerpo").empty();
         for (i = 0; i < amigosAMostrar.length; i++) {
-            if (loggedUserEmail == amigosAMostrar[i].email1) {
-                /**
-                 * Para no tener almacenados el nombre y los apellidos del usuario
-                 * en las tablas amigos y invitaciones, se accede a esos campos
-                 * a través de la tabla usuarios, ya que si en un futuro se añadieran
-                 * otros campos, sería muy fácil añadirlos a la lista.
-                 */
-                for (j = 0; j < usuarios.length; j++)
-                    if (amigosAMostrar[i].email2 == usuarios[j].email)
-                        $("#tablaCuerpo").append(
-                            "<tr onclick=detalles('" + amigosAMostrar[i].email2 + "') id=" + amigosAMostrar[i]._id + ">" +
-                            "<td class='light2'>" + amigosAMostrar[i].email2 + "</td>" +
-                            "<td class='light2'>" + usuarios[j].name + "</td>" +
-                            "<td class='light2'>" + usuarios[j].lastname + "</td>" +
-                            "<td>" +
-                            "</td>" +
-                            "</tr>");
-
-            } else {
-                for (j = 0; j < usuarios.length; j++)
-                    if (amigosAMostrar[i].email1 == usuarios[j].email)
-                        $("#tablaCuerpo").append(
-                            "<tr onclick=detalles('" + amigosAMostrar[i].email1 + "') id=" + amigosAMostrar[i]._id + ">" +
-                            "<td class='light2'>" + amigosAMostrar[i].email1 + "</td>" +
-                            "<td class='light2'>" + usuarios[j].name + "</td>" +
-                            "<td class='light2'>" + usuarios[j].lastname + "</td>" +
-                            "<td>" +
-                            "</td>" +
-                            "</tr>");
+            /**
+             * Para no tener almacenados el nombre y los apellidos del usuario
+             * en las tablas amigos y invitaciones, se accede a esos campos
+             * a través de la tabla usuarios, ya que si en un futuro se añadieran
+             * otros campos, sería muy fácil añadirlos a la lista.
+             */
+            for (j = 0; j < usuarios.length; j++) {
+                var userMostrar = (loggedUserEmail == amigosAMostrar[i].email1 ? amigosAMostrar[i].email2 : amigosAMostrar[i].email1);
+                if (userMostrar == usuarios[j].email)
+                    $("#tablaCuerpo").append(
+                        "<tr onclick=detalles('" + userMostrar + "') id=" + amigosAMostrar[i]._id + ">" +
+                        "<td class='light2'>" + userMostrar + "</td>" +
+                        "<td class='light2'>" + usuarios[j].name + "</td>" +
+                        "<td class='light2'>" + usuarios[j].lastname + "</td>" +
+                        "<td>" +
+                        "</td>" +
+                        "</tr>");
             }
         }
     }
