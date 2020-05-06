@@ -20,6 +20,11 @@
 
     window.history.pushState("", "", "/cliente.html?w=amigos");
 
+    //Intervalo para que se actualize automáticamente la lista de amigos
+    setInterval(function () {
+        actualizarTabla(amigos);
+    }, 3000);
+
     $('#filtro-nombre').on('input', function (e) {
         var amigosFiltrados = [];
         var nombreFiltro = $("#filtro-nombre").val();
@@ -51,7 +56,6 @@
             success: function (respuesta) {
                 amigos = respuesta;
                 actualizarTabla(amigos);
-                cargarTiempos();
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -85,7 +89,6 @@
                 emailDelAmigo = amigos[i].email2;
             else
                 emailDelAmigo = amigos[i].email1;
-            console.log(emailDelAmigo);
             $.ajax({
                 url: URLbase + "/mensaje?usuarioFrom=" + loggedUserEmail + "&usuarioTo=" + emailDelAmigo,
                 type: "GET",
@@ -118,6 +121,7 @@
     }
 
     function actualizarTabla(amigos) {
+        cargarTiempos();
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < amigos.length; i++) {
             if (loggedUserEmail == amigos[i].email1) {
