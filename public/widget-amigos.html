@@ -22,7 +22,11 @@
 
     //Intervalo para que se actualize automáticamente la lista de amigos
     setInterval(function () {
-        cargarAmigos();
+        // Para que no se actualice cuando no se eté en la url amigos
+        var url = new URL(window.location.href);
+        var w = url.searchParams.get("w");
+        if (w == "amigos")
+            cargarAmigos();
     }, 5000);
 
     $('#filtro-nombre').on('input', function (e) {

@@ -33,7 +33,11 @@
 
     //Intervalo para que se actualize automáticamente la lista de mensajes
     setInterval(function () {
-        mostrarMensajes();
+        // Para que no se actualice cuando no se eté en la url amigos
+        var url = new URL(window.location.href);
+        var w = url.searchParams.get("w");
+        if (w == "chat")
+            mostrarMensajes();
     }, 1000);
 
     //Para que al pulsar enter se envie el mensaje
