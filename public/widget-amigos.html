@@ -1,13 +1,13 @@
 <div id="widget-amigos">
-    <input type="text" class="form-control" placeholder="Filtrar por nombre"
+    <input type="text" class="form-control" placeholder="Filtrar por nombre 🔍"
            id="filtro-nombre"/>
-    <button class="btn" onclick="cargarAmigos()">Actualizar</button>
     <table class="table table-hover">
         <thead>
         <tr>
-            <th><a onclick="ordenarPorNombre()">Email</a></th>
-            <th><a onclick="ordenarPorGenero()">Nombre</a></th>
-            <th><a onclick="ordenarPorPrecio()">Apellidos</a></th>
+            <th class="light2">Email</th>
+            <th class="light2">Nombre</th>
+            <th class="light2">Apellidos</th>
+            <th class="light2">Mensajes sin leer</th>
             <th class="col-md-1"></th>
         </tr>
         </thead>
@@ -25,13 +25,18 @@
         // Para que no se actualice cuando no se eté en la url amigos
         var url = new URL(window.location.href);
         var w = url.searchParams.get("w");
-        if (w == "amigos")
+        if (w == "amigos" && filtroEstaVacio)
             cargarAmigos();
     }, 5000);
 
     $('#filtro-nombre').on('input', function (e) {
         var amigosFiltrados = [];
         var nombreFiltro = $("#filtro-nombre").val();
+
+        if (nombreFiltro == "")
+            filtroEstaVacio = true;
+        else
+            filtroEstaVacio = false;
 
         for (i = 0; i < amigos.length; i++)
             if (loggedUserEmail == amigos[i].email1) {
@@ -49,6 +54,7 @@
 
     var usuarios;
     var amigos;
+    var filtroEstaVacio = true;
 
     function cargarAmigos() {
         $.ajax({
@@ -59,7 +65,7 @@
             headers: {"token": token},
             success: function (respuesta) {
                 amigos = respuesta;
-                actualizarTabla();
+                actualizarTabla(amigos);
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -84,14 +90,12 @@
         });
     }
 
-    function actualizarTabla() {
-
-        //Ordenar
-        amigos = ordenarAmigos(amigos);
+    function actualizarTabla(amigosAMostrar) {
+        amigosAMostrar = ordenarAmigos(amigosAMostrar);
 
         $("#tablaCuerpo").empty(); // Vaciar la tabla
-        for (i = 0; i < amigos.length; i++) {
-            if (loggedUserEmail == amigos[i].email1) {
+        for (i = 0; i < amigosAMostrar.length; i++) {
+            if (loggedUserEmail == amigosAMostrar[i].email1) {
                 /**
                  * Para no tener almacenados el nombre y los apellidos del usuario
                  * en las tablas amigos y invitaciones, se accede a esos campos
@@ -99,23 +103,23 @@
                  * otros campos, sería muy fácil añadirlos a la lista.
                  */
                 for (j = 0; j < usuarios.length; j++)
-                    if (amigos[i].email2 == usuarios[j].email)
+                    if (amigosAMostrar[i].email2 == usuarios[j].email)
                         $("#tablaCuerpo").append(
-                            "<tr onclick=detalles('" + amigos[i].email2 + "') id=" + amigos[i]._id + ">" +
-                            "<td>" + amigos[i].email2 + "</td>" +
-                            "<td>" + usuarios[j].name + "</td>" +
-                            "<td>" + usuarios[j].lastname + "</td>" +
+                            "<tr onclick=detalles('" + amigosAMostrar[i].email2 + "') id=" + amigosAMostrar[i]._id + ">" +
+                            "<td class='light2'>" + amigosAMostrar[i].email2 + "</td>" +
+                            "<td class='light2'>" + usuarios[j].name + "</td>" +
+                            "<td class='light2'>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
                             "</td>" +
                             "</tr>");
             } else
                 for (j = 0; j < usuarios.length; j++)
-                    if (amigos[i].email1 == usuarios[j].email)
+                    if (amigosAMostrar[i].email1 == usuarios[j].email)
                         $("#tablaCuerpo").append(
-                            "<tr onclick=detalles('" + amigos[i].email1 + "') id=" + amigos[i]._id + ">" +
-                            "<td>" + amigos[i].email1 + "</td>" +
-                            "<td>" + usuarios[j].name + "</td>" +
-                            "<td>" + usuarios[j].lastname + "</td>" +
+                            "<tr onclick=detalles('" + amigosAMostrar[i].email1 + "') id=" + amigosAMostrar[i]._id + ">" +
+                            "<td class='light2'>" + amigosAMostrar[i].email1 + "</td>" +
+                            "<td class='light2'>" + usuarios[j].name + "</td>" +
+                            "<td class='light2'>" + usuarios[j].lastname + "</td>" +
                             "<td>" +
                             "</td>" +
                             "</tr>");
