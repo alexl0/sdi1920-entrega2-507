@@ -235,8 +235,8 @@ module.exports = function (app, gestorBD) {
                             },
                             {
                                 $and: [
-                                    {"email1": mensaje.usuarioFrom},
-                                    {"email2": mensaje.usuarioTo}
+                                    {"email1": mensaje.usuarioTo},
+                                    {"email2": mensaje.usuarioFrom}
                                 ]
                             }
                         ]
