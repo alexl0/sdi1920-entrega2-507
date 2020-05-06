@@ -203,11 +203,13 @@ module.exports = function (app, gestorBD) {
 
     //TODO todas las comprobaciones, como en rusuarios.js
     app.post("/api/mensaje/", function (req, res) {
+
         //Conseguir usuario en sesión (no, no vale con res.usuario por una razón desconocida)
         //var ussuariosesion=res.usuario;
         cadena = req.headers.cookie.split("loggedUserEmail=");
         cadena2 = cadena[1].split(";");
         usuarioEnSesionEmail = cadena2[0];
+
         var mensaje = {
             usuarioFrom: usuarioEnSesionEmail, // el emisor es el usuario en sesión
             usuarioTo: req.body.usuarioTo,
@@ -221,45 +223,87 @@ module.exports = function (app, gestorBD) {
                 error: "Se ha producido un error: un mensaje debe contener obligatoriamente emisor, receptor y texto."
             })
         } else {
-            gestorBD.insertarMensaje(mensaje, function (id) {
-                if (id == null) {
-                    res.send("Error al enviar mensaje");
-                } else {
-                    let criterio2 = {
-                        $or: [
-                            {
-                                $and: [
-                                    {"email1": mensaje.usuarioFrom},
-                                    {"email2": mensaje.usuarioTo}
-                                ]
-                            },
-                            {
-                                $and: [
-                                    {"email1": mensaje.usuarioTo},
-                                    {"email2": mensaje.usuarioFrom}
-                                ]
-                            }
-                        ]
-                    };
-                    gestorBD.modificarAmigos(criterio2, function (result) {
-                        if (result == null) {
-                            res.status(500);
-                            res.json({
-                                error: "Se ha producido un error"
-                            })
-                        } else {
-                            res.status(200);
-                            res.json({
-                                mensaje: "Mensaje enviado con éxito.",
-                                _id: id
-                            });
-                        }
-                    });
-                }
-            });
+            enviarMensajePaso1(req, res, mensaje);
         }
 
     });
+
+    function enviarMensajePaso1(req, res, mensaje) {
+        /**
+         * Comprobar que existe usuarioTo
+         */
+        var criterio = {"email": mensaje.usuarioTo};
+        gestorBD.obtenerUsuarios(criterio, function (usuarioTo) {
+            if (usuarioTo == null) {
+                res.status(500);
+                res.json({
+                    error: "Se ha producido un error al insertar un mensaje. Usuario destino no existe."
+                })
+            } else {
+                enviarMensajePaso2(req, res, mensaje);
+            }
+        });
+    }
+
+    function enviarMensajePaso2(req, res, mensaje) {
+        /**
+         * Comprobar que son amigos
+         */
+        gestorBD.comprobarSiSonAmigos(mensaje.usuarioTo, mensaje.usuarioFrom, function (yaSonAmigos) {
+            if (!yaSonAmigos) {
+                res.status(500);
+                res.json({
+                    error: "Se ha producido un error al insertar un mensaje. " +
+                        "usuarioFrom y usuarioTo no son amigos."
+                })
+            } else
+                enviarMensajePaso3(req, res, mensaje);
+        });
+    }
+
+    function enviarMensajePaso3(req, res, mensaje) {
+        /**
+         * Se inserta el mensaje y se añade el tiempo a amigos
+         * para saber cuanto tiempo ha pasado desde la ultima vez que
+         * se hablo con ese amigo.
+         */
+        gestorBD.insertarMensaje(mensaje, function (id) {
+            if (id == null) {
+                res.send("Error al enviar mensaje");
+            } else {
+                let criterio2 = {
+                    $or: [
+                        {
+                            $and: [
+                                {"email1": mensaje.usuarioFrom},
+                                {"email2": mensaje.usuarioTo}
+                            ]
+                        },
+                        {
+                            $and: [
+                                {"email1": mensaje.usuarioTo},
+                                {"email2": mensaje.usuarioFrom}
+                            ]
+                        }
+                    ]
+                };
+                gestorBD.modificarAmigos(criterio2, function (result) {
+                    if (result == null) {
+                        res.status(500);
+                        res.json({
+                            error: "Se ha producido un error"
+                        })
+                    } else {
+                        res.status(200);
+                        res.json({
+                            mensaje: "Mensaje enviado con éxito.",
+                            _id: id
+                        });
+                    }
+                });
+            }
+        });
+    }
 
     app.get("/api/mensaje", function (req, res) {
         gestorBD.obtenerMensajes(req.query.usuarioFrom, req.query.usuarioTo, function (canciones) {
