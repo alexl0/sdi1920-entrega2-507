@@ -93,7 +93,7 @@
     function actualizarTabla(amigosAMostrar) {
         amigosAMostrar = ordenarAmigos(amigosAMostrar);
 
-        $("#tablaCuerpo").empty(); // Vaciar la tabla
+        $("#tablaCuerpo").empty();
         for (i = 0; i < amigosAMostrar.length; i++) {
             if (loggedUserEmail == amigosAMostrar[i].email1) {
                 /**
@@ -112,7 +112,8 @@
                             "<td>" +
                             "</td>" +
                             "</tr>");
-            } else
+
+            } else {
                 for (j = 0; j < usuarios.length; j++)
                     if (amigosAMostrar[i].email1 == usuarios[j].email)
                         $("#tablaCuerpo").append(
@@ -123,6 +124,7 @@
                             "<td>" +
                             "</td>" +
                             "</tr>");
+            }
         }
     }
 
@@ -155,6 +157,32 @@
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
+            }
+        });
+    }
+
+    function contarMensajes() {
+        $.ajax({
+            url: URLbase + "/mensaje?usuario=" + amigosAMostrar[i].email2,
+            type: "GET",
+            data: {},
+            dataType: 'json',
+            headers: {
+                "token": token
+            },
+            success: function (mensajes) {
+                var num = 0;
+                //Cargarlos y añadirlos de nuevo
+                for (i = 0; i < mensajes.length; i++) {
+                    if (loggedUserEmail == mensajes[i].usuarioTo)
+                        num++;
+                }
+                $(amigosAMostrar[i]._id).append(
+                    "<td class='light2'>" + num + "</td>"
+                );
+            },
+            error: function (error) {
+                console.log(error);
             }
         });
     }

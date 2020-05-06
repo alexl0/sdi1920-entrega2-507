@@ -315,7 +315,7 @@ module.exports = function (app, gestorBD) {
         /**
          * Comprobar que existe usuarioTo
          */
-        var criterio = {"email": req.query.usuarioTo};
+        var criterio = {"email": req.query.usuario};
         gestorBD.obtenerUsuarios(criterio, function (usuarioTo) {
             if (usuarioTo == null) {
                 res.status(500);
@@ -326,7 +326,7 @@ module.exports = function (app, gestorBD) {
                 /**
                  * Recibir los mensajes
                  */
-                gestorBD.obtenerMensajes(usuarioEnSesionEmail, req.query.usuarioTo, function (canciones) {
+                gestorBD.obtenerMensajes(usuarioEnSesionEmail, req.query.usuario, function (canciones) {
                     if (canciones == null) {
                         res.status(500);
                         res.json({
