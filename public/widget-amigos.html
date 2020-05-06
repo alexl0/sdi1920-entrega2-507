@@ -83,17 +83,13 @@
     function actualizarTabla(amigos) {
 
         //Ordenar
-        console.log(amigos);
-        var haHabidoCambio = true;
         for (i = 0; i < amigos.length - 1; i++) {
-            if ((amigos[i].time == null || amigos[i].time < amigos[i + 1].time) && haHabidoCambio) {
+            if ((amigos[i].time == null && amigos[i + 1].time != null) || amigos[i].time < amigos[i + 1].time) {
                 var temp = amigos[i];
                 amigos[i] = amigos[i + 1];
                 amigos[i + 1] = temp;
-            } else
-                haHabidoCambio = false;
+            }
         }
-        console.log(amigos);
 
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < amigos.length; i++) {
