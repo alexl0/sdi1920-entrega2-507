@@ -361,16 +361,12 @@ module.exports = {
             }
         });
     },
-    obtenerMensajes: function (usuarioFrom, usuarioTo, funcionCallback) {
+    obtenerMensajes: function (criterio, funcionCallback) {
         this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
             if (err) {
                 funcionCallback(null);
             } else {
                 let collection = db.collection('mensajes');
-                var criterio = {
-                    $or: [{"usuarioTo": usuarioTo, "usuarioFrom": usuarioFrom},
-                        {"usuarioTo": usuarioFrom, "usuarioFrom": usuarioTo}]
-                };
                 collection.find(criterio).toArray(function (err, mensajes) {
                     if (err) {
                         funcionCallback(null);

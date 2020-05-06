@@ -326,7 +326,11 @@ module.exports = function (app, gestorBD) {
                 /**
                  * Recibir los mensajes
                  */
-                gestorBD.obtenerMensajes(usuarioEnSesionEmail, req.query.usuario, function (canciones) {
+                var criterio = {
+                    $or: [{"usuarioTo": usuarioEnSesionEmail, "usuarioFrom": req.query.usuario},
+                        {"usuarioTo": req.query.usuario, "usuarioFrom": usuarioEnSesionEmail}]
+                };
+                gestorBD.obtenerMensajes(criterio, function (canciones) {
                     if (canciones == null) {
                         res.status(500);
                         res.json({
@@ -341,6 +345,31 @@ module.exports = function (app, gestorBD) {
         });
 
 
+    });
+
+    /**
+     * Obtiene todos los mensajes en los que aparezca el usuario en sesión
+     * como receptor
+     */
+    app.get("/api/mensaje/todos", function (req, res) {
+
+        //Obtener usuario en sesión de las cookies
+        cadena = req.headers.cookie.split("loggedUserEmail=");
+        cadena2 = cadena[1].split(";");
+        usuarioEnSesionEmail = cadena2[0];
+
+        var criterio = {"usuarioTo": usuarioEnSesionEmail};
+        gestorBD.obtenerMensajes(criterio, function (mensajes) {
+            if (mensajes == null) {
+                res.status(500);
+                res.json({
+                    error: "se ha producido un error"
+                })
+            } else {
+                res.status(200);
+                res.send(JSON.stringify(mensajes));
+            }
+        });
     });
 
     app.put("/api/mensaje", function (req, res) {

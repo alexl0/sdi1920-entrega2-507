@@ -27,7 +27,7 @@
         var w = url.searchParams.get("w");
         if (w == "amigos" && filtroEstaVacio)
             cargarAmigos();
-    }, 5000);
+    }, 8000);
 
     $('#filtro-nombre').on('input', function (e) {
         var amigosFiltrados = [];
@@ -55,6 +55,7 @@
     var usuarios;
     var amigos;
     var filtroEstaVacio = true;
+    var mensajesRecibidosUsuarioEnSesion;
 
     function cargarAmigos() {
         $.ajax({
@@ -65,7 +66,7 @@
             headers: {"token": token},
             success: function (respuesta) {
                 amigos = respuesta;
-                actualizarTabla(amigos);
+                obtenerMensajesRecibidosDelUsuarioEnSesion();
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -95,6 +96,24 @@
 
         $("#tablaCuerpo").empty();
         for (i = 0; i < amigosAMostrar.length; i++) {
+
+            //Para cada relaccion de amistad, se muestra el amigo del usuario en sesión.
+            var userMostrar = (loggedUserEmail == amigosAMostrar[i].email1 ? amigosAMostrar[i].email2 : amigosAMostrar[i].email1);
+
+            /**
+             * Para cada amigo a mostrar, se calcula el numero de mensajes que le ha enviado
+             * al usuario en sesion en los que leido=false.
+             * Como en esta lista (mensajesRecibidosUsuarioEnSesion) solo estan los mensajes
+             * en los que el usuario en sesion es el receptor, solo hay que
+             * contar las veces que aparece usuarioAMostrar en un mensaje con leido=false
+             */
+            numMensajesSinLeer = 0;
+            for (k = 0; k < mensajesRecibidosUsuarioEnSesion.length; k++) {
+                if (mensajesRecibidosUsuarioEnSesion[k].usuarioFrom == userMostrar && mensajesRecibidosUsuarioEnSesion[k].leido == false)
+                    numMensajesSinLeer++;
+            }
+
+
             /**
              * Para no tener almacenados el nombre y los apellidos del usuario
              * en las tablas amigos y invitaciones, se accede a esos campos
@@ -102,13 +121,13 @@
              * otros campos, sería muy fácil añadirlos a la lista.
              */
             for (j = 0; j < usuarios.length; j++) {
-                var userMostrar = (loggedUserEmail == amigosAMostrar[i].email1 ? amigosAMostrar[i].email2 : amigosAMostrar[i].email1);
                 if (userMostrar == usuarios[j].email)
                     $("#tablaCuerpo").append(
                         "<tr onclick=detalles('" + userMostrar + "') id=" + amigosAMostrar[i]._id + ">" +
                         "<td class='light2'>" + userMostrar + "</td>" +
                         "<td class='light2'>" + usuarios[j].name + "</td>" +
                         "<td class='light2'>" + usuarios[j].lastname + "</td>" +
+                        "<td class='light2'>" + numMensajesSinLeer + "</td>" +
                         "</tr>");
             }
         }
@@ -147,9 +166,9 @@
         });
     }
 
-    function contarMensajes(userFrom) {
+    function obtenerMensajesRecibidosDelUsuarioEnSesion() {
         $.ajax({
-            url: URLbase + "/mensaje?usuario=" + userFrom,
+            url: URLbase + "/mensaje/todos",
             type: "GET",
             data: {},
             dataType: 'json',
@@ -157,12 +176,8 @@
                 "token": token
             },
             success: function (mensajes) {
-                var num = 0;
-                //Cargarlos y añadirlos de nuevo
-                for (i = 0; i < mensajes.length; i++) {
-                    if (loggedUserEmail == mensajes[i].usuarioTo)
-                        num++;
-                }
+                mensajesRecibidosUsuarioEnSesion = mensajes;
+                actualizarTabla(amigos);
             },
             error: function (error) {
                 console.log(error);
