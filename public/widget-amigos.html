@@ -23,7 +23,7 @@
     //Intervalo para que se actualize automáticamente la lista de amigos
     setInterval(function () {
         actualizarTabla(amigos);
-    }, 3000);
+    }, 5000);
 
     $('#filtro-nombre').on('input', function (e) {
         var amigosFiltrados = [];
@@ -80,48 +80,21 @@
         });
     }
 
-    function cargarTiempos() {
-
-        var amigosYTiempos = {};
-        for (i = 0; i < amigos.length; i++) {
-            var emailDelAmigo;
-            if (amigos[i].email1 == loggedUserEmail)
-                emailDelAmigo = amigos[i].email2;
-            else
-                emailDelAmigo = amigos[i].email1;
-            $.ajax({
-                url: URLbase + "/mensaje?usuarioFrom=" + loggedUserEmail + "&usuarioTo=" + emailDelAmigo,
-                type: "GET",
-                data: {},
-                dataType: 'json',
-                headers: {
-                    "token": token
-                },
-                success: function (mensajes) {
-                    var mayorTime = 0;
-                    //Calcular mensaje con time mayor
-                    for (j = 0; j < mensajes.length; j++) {
-                        if (mensajes[j].time > mayorTime) {
-                            mayorTime = mensajes[j].time;
-                        }
-                    }
-                    if (mensajes[0])
-                        if (mensajes[0].usuarioFrom == loggedUserEmail)
-                            amigosYTiempos[mensajes[0].usuarioTo] = mayorTime;
-                        else
-                            amigosYTiempos[mensajes[0].usuarioFrom] = mayorTime;
-                },
-                error: function (error) {
-                    console.log(error);
-                }
-            });
-        }
-        console.log(amigosYTiempos);
-
-    }
-
     function actualizarTabla(amigos) {
-        cargarTiempos();
+
+        //Ordenar
+        console.log(amigos);
+        var haHabidoCambio = true;
+        for (i = 0; i < amigos.length - 1; i++) {
+            if ((amigos[i].time == null || amigos[i].time < amigos[i + 1].time) && haHabidoCambio) {
+                var temp = amigos[i];
+                amigos[i] = amigos[i + 1];
+                amigos[i + 1] = temp;
+            } else
+                haHabidoCambio = false;
+        }
+        console.log(amigos);
+
         $("#tablaCuerpo").empty(); // Vaciar la tabla
         for (i = 0; i < amigos.length; i++) {
             if (loggedUserEmail == amigos[i].email1) {

@@ -208,14 +208,11 @@ module.exports = function (app, gestorBD) {
         cadena = req.headers.cookie.split("loggedUserEmail=");
         cadena2 = cadena[1].split(";");
         usuarioEnSesionEmail = cadena2[0];
-        var fecha=new Date();
-        var time=fecha.getTime();
         var mensaje = {
             usuarioFrom: usuarioEnSesionEmail, // el emisor es el usuario en sesión
             usuarioTo: req.body.usuarioTo,
             contenido: req.body.contenido,
             leido: false, // por defecto se crea como no leido
-            time: time
         };
 
         if (mensaje.usuarioTo == null || mensaje.usuarioFrom == null || mensaje.contenido == null) {
@@ -228,9 +225,35 @@ module.exports = function (app, gestorBD) {
                 if (id == null) {
                     res.send("Error al enviar mensaje");
                 } else {
-                    res.json({
-                        mensaje: "Mensaje enviado con éxito.",
-                        _id: id
+                    let criterio2 = {
+                        $or: [
+                            {
+                                $and: [
+                                    {"email1": mensaje.usuarioFrom},
+                                    {"email2": mensaje.usuarioTo}
+                                ]
+                            },
+                            {
+                                $and: [
+                                    {"email1": mensaje.usuarioFrom},
+                                    {"email2": mensaje.usuarioTo}
+                                ]
+                            }
+                        ]
+                    };
+                    gestorBD.modificarAmigos(criterio2, function (result) {
+                        if (result == null) {
+                            res.status(500);
+                            res.json({
+                                error: "Se ha producido un error"
+                            })
+                        } else {
+                            res.status(200);
+                            res.json({
+                                mensaje: "Mensaje enviado con éxito.",
+                                _id: id
+                            });
+                        }
                     });
                 }
             });

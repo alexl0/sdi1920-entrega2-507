@@ -388,5 +388,26 @@ module.exports = {
                 });
             }
         });
-    }
+    },
+    modificarAmigos: function (criterio, funcionCallback) {
+        this.mongo.MongoClient.connect(this.app.get('db'), function (err, db) {
+            if (err) {
+                funcionCallback(null);
+            } else {
+                var fecha = new Date();
+                var time = {"time": fecha.getTime()};
+                let collection = db.collection('amigos');
+                collection.update(criterio, {
+                    $set: time
+                }, function (err, result) {
+                    if (err) {
+                        funcionCallback(null);
+                    } else {
+                        funcionCallback(result);
+                    }
+                    db.close();
+                });
+            }
+        });
+    },
 };
