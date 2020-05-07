@@ -38,14 +38,17 @@
         else
             filtroEstaVacio = false;
 
-        for (i = 0; i < amigos.length; i++)
-            if (loggedUserEmail == amigos[i].email1) {
-                if (amigos[i].email2.indexOf(nombreFiltro) != -1)
-                    amigosFiltrados.push(amigos[i]);
-            } else {
-                if (amigos[i].email1.indexOf(nombreFiltro) != -1)
-                    amigosFiltrados.push(amigos[i]);
+        for (i = 0; i < amigos.length; i++) {
+            var userMostrar = loggedUserEmail == amigos[i].email1 ? amigos[i].email2 : amigos[i].email1;
+            for (j = 0; j < usuarios.length; j++) {
+                if (userMostrar == usuarios[j].email)
+                    if (userMostrar.indexOf(nombreFiltro) != -1 ||
+                        usuarios[j].name.toLowerCase().indexOf(nombreFiltro.toLowerCase()) != -1 ||
+                        usuarios[j].lastname.toLowerCase().indexOf(nombreFiltro.toLowerCase()) != -1)
+                        amigosFiltrados.push(amigos[i]);
             }
+        }
+
         actualizarTabla(amigosFiltrados);
     });
 

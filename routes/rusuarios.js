@@ -368,12 +368,14 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
-    //#####################################################################
-    //########################## ATENCIÓN #################################
-    //#####################################################################
-    //En una aplicación comercial no se haría esto bajo ninguna
-    //circunstancia. Solo tiene la intención de facilitar la
-    //ejecución de los test.
+    /**
+     * #####################################################################
+     * ########################## ATENCIÓN #################################
+     * #####################################################################
+     * En una aplicación comercial no se haría esto bajo ninguna
+     * circunstancia. Solo tiene la intención de facilitar la
+     * ejecución de los test.
+     */
     app.get('/borrarUsuarios', function (req, res) {
         gestorBD.eliminarUsuarios(function (result) {
             if (result == null) {
