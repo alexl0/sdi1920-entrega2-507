@@ -69,24 +69,31 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.get("/verUsuarios", function (req, res) {
-        let criterio = {};
+        let criterio = {"email": {$not: {$regex: req.session.usuario.toString()}}};
         if (req.query.busqueda != null) {
             criterio = {
-                $or: [
+                $and: [
                     {
-                        "email": {
-                            $regex: ".*" + req.query.busqueda + ".*"
-                        }
+                        $or: [
+                            {
+                                "email": {
+                                    $regex: ".*" + req.query.busqueda + ".*"
+                                }
+                            },
+                            {
+                                "name": {
+                                    $regex: ".*" + req.query.busqueda + ".*"
+                                }
+                            },
+                            {
+                                "lastname": {
+                                    $regex: ".*" + req.query.busqueda + ".*"
+                                }
+                            }
+                        ]
                     },
                     {
-                        "name": {
-                            $regex: ".*" + req.query.busqueda + ".*"
-                        }
-                    },
-                    {
-                        "lastname": {
-                            $regex: ".*" + req.query.busqueda + ".*"
-                        }
+                        "email": {$not: {$regex: req.session.usuario.toString()}}
                     }
                 ]
             };
