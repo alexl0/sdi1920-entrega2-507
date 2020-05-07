@@ -27,7 +27,7 @@
         var w = url.searchParams.get("w");
         if (w == "amigos" && filtroEstaVacio)
             cargarAmigos();
-    }, 8000);
+    }, 6000);
 
     $('#filtro-nombre').on('input', function (e) {
         var amigosFiltrados = [];
@@ -168,8 +168,6 @@
         });
     }
 
-    cargarUsuarios();
-
     function detalles(_id) {
         chattingWithEmail = _id;
         Cookies.set('chattingWithEmail', chattingWithEmail);
@@ -177,5 +175,6 @@
         $("#contenedor-principal").load("widget-chat.html");
     }
 
+    cargarUsuarios();
 
 </script>
