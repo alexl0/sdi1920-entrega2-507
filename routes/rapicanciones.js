@@ -399,7 +399,8 @@ module.exports = function (app, gestorBD) {
                 res.status(200);
                 res.json({
                     mensaje: "Mensajes recibidos marcados como leidos",
-                    _id: req.params.id
+                    _id: req.params.id,
+                    nModified: result.result.nModified
                 })
             }
         });

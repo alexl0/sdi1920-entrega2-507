@@ -31,8 +31,10 @@
 
     window.history.pushState("", "", "/cliente.html?w=chat");
 
-    var numberOfUpdates = 0;
     var hayQueDesplazarseHaciaAbajo = false;
+
+    //Para saber si hay que actualizar
+    var numMensajes = 0;
 
     //Mover scrollbar hasta abajo para que el usuario vea los mensajes de abajo directamente
     //como en whatsapp por ejemplo
@@ -48,7 +50,7 @@
         var url = new URL(window.location.href);
         var w = url.searchParams.get("w");
         if (w == "chat")
-            mostrarMensajes();
+            marcarComoLeidos();
     }, 1000);
 
     //Para que al pulsar enter se envie el mensaje
@@ -66,7 +68,7 @@
     /**
      * Mostrar mensajes
      */
-    function mostrarMensajes() {
+    function mostrarMensajes(nModified) {
         $.ajax({
             url: URLbase + "/mensaje?usuario=" + chattingWithEmail,
             type: "GET",
@@ -76,42 +78,41 @@
                 "token": token
             },
             success: function (mensajes) {
-                //Vaciar mensajes
-                $("#body-tabla-mensajes").empty();
-                //Cargarlos y añadirlos de nuevo
-                for (i = 0; i < mensajes.length; i++) {
-                    if (loggedUserEmail == mensajes[i].usuarioFrom)
-                        $("#body-tabla-mensajes").append(
-                            "<tr id=" + mensajes[i]._id + ">" +
-                            "<td></td>" +
-                            "<td><h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + (mensajes[i].leido ? ' ✔' : '') + mensajes[i].contenido + "</h5></td>" +
-                            "</tr>"
-                        );
-                    else
-                        $("#body-tabla-mensajes").append(
-                            "<tr id=" + mensajes[i]._id + ">" +
-                            "<td><h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + (mensajes[i].leido ? ' ✔' : '') + "</h5></td>" +
-                            "<td></td>" +
-                            "</tr>"
-                        );
-                }
-                if (numberOfUpdates < 1) {
+                //Hay mensajes nuevos?
+                if (mensajes.length > numMensajes || nModified > 0) {
+                    hayQueDesplazarseHaciaAbajo = true;
+
+                    //Vaciar mensajes
+                    $("#body-tabla-mensajes").empty();
+                    //Cargarlos y añadirlos de nuevo
+                    for (i = 0; i < mensajes.length; i++) {
+                        if (loggedUserEmail == mensajes[i].usuarioFrom)
+                            $("#body-tabla-mensajes").append(
+                                "<tr id=" + mensajes[i]._id + ">" +
+                                "<td></td>" +
+                                "<td><h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + (mensajes[i].leido ? ' ✔' : '') + mensajes[i].contenido + "</h5></td>" +
+                                "</tr>"
+                            );
+                        else
+                            $("#body-tabla-mensajes").append(
+                                "<tr id=" + mensajes[i]._id + ">" +
+                                "<td><h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + (mensajes[i].leido ? ' ✔' : '') + "</h5></td>" +
+                                "<td></td>" +
+                                "</tr>"
+                            );
+                    }
                     updateScroll();
-                    numberOfUpdates++;
                 }
                 if (hayQueDesplazarseHaciaAbajo) {
                     updateScroll();
                     hayQueDesplazarseHaciaAbajo = false;
                 }
-                marcarComoLeidos();
             },
             error: function (error) {
                 console.log(error);
             }
         });
     }
-
-    mostrarMensajes();
 
     /**
      * Insertar mensaje
@@ -156,6 +157,9 @@
             dataType: 'json',
             headers: {"token": token},
             success: function (response) {
+                //Se le pasa como parámetro el número de mensajes modificados
+                //(marcados como leidos) para saber si hay que actualizar
+                mostrarMensajes(response.nModified);
             },
             error: function (error) {
                 console.log(error);
@@ -163,5 +167,8 @@
             }
         });
     }
+
+    //Primero se marcan como leidos, y luego se actualizan los mensajes.
+    marcarComoLeidos();
 
 </script>
