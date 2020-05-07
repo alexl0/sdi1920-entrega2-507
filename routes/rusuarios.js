@@ -389,8 +389,14 @@ module.exports = function (app, swig, gestorBD) {
                             if (result == null) {
                                 console.log("Error al borrar amigos");
                             } else {
-                                let respuesta = swig.renderFile('views/bregistro.html', {});
-                                res.send(respuesta);
+                                gestorBD.eliminarMensajes(function (result) {
+                                    if (result == null) {
+                                        console.log("Error al borrar amigos");
+                                    } else {
+                                        let respuesta = swig.renderFile('views/bregistro.html', {});
+                                        res.send(respuesta);
+                                    }
+                                });
                             }
                         });
                     }
