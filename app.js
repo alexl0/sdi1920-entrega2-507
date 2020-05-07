@@ -28,9 +28,6 @@ app.use(expressSession({
 }));
 let crypto = require('crypto');
 
-let fileUpload = require('express-fileupload');
-app.use(fileUpload());
-
 let mongo = require('mongodb');
 let swig = require('swig');
 let bodyParser = require('body-parser');
@@ -76,6 +73,7 @@ routerUsuarioToken.use(function (req, res, next) {
     }
 });
 // Aplicar routerUsuarioToken
+//TODO
 app.use('/api/amigos', routerUsuarioToken);
 app.use('/api/usuarios', routerUsuarioToken);
 app.use('/api/mensaje', routerUsuarioToken);
@@ -93,65 +91,13 @@ routerUsuarioSession.use(function (req, res, next) {
     }
 });
 //Aplicar routerUsuarioSession
+//TODO aplicar usuariosesion a lo que haga falta
 app.use("/verUsuarios", routerUsuarioSession);
-app.use("/canciones/agregar", routerUsuarioSession);
 app.use("/invitaciones", routerUsuarioSession);
 app.use("/comentarios", routerUsuarioSession);
-app.use("/cancion/comprar", routerUsuarioSession);
 app.use("/amigos", routerUsuarioSession);
-app.use("/cancion/:id", routerUsuarioSession);
 
-//routerAudios
-let routerAudios = express.Router();
-routerAudios.use(function (req, res, next) {
-    console.log("routerAudios");
-    let path = require('path');
-    let idCancion = path.basename(req.originalUrl, '.mp3');
-    gestorBD.obtenerCanciones(
-        {"_id": mongo.ObjectID(idCancion)}, function (canciones) {
-            if (req.session.usuario && canciones[0].autor == req.session.usuario) {
-                next();
-            } else {
-                let criterio = {
-                    usuario: req.session.usuario,
-                    cancionId: mongo.ObjectID(idCancion)
-                };
-
-                gestorBD.obtenerCompras(criterio, function (compras) {
-                    if (compras != null && compras.length > 0) {
-                        next();
-                    } else {
-                        res.redirect("/verUsuarios");
-                    }
-                })
-            }
-        })
-});
-//Aplicar routerAudios
-app.use("/audios/", routerAudios);
 app.use(express.static('public'));
-
-//routerUsuarioAutor
-let routerUsuarioAutor = express.Router();
-routerUsuarioAutor.use(function (req, res, next) {
-    console.log("routerUsuarioAutor");
-    let path = require('path');
-    let id = path.basename(req.originalUrl);
-// Cuidado porque req.params no funciona
-// en el router si los params van en la URL
-    gestorBD.obtenerCanciones(
-        {_id: mongo.ObjectID(id)}, function (canciones) {
-            console.log(canciones[0]);
-            if (canciones[0].autor == req.session.usuario) {
-                next();
-            } else {
-                res.redirect("/verUsuarios");
-            }
-        })
-});
-//Aplicar routerUsuarioAutor
-app.use("/cancion/modificar", routerUsuarioAutor);
-app.use("/cancion/eliminar", routerUsuarioAutor);
 
 // Variables
 app.set('port', 8081);
@@ -162,9 +108,8 @@ app.set('crypto', crypto);
 
 //Rutas/controladores por lógica
 require("./routes/rusuarios.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
-require("./routes/rcanciones.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 require("./routes/rerrores.js")(app, swig); // (app, param1, param2, etc.)
-require("./routes/rapicanciones.js")(app, gestorBD);
+require("./routes/rapichat.js")(app, gestorBD);
 
 app.get('/', function (req, res) {
     res.redirect('/verUsuarios');
