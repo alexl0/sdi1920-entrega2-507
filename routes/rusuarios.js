@@ -6,6 +6,27 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.post('/registrarse', function (req, res) {
+        //Comprobaciones
+        if (!req.body.email) {
+            res.redirect("/identificarse" + "?mensaje=Error: email vacío" + "&tipoMensaje=alert-danger ");
+            return;
+        }
+        if (!req.body.name) {
+            res.redirect("/identificarse" + "?mensaje=Error: nombre vacío" + "&tipoMensaje=alert-danger ");
+            return;
+        }
+        if (!req.body.lastname) {
+            res.redirect("/identificarse" + "?mensaje=Error: apellido vacío" + "&tipoMensaje=alert-danger ");
+            return;
+        }
+        if (!req.body.password) {
+            res.redirect("/identificarse" + "?mensaje=Error: contraseña vacía" + "&tipoMensaje=alert-danger ");
+            return;
+        }
+        if (!req.body.repeatPassword) {
+            res.redirect("/identificarse" + "?mensaje=Error: campo repetir contraseña vacío" + "&tipoMensaje=alert-danger ");
+            return;
+        }
         //password
         let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
             .update(req.body.password).digest('hex');
@@ -46,6 +67,15 @@ module.exports = function (app, swig, gestorBD) {
     });
 
     app.post("/identificarse", function (req, res) {
+        //Comprobaciones
+        if (!req.body.email) {
+            res.redirect("/identificarse" + "?mensaje=Error: email vacío" + "&tipoMensaje=alert-danger ");
+            return;
+        }
+        if (!req.body.password) {
+            res.redirect("/identificarse" + "?mensaje=Error: email vacío" + "&tipoMensaje=alert-danger ");
+            return;
+        }
         let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
             .update(req.body.password).digest('hex');
         let criterio = {

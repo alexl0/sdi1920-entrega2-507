@@ -18,10 +18,11 @@
     <div class="grid-container">
         <div class="item1">
             <input type="text" class="form-control" placeholder="Escribir mensaje"
-                   id="escribir-mensaje"/>
+                   id="escribir-mensaje" required="true"/>
         </div>
         <div class="item2">
-            <button id="botonEnviarMensaje" onclick="insertarMensaje()" class="btn btn-primary">Enviar</button>
+            <button id="botonEnviarMensaje" onclick="insertarMensaje()" class="btn btn-primary" disabled="true">Enviar
+            </button>
         </div>
     </div>
 
@@ -64,6 +65,17 @@
 
     //Chat con...
     $('#ususario-chateando').append(chattingWithEmail);
+
+    //Para que al escribir en la barra sucedan cosas
+    $('#escribir-mensaje').on('input', function (e) {
+        if ($('#escribir-mensaje').val().length > 400) {
+            $('#escribir-mensaje').val("");
+            $('#botonEnviarMensaje').prop('disabled', true);
+        } else if ($('#escribir-mensaje').val() == "") {
+            $('#botonEnviarMensaje').prop('disabled', true);
+        } else
+            $('#botonEnviarMensaje').prop('disabled', false);
+    });
 
     /**
      * Mostrar mensajes
@@ -124,23 +136,31 @@
             usuarioTo: chattingWithEmail,
             contenido: $("#escribir-mensaje").val(),
         };
-        $("#escribir-mensaje").val("");
-        $.ajax({
-            url: URLbase + "/mensaje",
-            type: "POST",
-            data: mensaje,
-            dataType: 'json',
-            headers: {"token": token},
-            success: function (response) {
-                console.log("Mensaje enviado");
-                //Bajar la barra pa bajo pa que se vea el mensaje nuevo
-                hayQueDesplazarseHaciaAbajo = true;
-            },
-            error: function (error) {
-                console.log(error);
-                $("#contenedor-principal").load("widget-login.html");
-            }
-        });
+
+        //Comprobaciones
+        if (mensaje.contenido == "")
+            $("#escribir-mensaje").val("No se puede mandar mensajes vacíos");
+        else if (mensaje.contenido.length > 400)
+            $("#escribir-mensaje").val("No se puede mandar mensajes de más de 400 caracteres");
+        else {
+            $("#escribir-mensaje").val("");
+            $.ajax({
+                url: URLbase + "/mensaje",
+                type: "POST",
+                data: mensaje,
+                dataType: 'json',
+                headers: {"token": token},
+                success: function (response) {
+                    console.log("Mensaje enviado");
+                    //Bajar la barra pa bajo pa que se vea el mensaje nuevo
+                    hayQueDesplazarseHaciaAbajo = true;
+                },
+                error: function (error) {
+                    console.log(error);
+                    $("#contenedor-principal").load("widget-login.html");
+                }
+            });
+        }
     }
 
     /**

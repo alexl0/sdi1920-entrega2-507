@@ -71,10 +71,15 @@ module.exports = function (app, gestorBD) {
             leido: false, // por defecto se crea como no leido
         };
 
-        if (mensaje.usuarioTo == null || mensaje.usuarioFrom == null || mensaje.contenido == null) {
+        if (mensaje.usuarioTo == null || mensaje.usuarioFrom == null || mensaje.contenido == null || mensaje.usuarioFrom == null) {
             res.status(500);
             res.json({
                 error: "Se ha producido un error: un mensaje debe contener obligatoriamente emisor, receptor y texto."
+            })
+        } else if (mensaje.contenido.length > 400) {
+            res.status(500);
+            res.json({
+                error: "Se ha producido un error: un mensaje debe contener obligatoriamente menos de 400 caracteres."
             })
         } else {
             enviarMensajePaso1(req, res, mensaje);
