@@ -81,6 +81,7 @@
                 //Hay mensajes nuevos?
                 if (mensajes.length > numMensajes || nModified > 0) {
                     hayQueDesplazarseHaciaAbajo = true;
+                    numMensajes = mensajes.length;
 
                     //Vaciar mensajes
                     $("#body-tabla-mensajes").empty();
