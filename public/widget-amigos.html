@@ -67,6 +67,7 @@
             data: {},
             dataType: 'json',
             headers: {"token": token},
+            async: false,
             success: function (respuesta) {
                 //Hay que mirar si ha cambiado, porque si no
                 //cambia no se actualiza
@@ -99,6 +100,7 @@
             data: {},
             dataType: 'json',
             headers: {"token": token},
+            async: false,
             success: function (respuesta) {
                 usuarios = respuesta;
                 cargarAmigos();
@@ -192,6 +194,7 @@
             headers: {
                 "token": token
             },
+            async: false,
             success: function (mensajes) {
                 mensajesRecibidosUsuarioEnSesion = mensajes;
                 actualizarTabla(amigos);
