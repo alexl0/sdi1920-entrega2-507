@@ -69,6 +69,8 @@
             headers: {"token": token},
             async: false,
             success: function (respuesta) {
+                if (!usuarios)
+                    cargarUsuarios();
                 //Hay que mirar si ha cambiado, porque si no
                 //cambia no se actualiza
                 if (!(amigos && tienenTiemposIguales(amigos, respuesta))) {
@@ -102,7 +104,7 @@
             async: false,
             success: function (respuesta) {
                 usuarios = respuesta;
-                cargarAmigos();
+                //cargarAmigos();
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
@@ -177,7 +179,7 @@
         amigos.sort(function (a, b) {
             if (a.time > b.time)
                 return -1;
-            if (a.time < b.time)
+            if (a.time < b.time || (!a.time && b.time))
                 return 1;
             return 0;
         });
@@ -211,6 +213,6 @@
         $("#contenedor-principal").load("widget-chat.html");
     }
 
-    cargarUsuarios();
+    //cargarUsuarios();
 
 </script>
