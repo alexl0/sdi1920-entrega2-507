@@ -27,7 +27,7 @@
         var w = url.searchParams.get("w");
         if (w == "amigos" && filtroEstaVacio)
             cargarAmigos();
-    }, 7000);
+    }, 4000);
 
     $('#filtro-nombre').on('input', function (e) {
         var amigosFiltrados = [];
@@ -57,10 +57,8 @@
 
     var usuarios;
     var amigos;
-    var filtroEstaVacio = true;
     var mensajesRecibidosUsuarioEnSesion;
-
-    var amigosHaCambiado = true;
+    var filtroEstaVacio = true;
 
     function cargarAmigos() {
         $.ajax({
@@ -72,18 +70,26 @@
             success: function (respuesta) {
                 //Hay que mirar si ha cambiado, porque si no
                 //cambia no se actualiza
-                if (amigos && amigos == respuesta)
-                    amigosHaCambiado = false;
-                else {
-                    amigosHaCambiado = true;
+                if (!(amigos && tienenTiemposIguales(amigos, respuesta))) {
                     amigos = respuesta;
                     obtenerMensajesRecibidosDelUsuarioEnSesion();
+                    console.log("hepasado");
                 }
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
             }
         });
+    }
+
+    function tienenTiemposIguales(amigosOriginal, respuestaOriginal) {
+        var amigos = ordenarAmigos(amigosOriginal);
+        var respuesta = ordenarAmigos(respuestaOriginal);
+        var sonIguales = true;
+        for (i = 0; i < amigos.length; i++)
+            if (amigos[i].time != respuesta[i].time)
+                sonIguales = false;
+        return sonIguales;
     }
 
     function cargarUsuarios() {
@@ -103,49 +109,45 @@
         });
     }
 
-    function actualizarTabla(amigosAMostrar) {
+    function actualizarTabla(amigosAMostrarOriginal) {
 
-        //Si ha habido cambios se actualiza, sino no
-        if (amigosHaCambiado) {
+        var amigosAMostrar = ordenarAmigos(amigosAMostrarOriginal);
 
-            amigosAMostrar = ordenarAmigos(amigosAMostrar);
+        $("#tablaCuerpo").empty();
+        for (i = 0; i < amigosAMostrar.length; i++) {
 
-            $("#tablaCuerpo").empty();
-            for (i = 0; i < amigosAMostrar.length; i++) {
+            //Para cada relaccion de amistad, se muestra el amigo del usuario en sesión.
+            var userMostrar = (loggedUserEmail == amigosAMostrar[i].email1 ? amigosAMostrar[i].email2 : amigosAMostrar[i].email1);
 
-                //Para cada relaccion de amistad, se muestra el amigo del usuario en sesión.
-                var userMostrar = (loggedUserEmail == amigosAMostrar[i].email1 ? amigosAMostrar[i].email2 : amigosAMostrar[i].email1);
-
-                /**
-                 * Para cada amigo a mostrar, se calcula el numero de mensajes que le ha enviado
-                 * al usuario en sesion en los que leido=false.
-                 * Como en esta lista (mensajesRecibidosUsuarioEnSesion) solo estan los mensajes
-                 * en los que el usuario en sesion es el receptor, solo hay que
-                 * contar las veces que aparece usuarioAMostrar en un mensaje con leido=false
-                 */
-                numMensajesSinLeer = 0;
-                for (k = 0; k < mensajesRecibidosUsuarioEnSesion.length; k++) {
-                    if (mensajesRecibidosUsuarioEnSesion[k].usuarioFrom == userMostrar && mensajesRecibidosUsuarioEnSesion[k].leido == false)
-                        numMensajesSinLeer++;
-                }
+            /**
+             * Para cada amigo a mostrar, se calcula el numero de mensajes que le ha enviado
+             * al usuario en sesion en los que leido=false.
+             * Como en esta lista (mensajesRecibidosUsuarioEnSesion) solo estan los mensajes
+             * en los que el usuario en sesion es el receptor, solo hay que
+             * contar las veces que aparece usuarioAMostrar en un mensaje con leido=false
+             */
+            numMensajesSinLeer = 0;
+            for (k = 0; k < mensajesRecibidosUsuarioEnSesion.length; k++) {
+                if (mensajesRecibidosUsuarioEnSesion[k].usuarioFrom == userMostrar && mensajesRecibidosUsuarioEnSesion[k].leido == false)
+                    numMensajesSinLeer++;
+            }
 
 
-                /**
-                 * Para no tener almacenados el nombre y los apellidos del usuario
-                 * en las tablas amigos y invitaciones, se accede a esos campos
-                 * a través de la tabla usuarios, ya que si en un futuro se añadieran
-                 * otros campos, sería muy fácil añadirlos a la lista.
-                 */
-                for (j = 0; j < usuarios.length; j++) {
-                    if (userMostrar == usuarios[j].email)
-                        $("#tablaCuerpo").append(
-                            "<tr onclick=detalles('" + userMostrar + "') id=" + amigosAMostrar[i]._id + ">" +
-                            "<td class='light2'>" + userMostrar + "</td>" +
-                            "<td class='light2'>" + usuarios[j].name + "</td>" +
-                            "<td class='light2'>" + usuarios[j].lastname + "</td>" +
-                            "<td class='light2'>" + numMensajesSinLeer + " mensajes nuevos" + "</td>" +
-                            "</tr>");
-                }
+            /**
+             * Para no tener almacenados el nombre y los apellidos del usuario
+             * en las tablas amigos y invitaciones, se accede a esos campos
+             * a través de la tabla usuarios, ya que si en un futuro se añadieran
+             * otros campos, sería muy fácil añadirlos a la lista.
+             */
+            for (j = 0; j < usuarios.length; j++) {
+                if (userMostrar == usuarios[j].email)
+                    $("#tablaCuerpo").append(
+                        "<tr onclick=chatearCon('" + userMostrar + "') id=" + amigosAMostrar[i]._id + ">" +
+                        "<td class='light2'>" + userMostrar + "</td>" +
+                        "<td class='light2'>" + usuarios[j].name + "</td>" +
+                        "<td class='light2'>" + usuarios[j].lastname + "</td>" +
+                        "<td class='light2'>" + numMensajesSinLeer + " mensajes nuevos" + "</td>" +
+                        "</tr>");
             }
         }
     }
@@ -155,7 +157,10 @@
      * @param amigos
      * @returns {*}
      */
-    function ordenarAmigos(amigos) {
+    function ordenarAmigos(amigosOriginal) {
+        /* MAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAL
+        FATAL
+        var amigos = amigosOriginal;
         for (i = 0; i < amigos.length - 1; i++) {
             if ((amigos[i].time == null && amigos[i + 1].time != null) || amigos[i].time < amigos[i + 1].time) {
                 var temp = amigos[i];
@@ -163,6 +168,18 @@
                 amigos[i + 1] = temp;
             }
         }
+        return amigos;
+        */
+
+        //Buen algoritmo
+        var amigos = amigosOriginal;
+        amigos.sort(function (a, b) {
+            if (a.time > b.time)
+                return -1;
+            if (a.time < b.time)
+                return 1;
+            return 0;
+        });
         return amigos;
     }
 
@@ -185,8 +202,8 @@
         });
     }
 
-    function detalles(_id) {
-        chattingWithEmail = _id;
+    function chatearCon(email) {
+        chattingWithEmail = email;
         Cookies.set('chattingWithEmail', chattingWithEmail);
 
         $("#contenedor-principal").load("widget-chat.html");
