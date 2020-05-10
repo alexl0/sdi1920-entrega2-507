@@ -1,5 +1,9 @@
 module.exports = function (app, gestorBD) {
 
+    /**
+     * Obtiene la lista de amigos para mostrar en la vista
+     * correspondiente
+     */
     app.get("/api/amigos", function (req, res) {
         gestorBD.obtenerAmigos(res.usuario, function (amigos) {
             if (amigos == null) {
@@ -14,6 +18,11 @@ module.exports = function (app, gestorBD) {
         });
     });
 
+    /**
+     * Obtiene la lista de usuarios con el objetivo de averiguar el nombre
+     * y apellidos de un usuario con un determinado email, ya que los
+     * campos nombre y apellido no se detectan en la base de datos
+     */
     app.get("/api/usuarios", function (req, res) {
         gestorBD.obtenerUsuarios({}, function (usuarios) {
             if (usuarios == null) {
@@ -28,6 +37,9 @@ module.exports = function (app, gestorBD) {
         });
     });
 
+    /**
+     * Guarda el token de autenticacion del usuario
+     */
     app.post("/api/autenticar/", function (req, res) {
         let seguro = app.get("crypto").createHmac('sha256', app.get('clave'))
             .update(req.body.password).digest('hex');
@@ -56,6 +68,15 @@ module.exports = function (app, gestorBD) {
         });
     });
 
+    /**
+     * Añade un mensaje a la base de datos
+     *  usuarioFrom: usuario que envia el mensaje
+     *      (usuario en sesión)
+     *  usuarioTo: usuario receptor
+     *      (usuario con el que se está chateando)
+     *  se realizan una serie de comprobaciones en los
+     *  siguientes pasos
+     */
     app.post("/api/mensaje/", function (req, res) {
 
         //Conseguir usuario en sesión (no, no vale con res.usuario por una razón desconocida)
@@ -87,10 +108,13 @@ module.exports = function (app, gestorBD) {
 
     });
 
+    /**
+     * Comprobar que existe usuarioTo
+     * @param req
+     * @param res
+     * @param mensaje
+     */
     function enviarMensajePaso1(req, res, mensaje) {
-        /**
-         * Comprobar que existe usuarioTo
-         */
         var criterio = {"email": mensaje.usuarioTo};
         gestorBD.obtenerUsuarios(criterio, function (usuarioTo) {
             if (usuarioTo == null) {
@@ -104,10 +128,13 @@ module.exports = function (app, gestorBD) {
         });
     }
 
+    /**
+     * Comprobar que son amigos
+     * @param req
+     * @param res
+     * @param mensaje
+     */
     function enviarMensajePaso2(req, res, mensaje) {
-        /**
-         * Comprobar que son amigos
-         */
         gestorBD.comprobarSiSonAmigos(mensaje.usuarioTo, mensaje.usuarioFrom, function (yaSonAmigos) {
             if (!yaSonAmigos) {
                 res.status(500);
@@ -120,11 +147,17 @@ module.exports = function (app, gestorBD) {
         });
     }
 
+    /**
+     * Se inserta el mensaje y se añade el tiempo a amigos
+     * para saber cuanto tiempo ha pasado desde la ultima vez que
+     * se hablo con ese amigo.
+     * @param req
+     * @param res
+     * @param mensaje
+     */
     function enviarMensajePaso3(req, res, mensaje) {
         /**
-         * Se inserta el mensaje y se añade el tiempo a amigos
-         * para saber cuanto tiempo ha pasado desde la ultima vez que
-         * se hablo con ese amigo.
+         * Se inserta el mensaje en la base de datos
          */
         gestorBD.insertarMensaje(mensaje, function (id) {
             if (id == null) {
@@ -146,6 +179,12 @@ module.exports = function (app, gestorBD) {
                         }
                     ]
                 };
+                /**
+                 * Se añade a la relaccion de amistad entre los dos usuarios
+                 * el ultimo momento en el que ha habido un mensaje entrante
+                 * o saliente, con el objetivo de poder ordenar la tabla
+                 * de amigos en orden de ultimo mensaje.
+                 */
                 gestorBD.modificarAmigos(criterio2, function (result) {
                     if (result == null) {
                         res.status(500);
@@ -164,6 +203,12 @@ module.exports = function (app, gestorBD) {
         });
     }
 
+    /**
+     * Obtiene los mensajes para poder listarlos en el chat
+     * No se utiliza paginacion ya que el chat es un scroll
+     * simulando cualquier aplicacion de mensajes como
+     * whatsapp o telegram.
+     */
     app.get("/api/mensaje", function (req, res) {
 
         //Obtener usuario en sesión de las cookies
@@ -231,6 +276,12 @@ module.exports = function (app, gestorBD) {
         });
     });
 
+    /**
+     * Modifica un mensaje.
+     * Se utiliza para marcarlo como leido.
+     * Se marca como leido automaticamente cuando el usuario
+     * correspondiente entra en el chat.
+     */
     app.put("/api/mensaje", function (req, res) {
 
         //Conseguir usuario en sesión (no, no vale con res.usuario por una razón desconocida)

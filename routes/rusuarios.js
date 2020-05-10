@@ -1,10 +1,17 @@
 module.exports = function (app, swig, gestorBD) {
 
+    /**
+     * Obtiene la vista para registrarse
+     */
     app.get("/registrarse", function (req, res) {
         let respuesta = swig.renderFile('views/bregistro.html', {});
         res.send(respuesta);
     });
 
+    /**
+     * Manda los datos del formulario a la base de datos
+     * después de hacer una serie de comprobaciones
+     */
     app.post('/registrarse', function (req, res) {
         //Comprobaciones
         if (!req.body.email) {
@@ -61,11 +68,19 @@ module.exports = function (app, swig, gestorBD) {
         }
     });
 
+    /**
+     * Obtiene la vista de identificarse
+     */
     app.get("/identificarse", function (req, res) {
         let respuesta = swig.renderFile('views/bidentificacion.html', {});
         res.send(respuesta);
     });
 
+    /**
+     * Manda los datos del formulario a la base de datos
+     * comprueba si son correctos y si es así redirige
+     * al usuario a la página de "ver usuarios"
+     */
     app.post("/identificarse", function (req, res) {
         //Comprobaciones
         if (!req.body.email) {
@@ -93,11 +108,19 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
+    /**
+     * Borra la sesión del usuario y lo devuelve a la página
+     * de login
+     */
     app.get('/desconectarse', function (req, res) {
         req.session.usuario = null;
         res.redirect("/identificarse?mensaje=Se ha desconectado con éxito.");
     });
 
+    /**
+     * Vista de ver usuarios
+     * Permite paginación, búsqueda y agregar usuarios
+     */
     app.get("/verUsuarios", function (req, res) {
         let criterio = {"email": {$not: {$regex: req.session.usuario.toString()}}};
         if (req.query.busqueda != null) {
@@ -186,6 +209,11 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
+    /**
+     * Vista de invitaciones
+     * permite aceptarlas
+     * también tiene paginación, pero no búsqueda
+     */
     app.get("/invitaciones", function (req, res) {
         let criterio = {usuarioTo: req.session.usuario};
         let pg = parseInt(req.query.pg); // Es String !!!
@@ -231,6 +259,12 @@ module.exports = function (app, swig, gestorBD) {
         });
     });
 
+    /**
+     * Inserta una invitación en la base de datos
+     * usuarioFrom: usuario en sesión (email)
+     * usuarioTo: usuario parámetro (email)
+     * La inserción se hace después de realizar una serie de comprobaciones
+     */
     app.get("/usuario/invitar/:email", function (req, res) {
         /**
          * Voy a hacer una serie de comprobaciones basicamente para que no se pueda meter la url en el navegador
@@ -279,6 +313,10 @@ module.exports = function (app, swig, gestorBD) {
         }
     });
 
+    /**
+     * Acepta una invitación del usuario parámetro
+     * después de realizar una serie de comprobaciones
+     */
     app.get("/usuario/aceptar/:email", function (req, res) {
         /**
          * Voy a hacer una serie de comprobaciones basicamente para que no se pueda meter la url en el navegador
@@ -355,6 +393,10 @@ module.exports = function (app, swig, gestorBD) {
         }
     });
 
+    /**
+     * Obtiene la vista con la lista de amigos.
+     * permite paginación, pero no búsqueda
+     */
     app.get('/amigos', function (req, res) {
         let pg = parseInt(req.query.pg); // Es String !!!
         if (req.query.pg == null) { // Puede no venir el param
