@@ -81,7 +81,7 @@ app.use('/api/mensaje', routerUsuarioToken);
 // routerUsuarioSession
 let routerUsuarioSession = express.Router();
 routerUsuarioSession.use(function (req, res, next) {
-    console.log("routerUsuarioSession");
+    //console.log("routerUsuarioSession");
     if (req.session.usuario) {
         // dejamos correr la petición
         next();
@@ -116,7 +116,7 @@ app.get('/', function (req, res) {
 })
 
 app.use(function (err, req, res, next) {
-    console.log("Error producido: " + err);
+    //console.log("Error producido: " + err);
     if (!res.headersSent) {
         res.status(400);
         //res.send("Recurso no disponible");

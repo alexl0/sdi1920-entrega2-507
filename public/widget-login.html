@@ -38,7 +38,7 @@
                 },
                 dataType: 'json',
                 success: function (respuesta) {
-                    console.log(respuesta.token);
+                    //console.log(respuesta.token);
                     token = respuesta.token;
                     Cookies.set('token', respuesta.token);
                     loggedUserEmail = $("#email").val();

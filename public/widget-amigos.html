@@ -201,7 +201,11 @@
                 actualizarTabla(amigos);
             },
             error: function (error) {
-                console.log(error);
+                //Se comenta por seguridad, ya que una traza de error
+                //puede contener información valiosa para un atacante
+                //Es buena costumbre tener los console.log() justos
+                //y necesarios
+                //console.log(error);
             }
         });
     }
