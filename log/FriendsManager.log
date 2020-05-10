@@ -6,3 +6,251 @@
 [10-05-2020 20:50:41] [INFO] - App: user4@email.com: registrado
 [10-05-2020 20:50:44] [INFO] - App: user6@email.com: registrado
 [10-05-2020 20:50:53] [INFO] - App: user7@email.com: registrado
+[10-05-2020 20:51:04] [INFO] - App: user8@email.com: registrado
+[10-05-2020 20:51:12] [INFO] - App: user9@email.com: registrado
+[10-05-2020 20:51:15] [INFO] - App: user10@email.com: registrado
+[10-05-2020 20:51:22] [INFO] - App: user11@email.com: registrado
+[10-05-2020 20:51:30] [INFO] - App: user12@email.com: registrado
+[10-05-2020 20:51:42] [INFO] - App: prueba1@email.com: registrado
+[10-05-2020 20:51:58] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 20:52:03] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:52:04] [INFO] - App: prueba1@email.com: desconectado
+[10-05-2020 20:52:19] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 20:52:27] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:52:27] [INFO] - App: prueba1@email.com: desconectado
+[10-05-2020 20:52:36] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 20:52:51] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:53:01] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:53:34] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:53:39] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 20:53:48] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 20:53:54] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 20:53:58] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 20:54:27] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 20:54:32] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 20:54:55] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 20:55:08] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:55:15] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:55:23] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 20:55:36] [INFO] - App: prueba1@email.com invita a user1@email.com
+[10-05-2020 20:55:40] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:55:41] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 20:55:41] [INFO] - App: prueba1@email.com: desconectado
+[10-05-2020 20:55:44] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 20:55:50] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:01:15] [INFO] - App: user1@email.com: registrado
+[10-05-2020 21:01:18] [INFO] - App: user2@email.com: registrado
+[10-05-2020 21:01:21] [INFO] - App: user3@email.com: registrado
+[10-05-2020 21:01:24] [INFO] - App: user4@email.com: registrado
+[10-05-2020 21:01:27] [INFO] - App: user5@email.com: registrado
+[10-05-2020 21:01:30] [INFO] - App: user6@email.com: registrado
+[10-05-2020 21:01:32] [INFO] - App: user7@email.com: registrado
+[10-05-2020 21:01:35] [INFO] - App: user8@email.com: registrado
+[10-05-2020 21:01:37] [INFO] - App: user9@email.com: registrado
+[10-05-2020 21:01:41] [INFO] - App: user10@email.com: registrado
+[10-05-2020 21:01:44] [INFO] - App: user11@email.com: registrado
+[10-05-2020 21:01:46] [INFO] - App: user12@email.com: registrado
+[10-05-2020 21:01:49] [INFO] - App: prueba1@email.com: registrado
+[10-05-2020 21:01:56] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 21:01:58] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:01:58] [INFO] - App: prueba1@email.com: desconectado
+[10-05-2020 21:02:04] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 21:02:07] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:07] [INFO] - App: prueba1@email.com: desconectado
+[10-05-2020 21:02:08] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 21:02:11] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:13] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:15] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:16] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:02:18] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:02:20] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:02:22] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:02:23] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:02:25] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:02:26] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 21:02:28] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:30] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:31] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 21:02:32] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:35] [INFO] - App: prueba1@email.com invita a user1@email.com
+[10-05-2020 21:02:36] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:37] [INFO] - App: prueba1@email.com: desconectado
+[10-05-2020 21:02:39] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:02:41] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:02:42] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:02:45] [INFO] - App: prueba1@email.com: autenticado
+[10-05-2020 21:02:46] [INFO] - App: prueba1@email.com: listar usuarios
+[10-05-2020 21:02:49] [INFO] - App: prueba1@email.com: listar invitaciones
+[10-05-2020 21:02:51] [INFO] - App: user2@email.com: autenticado
+[10-05-2020 21:02:53] [INFO] - App: user2@email.com: listar usuarios
+[10-05-2020 21:02:55] [INFO] - App: user2@email.com invita a user1@email.com
+[10-05-2020 21:02:57] [INFO] - App: user2@email.com: listar usuarios
+[10-05-2020 21:02:57] [INFO] - App: user2@email.com: desconectado
+[10-05-2020 21:02:59] [INFO] - App: user3@email.com: autenticado
+[10-05-2020 21:03:01] [INFO] - App: user3@email.com: listar usuarios
+[10-05-2020 21:03:03] [INFO] - App: user3@email.com invita a user1@email.com
+[10-05-2020 21:03:05] [INFO] - App: user3@email.com: listar usuarios
+[10-05-2020 21:03:05] [INFO] - App: user3@email.com: desconectado
+[10-05-2020 21:03:08] [INFO] - App: user4@email.com: autenticado
+[10-05-2020 21:03:09] [INFO] - App: user4@email.com: listar usuarios
+[10-05-2020 21:03:12] [INFO] - App: user4@email.com invita a user1@email.com
+[10-05-2020 21:03:14] [INFO] - App: user4@email.com: listar usuarios
+[10-05-2020 21:03:14] [INFO] - App: user4@email.com: desconectado
+[10-05-2020 21:03:16] [INFO] - App: user5@email.com: autenticado
+[10-05-2020 21:03:18] [INFO] - App: user5@email.com: listar usuarios
+[10-05-2020 21:03:21] [INFO] - App: user5@email.com invita a user1@email.com
+[10-05-2020 21:03:23] [INFO] - App: user5@email.com: listar usuarios
+[10-05-2020 21:03:24] [INFO] - App: user5@email.com: desconectado
+[10-05-2020 21:03:26] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:03:28] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:03:30] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:03:33] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:03:34] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:03:36] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:03:38] [INFO] - App: prueba1@email.com acepta a user1@email.com
+[10-05-2020 21:03:39] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:03:42] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:03:44] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:03:47] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:03:50] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:03:51] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:03:54] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:03:57] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:03:59] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:04:00] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:04:03] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:04:05] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:04:07] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:04:10] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:04:11] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:04:13] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:04:15] [INFO] - App: user2@email.com acepta a user1@email.com
+[10-05-2020 21:04:16] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:04:19] [INFO] - App: user3@email.com acepta a user1@email.com
+[10-05-2020 21:04:20] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:04:23] [INFO] - App: user4@email.com acepta a user1@email.com
+[10-05-2020 21:04:24] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:04:26] [INFO] - App: user5@email.com acepta a user1@email.com
+[10-05-2020 21:04:29] [INFO] - App: user1@email.com: listar invitaciones
+[10-05-2020 21:04:30] [INFO] - App: user1@email.com: listar amigos
+[10-05-2020 21:04:35] [INFO] - Cliente: user1@email.com: autenticado
+[10-05-2020 21:04:45] [INFO] - Cliente: user1@email.com: autenticado
+[10-05-2020 21:04:50] [INFO] - Cliente: user1@email.com: lista de amigos 
+[10-05-2020 21:04:53] [INFO] - Cliente: user1@email.com: autenticado
+[10-05-2020 21:04:58] [INFO] - Cliente: user1@email.com: lista de amigos 
+[10-05-2020 21:05:02] [INFO] - Cliente: user1@email.com: autenticado
+[10-05-2020 21:05:06] [INFO] - Cliente: user1@email.com: lista de amigos 
+[10-05-2020 21:05:08] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:09] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:10] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:10] [INFO] - Cliente: user1@email.com envia mensaje a: prueba1@email.com. Contenido: Mensaje de prueba 1
+[10-05-2020 21:05:11] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:11] [INFO] - Cliente: user1@email.com envia mensaje a: prueba1@email.com. Contenido: Mensaje de prueba 2
+[10-05-2020 21:05:11] [INFO] - Cliente: user1@email.com envia mensaje a: prueba1@email.com. Contenido: Mensaje de prueba 3
+[10-05-2020 21:05:11] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:12] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:12] [INFO] - Cliente: user1@email.com envia mensaje a: prueba1@email.com. Contenido: Mensaje de prueba 4
+[10-05-2020 21:05:12] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:13] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:15] [INFO] - Cliente: user1@email.com: autenticado
+[10-05-2020 21:05:19] [INFO] - Cliente: user1@email.com: lista de amigos 
+[10-05-2020 21:05:21] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:22] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:23] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:23] [INFO] - Cliente: user1@email.com envia mensaje a: prueba1@email.com. Contenido: Hola! Soy user1!
+[10-05-2020 21:05:23] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:24] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:25] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:27] [INFO] - Cliente: user1@email.com: autenticado
+[10-05-2020 21:05:31] [INFO] - Cliente: user1@email.com: lista de amigos 
+[10-05-2020 21:05:33] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:33] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:36] [INFO] - Cliente: prueba1@email.com: autenticado
+[10-05-2020 21:05:40] [INFO] - Cliente: prueba1@email.com: lista de amigos 
+[10-05-2020 21:05:42] [INFO] - Cliente: prueba1@email.com ha leido los mensajes de: user1@email.com
+[10-05-2020 21:05:43] [INFO] - Cliente: prueba1@email.com accede al chat con user1@email.com
+[10-05-2020 21:05:44] [INFO] - Cliente: prueba1@email.com ha leido los mensajes de: user1@email.com
+[10-05-2020 21:05:46] [INFO] - Cliente: user1@email.com: autenticado
+[10-05-2020 21:05:50] [INFO] - Cliente: user1@email.com: lista de amigos 
+[10-05-2020 21:05:52] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:53] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:54] [INFO] - Cliente: user1@email.com envia mensaje a: prueba1@email.com. Contenido: Mensaje de prueba 5
+[10-05-2020 21:05:54] [INFO] - Cliente: user1@email.com envia mensaje a: prueba1@email.com. Contenido: Mensaje de prueba 6
+[10-05-2020 21:05:54] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:55] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:55] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:55] [INFO] - Cliente: user1@email.com envia mensaje a: prueba1@email.com. Contenido: Mensaje de prueba 7
+[10-05-2020 21:05:56] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:56] [INFO] - Cliente: user1@email.com ha leido los mensajes de: prueba1@email.com
+[10-05-2020 21:05:57] [INFO] - Cliente: user1@email.com accede al chat con prueba1@email.com
+[10-05-2020 21:05:59] [INFO] - Cliente: prueba1@email.com: autenticado
+[10-05-2020 21:06:03] [INFO] - Cliente: prueba1@email.com: lista de amigos 
+[10-05-2020 21:06:07] [INFO] - App: user3@email.com: autenticado
+[10-05-2020 21:06:08] [INFO] - App: user3@email.com: listar usuarios
+[10-05-2020 21:06:11] [INFO] - App: user3@email.com invita a user2@email.com
+[10-05-2020 21:06:12] [INFO] - App: user3@email.com: listar usuarios
+[10-05-2020 21:06:13] [INFO] - App: user3@email.com: desconectado
+[10-05-2020 21:06:15] [INFO] - App: user4@email.com: autenticado
+[10-05-2020 21:06:17] [INFO] - App: user4@email.com: listar usuarios
+[10-05-2020 21:06:19] [INFO] - App: user4@email.com invita a user2@email.com
+[10-05-2020 21:06:21] [INFO] - App: user4@email.com: listar usuarios
+[10-05-2020 21:06:21] [INFO] - App: user4@email.com: desconectado
+[10-05-2020 21:06:24] [INFO] - App: user5@email.com: autenticado
+[10-05-2020 21:06:25] [INFO] - App: user5@email.com: listar usuarios
+[10-05-2020 21:06:28] [INFO] - App: user5@email.com invita a user2@email.com
+[10-05-2020 21:06:29] [INFO] - App: user5@email.com: listar usuarios
+[10-05-2020 21:06:30] [INFO] - App: user5@email.com: desconectado
+[10-05-2020 21:06:32] [INFO] - App: user2@email.com: autenticado
+[10-05-2020 21:06:33] [INFO] - App: user2@email.com: listar usuarios
+[10-05-2020 21:06:35] [INFO] - App: user2@email.com: listar invitaciones
+[10-05-2020 21:06:37] [INFO] - App: user3@email.com acepta a user2@email.com
+[10-05-2020 21:06:39] [INFO] - App: user2@email.com: listar invitaciones
+[10-05-2020 21:06:42] [INFO] - App: user4@email.com acepta a user2@email.com
+[10-05-2020 21:06:43] [INFO] - App: user2@email.com: listar invitaciones
+[10-05-2020 21:06:46] [INFO] - App: user5@email.com acepta a user2@email.com
+[10-05-2020 21:06:47] [INFO] - App: user2@email.com: listar invitaciones
+[10-05-2020 21:06:50] [INFO] - Cliente: user2@email.com: autenticado
+[10-05-2020 21:06:54] [INFO] - Cliente: user2@email.com: lista de amigos 
+[10-05-2020 21:06:56] [INFO] - Cliente: user2@email.com ha leido los mensajes de: user5@email.com
+[10-05-2020 21:06:57] [INFO] - Cliente: user2@email.com accede al chat con user5@email.com
+[10-05-2020 21:06:58] [INFO] - Cliente: user2@email.com ha leido los mensajes de: user5@email.com
+[10-05-2020 21:06:58] [INFO] - Cliente: user2@email.com envia mensaje a: user5@email.com. Contenido: Hola user5@email.com! Soy user2! Hacía tiempo que no hablabamos.
+[10-05-2020 21:06:58] [INFO] - Cliente: user2@email.com accede al chat con user5@email.com
+[10-05-2020 21:06:59] [INFO] - Cliente: user2@email.com ha leido los mensajes de: user5@email.com
+[10-05-2020 21:06:59] [INFO] - Cliente: user2@email.com accede al chat con user5@email.com
+[10-05-2020 21:07:04] [INFO] - Cliente: user2@email.com: lista de amigos 
+[10-05-2020 21:07:07] [INFO] - App: user7@email.com: autenticado
+[10-05-2020 21:07:09] [INFO] - App: user7@email.com: listar usuarios
+[10-05-2020 21:07:11] [INFO] - App: user7@email.com invita a user6@email.com
+[10-05-2020 21:07:13] [INFO] - App: user7@email.com: listar usuarios
+[10-05-2020 21:07:13] [INFO] - App: user7@email.com: desconectado
+[10-05-2020 21:07:16] [INFO] - App: user8@email.com: autenticado
+[10-05-2020 21:07:17] [INFO] - App: user8@email.com: listar usuarios
+[10-05-2020 21:07:19] [INFO] - App: user8@email.com invita a user6@email.com
+[10-05-2020 21:07:21] [INFO] - App: user8@email.com: listar usuarios
+[10-05-2020 21:07:21] [INFO] - App: user8@email.com: desconectado
+[10-05-2020 21:07:24] [INFO] - App: user9@email.com: autenticado
+[10-05-2020 21:07:26] [INFO] - App: user9@email.com: listar usuarios
+[10-05-2020 21:07:29] [INFO] - App: user9@email.com invita a user6@email.com
+[10-05-2020 21:07:31] [INFO] - App: user9@email.com: listar usuarios
+[10-05-2020 21:07:32] [INFO] - App: user9@email.com: desconectado
+[10-05-2020 21:07:35] [INFO] - App: user6@email.com: autenticado
+[10-05-2020 21:07:36] [INFO] - App: user6@email.com: listar usuarios
+[10-05-2020 21:07:38] [INFO] - App: user6@email.com: listar invitaciones
+[10-05-2020 21:07:40] [INFO] - App: user7@email.com acepta a user6@email.com
+[10-05-2020 21:07:42] [INFO] - App: user6@email.com: listar invitaciones
+[10-05-2020 21:07:45] [INFO] - App: user8@email.com acepta a user6@email.com
+[10-05-2020 21:07:46] [INFO] - App: user6@email.com: listar invitaciones
+[10-05-2020 21:07:50] [INFO] - App: user9@email.com acepta a user6@email.com
+[10-05-2020 21:07:51] [INFO] - App: user6@email.com: listar invitaciones
+[10-05-2020 21:07:54] [INFO] - Cliente: user6@email.com: autenticado
+[10-05-2020 21:07:58] [INFO] - Cliente: user6@email.com: lista de amigos 
+[10-05-2020 21:08:01] [INFO] - Cliente: user9@email.com: autenticado
+[10-05-2020 21:08:06] [INFO] - Cliente: user9@email.com: lista de amigos 
+[10-05-2020 21:08:08] [INFO] - Cliente: user9@email.com ha leido los mensajes de: user6@email.com
+[10-05-2020 21:08:10] [INFO] - Cliente: user9@email.com envia mensaje a: user6@email.com. Contenido: Hola user6@email.com! Soy user9@email.com! Hacía tiempo que no hablabamos.
+[10-05-2020 21:08:10] [INFO] - Cliente: user9@email.com ha leido los mensajes de: user6@email.com
+[10-05-2020 21:08:10] [INFO] - Cliente: user9@email.com accede al chat con user6@email.com
+[10-05-2020 21:08:10] [INFO] - Cliente: user9@email.com accede al chat con user6@email.com
+[10-05-2020 21:08:12] [INFO] - Cliente: user6@email.com: autenticado
+[10-05-2020 21:08:17] [INFO] - Cliente: user6@email.com: lista de amigos 

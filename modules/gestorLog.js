@@ -20,7 +20,7 @@ module.exports = {
     desconectarse: function (usuario) {
         this.appLog(usuario + ": desconectado");
     },
-    verInvitaciones: function (email, pg, invitations) {
+    verInvitaciones: function (usuario) {
         this.appLog(usuario + ": listar invitaciones");
     },
     verAmigos: function (usuario) {
