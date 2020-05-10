@@ -1,6 +1,12 @@
 module.exports = function (app, swig, gestorBD) {
 
     /**
+     * Log donde se almacena un listado de las acciones desencadenadas
+     * por el usuario en sesión
+     */
+    var gestorLog = app.get('gestorLog');
+
+    /**
      * Obtiene la vista para registrarse
      */
     app.get("/registrarse", function (req, res) {
@@ -60,6 +66,7 @@ module.exports = function (app, swig, gestorBD) {
                             res.redirect("/registrarse?mensaje=Error al registrar usuario");
                         } else {
                             res.redirect("/identificarse?mensaje=Nuevo usuario registrado");
+                            gestorLog.signUp(usuario.email);
                         }
                     });
                 else
@@ -104,6 +111,7 @@ module.exports = function (app, swig, gestorBD) {
             } else {
                 req.session.usuario = usuarios[0].email;
                 res.redirect("/verUsuarios");
+                gestorLog.logIn(usuarios[0].email);
             }
         });
     });
@@ -113,6 +121,7 @@ module.exports = function (app, swig, gestorBD) {
      * de login
      */
     app.get('/desconectarse', function (req, res) {
+        gestorLog.desconectarse(req.session.usuario);
         req.session.usuario = null;
         res.redirect("/identificarse?mensaje=Se ha desconectado con éxito.");
     });
@@ -201,6 +210,7 @@ module.exports = function (app, swig, gestorBD) {
                                     email: req.session.usuario
                                 });
                                 res.send(respuesta);
+                                gestorLog.verUsuarios(req.session.usuario);
                             }
                         });
                     }
@@ -253,6 +263,7 @@ module.exports = function (app, swig, gestorBD) {
                                 actual: pg
                             });
                         res.send(respuesta);
+                        gestorLog.verInvitaciones(req.session.usuario);
                     }
                 });
             }
@@ -302,8 +313,10 @@ module.exports = function (app, swig, gestorBD) {
                                         gestorBD.insertarInvitacion(req.session.usuario, req.params.email, function (idInvitacion) {
                                             if (idInvitacion == null)
                                                 res.redirect("/verUsuarios?mensaje=Error al enviar la invitación&tipoMensaje=alert-danger");
-                                            else
+                                            else {
                                                 res.redirect("/verUsuarios?mensaje=Invitación enviada correctamente&tipoMensaje=alert-success");
+                                                gestorLog.enviarInvitacion(req.session.usuario, req.params.email);
+                                            }
                                         });
                                 });
                         });
@@ -382,6 +395,7 @@ module.exports = function (app, swig, gestorBD) {
                                                         res.redirect("/invitaciones?mensaje=Invitación aceptada correctamente&tipoMensaje=alert-success");
                                                     }
                                                 });
+                                                gestorLog.aceptarInvitacion(req.session.usuario, req.params.email);
                                             }
                                         });
                                 });
@@ -435,6 +449,7 @@ module.exports = function (app, swig, gestorBD) {
                             });
                         res.send(respuesta);
                     }
+                    gestorLog.verAmigos(req.session.usuario);
                 });
             }
         });

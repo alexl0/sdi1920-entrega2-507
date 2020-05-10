@@ -3,7 +3,7 @@ let express = require('express');
 let app = express();
 
 let rest = require('request');
-app.set('rest',rest);
+app.set('rest', rest);
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -106,6 +106,32 @@ app.set('db', 'mongodb://admin:PLqB51Mua2tcF6Wh@tiendamusica-shard-00-00-4umpq.m
 app.set('clave', 'abcdefg');
 app.set('crypto', crypto);
 
+//Log
+var log4js = require('log4js');
+log4js.configure({
+    appenders: {
+        out: {
+            type: 'stdout',
+            layout: {type: 'pattern', pattern: '%[[%d{dd-MM-yyyy hh:mm:ss}] [%p] - %]%m'}
+        },
+        file: {
+            type: 'file', filename: 'log/FriendsManager.log',
+            layout: {type: 'pattern', pattern: '[%d{dd-MM-yyyy hh:mm:ss}] [%p] - %m'}
+        }
+    },
+    categories: {
+        default: {appenders: ['out', 'file'], level: 'debug'}
+    }
+});
+var log = log4js.getLogger();
+var gestorLog = require("./modules/gestorLog.js");
+gestorLog.init(app, log);
+
+var gestorLogApi = require("./modules/gestorLogApi.js");
+gestorLogApi.init(app, log);
+app.set('gestorLog', gestorLog);
+app.set('gestorLogApi', gestorLogApi);
+
 //Rutas/controladores por lógica
 require("./routes/rusuarios.js")(app, swig, gestorBD); // (app, param1, param2, etc.)
 require("./routes/rerrores.js")(app, swig); // (app, param1, param2, etc.)
@@ -117,6 +143,7 @@ app.get('/', function (req, res) {
 
 app.use(function (err, req, res, next) {
     //console.log("Error producido: " + err);
+    gestorLog.error(err);
     if (!res.headersSent) {
         res.status(400);
         //res.send("Recurso no disponible");
@@ -131,3 +158,4 @@ https.createServer({
 }, app).listen(app.get('port'), function () {
     console.log("Servidor activo");
 });
+

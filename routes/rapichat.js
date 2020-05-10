@@ -1,6 +1,12 @@
 module.exports = function (app, gestorBD) {
 
     /**
+     * Log donde se almacena un listado de las acciones desencadenadas
+     * por el usuario en sesión
+     */
+    var gestorLogApi = app.get('gestorLogApi');
+
+    /**
      * Obtiene la lista de amigos para mostrar en la vista
      * correspondiente
      */
@@ -14,6 +20,7 @@ module.exports = function (app, gestorBD) {
             } else {
                 res.status(200);
                 res.send(JSON.stringify(amigos));
+                gestorLogApi.amigosCliente(res.usuario);
             }
         });
     });
@@ -64,6 +71,7 @@ module.exports = function (app, gestorBD) {
                     autentificado: true,
                     token: token
                 })
+                gestorLogApi.logInCliente(criterio.email);
             }
         });
     });
@@ -199,6 +207,7 @@ module.exports = function (app, gestorBD) {
                         });
                     }
                 });
+                gestorLogApi.enviarMensaje(mensaje.usuarioFrom, mensaje.usuarioTo, mensaje.contenido);
             }
         });
     }
@@ -245,6 +254,7 @@ module.exports = function (app, gestorBD) {
                         res.send(JSON.stringify(mensajes));
                     }
                 });
+                gestorLogApi.obtenerMensajesCliente(usuarioEnSesionEmail, req.query.usuario);
             }
         });
 
@@ -304,14 +314,15 @@ module.exports = function (app, gestorBD) {
                 res.status(500);
                 res.json({
                     error: "Se ha producido un error al marcar un mensaje como leido"
-                })
+                });
             } else {
                 res.status(200);
                 res.json({
                     mensaje: "Mensajes recibidos marcados como leidos",
                     _id: req.params.id,
                     nModified: result.result.nModified
-                })
+                });
+                gestorLogApi.leer(usuarioEnSesionEmail, req.body.usuarioFrom);
             }
         });
     });
