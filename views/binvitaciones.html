@@ -34,9 +34,9 @@
 <div class="row text-center">
 	<ul class="pagination">
 		{% for pagina in paginas %}
-		<li class="page-item" id="pi-{{pagina}}">
-			<a class="page-link" href="/invitaciones?pg={{pagina}}">{{pagina}}</a>
-		</li>
+			<li class="page-item" id="pi-{{pagina}}">
+				<a class="page-link" href="/invitaciones?pg={{pagina}}">{{pagina}}</a>
+			</li>
 		{% endfor %}
 		<script>$("#pi-"+"{{actual}}").addClass("active");</script>
 	</ul>

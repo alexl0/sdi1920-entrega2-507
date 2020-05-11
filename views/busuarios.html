@@ -55,14 +55,30 @@
 </div>
 
 <!-- Paginación mostrar la actual y 2 anteriores y dos siguientes -->
+{% if textoBusqueda != null %}
+    {% set txtBusqueda = "&busqueda="+textoBusqueda %}
+{% endif %}
 <div class="row text-center">
     <ul class="pagination">
-        {% for pagina in paginas %}
-            <li class="page-item" id="pi-{{pagina}}">
-                <a class="page-link" href="/verUsuarios?pg={{pagina}}">{{pagina}}</a>
-            </li>
-        {% endfor %}
-        <script>$("#pi-"+"{{actual}}").addClass("active");</script>
+        <li class="page-item">
+            <a class="page-link" href="/verUsuarios?pg=1{{ txtBusqueda }}">Primera</a>
+        </li>
+        {% if actual-1 >= 1 %}
+        <li class="page-item">
+            <a class="page-link" href="/verUsuarios?pg={{ actual -1 }}{{ txtBusqueda }}">{{ actual -1 }}</a>
+        </li>
+        {% endif %}
+        <li class="page-item active">
+            <a class="page-link" href="/verUsuarios?pg={{ actual }}{{ txtBusqueda }}">{{ actual }}</a>
+        </li>
+        {% if actual+1 <= ultimaPg %}
+        <li class="page-item">
+            <a class="page-link" href="/verUsuarios?pg={{ actual+1 }}{{ txtBusqueda }}">{{ actual+1 }}</a>
+        </li>
+        {% endif %}
+        <li class="page-item">
+            <a class="page-link" href="/verUsuarios?pg={{ ultimaPg }}{{ txtBusqueda }}">Última</a>
+        </li>
     </ul>
 </div>
 {% endblock %}

@@ -132,24 +132,25 @@ module.exports = function (app, swig, gestorBD) {
      */
     app.get("/verUsuarios", function (req, res) {
         let criterio = {"email": {$not: {$regex: req.session.usuario.toString()}}};
-        if (req.query.busqueda != null) {
+        var textoBusqueda=req.query.busqueda;
+        if (textoBusqueda != null) {
             criterio = {
                 $and: [
                     {
                         $or: [
                             {
                                 "email": {
-                                    $regex: ".*" + req.query.busqueda + ".*"
+                                    $regex: ".*" + textoBusqueda + ".*"
                                 }
                             },
                             {
                                 "name": {
-                                    $regex: ".*" + req.query.busqueda + ".*"
+                                    $regex: ".*" + textoBusqueda + ".*"
                                 }
                             },
                             {
                                 "lastname": {
-                                    $regex: ".*" + req.query.busqueda + ".*"
+                                    $regex: ".*" + textoBusqueda + ".*"
                                 }
                             }
                         ]
@@ -171,12 +172,6 @@ module.exports = function (app, swig, gestorBD) {
                 let ultimaPg = total / 5;
                 if (total % 5 > 0) { // Sobran decimales
                     ultimaPg = ultimaPg + 1;
-                }
-                let paginas = []; // paginas mostrar
-                for (let i = pg - 2; i <= pg + 2; i++) {
-                    if (i > 0 && i <= ultimaPg) {
-                        paginas.push(i);
-                    }
                 }
 
                 //Personas con las que hay invitaciones pendientes
@@ -205,8 +200,9 @@ module.exports = function (app, swig, gestorBD) {
                                 }
                                 let respuesta = swig.renderFile('views/busuarios.html', {
                                     usuarios: usuarios,
-                                    paginas: paginas,
+                                    ultimaPg: ultimaPg,
                                     actual: pg,
+                                    textoBusqueda: textoBusqueda,
                                     email: req.session.usuario
                                 });
                                 res.send(respuesta);

@@ -254,3 +254,64 @@
 [10-05-2020 21:08:10] [INFO] - Cliente: user9@email.com accede al chat con user6@email.com
 [10-05-2020 21:08:12] [INFO] - Cliente: user6@email.com: autenticado
 [10-05-2020 21:08:17] [INFO] - Cliente: user6@email.com: lista de amigos 
+[10-05-2020 21:41:38] [INFO] - App: user1@email.com: autenticado
+[10-05-2020 21:41:39] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:42:21] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:42:24] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:42:59] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:43:02] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:43:06] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:43:09] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:43:13] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:43:36] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:43:40] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:43:42] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:43:57] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:44:09] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:44:16] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:44:31] [INFO] - App: user1@email.com: listar usuarios
+[10-05-2020 21:44:34] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:09:10] [INFO] - App: user1@email.com: autenticado
+[11-05-2020 12:09:11] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:09:17] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:09:25] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:09:27] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:09:29] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:09:32] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:11:09] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:11:12] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:11:18] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:11:24] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:14:43] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:15:10] [INFO] - App: user1@email.com: autenticado
+[11-05-2020 12:15:11] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:15:16] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:15:19] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:15:23] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:21:16] [INFO] - App: user1@email.com: autenticado
+[11-05-2020 12:21:18] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:21:38] [INFO] - App: user1@email.com: listar amigos
+[11-05-2020 12:21:41] [INFO] - App: user1@email.com: listar amigos
+[11-05-2020 12:21:43] [INFO] - App: user1@email.com: listar amigos
+[11-05-2020 12:21:45] [INFO] - App: user1@email.com: listar amigos
+[11-05-2020 12:23:14] [INFO] - App: user1@email.com: autenticado
+[11-05-2020 12:23:16] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:23:19] [INFO] - App: user1@email.com: listar invitaciones
+[11-05-2020 12:23:28] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:23:31] [INFO] - App: user1@email.com invita a user6@email.com
+[11-05-2020 12:23:33] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:24:35] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:24:37] [INFO] - App: user1@email.com: desconectado
+[11-05-2020 12:24:42] [INFO] - App: user6@email.com: autenticado
+[11-05-2020 12:24:43] [INFO] - App: user6@email.com: listar usuarios
+[11-05-2020 12:24:46] [INFO] - App: user6@email.com: listar invitaciones
+[11-05-2020 12:24:49] [INFO] - App: user6@email.com: listar invitaciones
+[11-05-2020 12:24:51] [INFO] - App: user6@email.com: listar invitaciones
+[11-05-2020 12:25:35] [INFO] - App: user1@email.com: autenticado
+[11-05-2020 12:25:37] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:25:40] [INFO] - App: user1@email.com: listar amigos
+[11-05-2020 12:25:50] [INFO] - App: user1@email.com: listar invitaciones
+[11-05-2020 12:25:54] [INFO] - App: user1@email.com: listar amigos
+[11-05-2020 12:25:55] [INFO] - App: user1@email.com: listar invitaciones
+[11-05-2020 12:26:01] [INFO] - App: user1@email.com: listar amigos
+[11-05-2020 12:26:47] [INFO] - App: user1@email.com: listar usuarios
