@@ -297,7 +297,7 @@ module.exports = {
                     ]
                 }
                 let collection = db.collection('amigos');
-                collection.count(function (err, count) {
+                collection.count(criterio, function (err, count) {
                     collection.find(criterio).skip((pg - 1) * 5).limit(5)
                         .toArray(function (err, amigos) {
                             if (err) {

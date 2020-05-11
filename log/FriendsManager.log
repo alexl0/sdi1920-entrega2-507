@@ -315,3 +315,7 @@
 [11-05-2020 12:25:55] [INFO] - App: user1@email.com: listar invitaciones
 [11-05-2020 12:26:01] [INFO] - App: user1@email.com: listar amigos
 [11-05-2020 12:26:47] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:40:32] [INFO] - App: user1@email.com: autenticado
+[11-05-2020 12:40:33] [INFO] - App: user1@email.com: listar usuarios
+[11-05-2020 12:40:36] [INFO] - App: user1@email.com: listar amigos
+[11-05-2020 12:40:40] [INFO] - App: user1@email.com: listar invitaciones
