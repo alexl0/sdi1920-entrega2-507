@@ -72,8 +72,7 @@ routerUsuarioToken.use(function (req, res, next) {
         });
     }
 });
-// Aplicar routerUsuarioToken
-//TODO
+
 app.use('/api/amigos', routerUsuarioToken);
 app.use('/api/usuarios', routerUsuarioToken);
 app.use('/api/mensaje', routerUsuarioToken);
@@ -90,12 +89,12 @@ routerUsuarioSession.use(function (req, res, next) {
         res.redirect("/identificarse");
     }
 });
-//Aplicar routerUsuarioSession
-//TODO aplicar usuariosesion a lo que haga falta
+
 app.use("/verUsuarios", routerUsuarioSession);
 app.use("/invitaciones", routerUsuarioSession);
-app.use("/comentarios", routerUsuarioSession);
 app.use("/amigos", routerUsuarioSession);
+app.use("/usuario/invitar", routerUsuarioSession);
+app.use("/usuario/aceptar", routerUsuarioSession);
 
 app.use(express.static('public'));
 
