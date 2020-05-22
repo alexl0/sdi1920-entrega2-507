@@ -71,12 +71,12 @@
         if ($('#escribir-mensaje').val().length > 400) {
             $('#escribir-mensaje').val("");
             $('#botonEnviarMensaje').prop('disabled', true);
-            $("#widget-chat").prepend("<div class='alert alert-info'>No se pueden enviar mensajes de más de 400 caracteres</div>");
+            $("#widget-chat").prepend("<div class='alert alert-info charactersExceeded'>No se pueden enviar mensajes de más de 400 caracteres</div>");
         } else if ($('#escribir-mensaje').val() == "") {
             $('#botonEnviarMensaje').prop('disabled', true);
         } else {
             $('#botonEnviarMensaje').prop('disabled', false);
-            $(".alert-info").remove();
+            $(".charactersExceeded").remove();
         }
     });
 
