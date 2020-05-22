@@ -42,7 +42,7 @@
 
 <script>
     var token;
-    var URLbase = "https://localhost:8081/api";
+    var URLbase = process.env.urlbase || "https://localhost:8081/api";
     var loggedUserEmail;
     var chattingWithEmail;
 
