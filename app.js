@@ -18,7 +18,7 @@ var jwt = require('jsonwebtoken');
 app.set('jwt', jwt);
 
 let fs = require('fs');
-let https = require('https');
+let https = require('http');
 
 let expressSession = require('express-session');
 app.use(expressSession({
