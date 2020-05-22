@@ -99,7 +99,7 @@ app.use("/usuario/aceptar", routerUsuarioSession);
 app.use(express.static('public'));
 
 // Variables
-app.set('port', 8081);
+app.set('port', process.env.PORT || 8081);
 app.set('db', 'mongodb://admin:PLqB51Mua2tcF6Wh@tiendamusica-shard-00-00-4umpq.mongodb.net:27017,tiendamusica-shard-00-01-4umpq.mongodb.net:27017,tiendamusica-shard-00-02-4umpq.mongodb.net:27017/test?ssl=true&replicaSet=tiendamusica-shard-0&authSource=admin&retryWrites=true&w=majority');
 
 app.set('clave', 'abcdefg');
