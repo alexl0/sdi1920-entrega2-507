@@ -2,12 +2,24 @@
 Fixed div
 https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fixed-element-scrollable-only-when-it-exceeds-t
 */
+.container {
+    padding: 1% !important;
+}
+
+.list-group {
+    padding: 1% !important;
+}
+
+.form-control::placeholder {
+    color: #9d9d9d;
+}
+
 .stuck {
     position: fixed;
     top: 8em;
-    left: 5em;
-    bottom: 10em;
-    right: 5em;
+    left: 2%;
+    bottom: 10%;
+    right: 2%;
     overflow-y: scroll;
 }
 
@@ -23,15 +35,20 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
     display: grid;
     grid-template-areas: 'header header header header header header header header header header header header header header header header header header header header header header header header menu';
     grid-gap: 10px;
-    padding: 10px;
     position: fixed;
-    left: 5em;
-    bottom: 5em;
-    right: 5em;
+    left: 2%;
+    bottom: 2%;
+    right: 2%;
 }
 
 .dark {
     background-color: #141414 !important;
+}
+
+.dark2 {
+    background-color: #46464b !important;
+    color: white !important;
+    font-weight: bold;
 }
 
 .light {

@@ -1,28 +1,12 @@
 <div class="container" id="widget-amigos">
-    <input type="text" class="form-control" placeholder="Filtrar por nombre 🔍"
+    <input type="text" class="dark2 form-control" placeholder="Search 🔍"
            id="filtro-nombre"/>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th class="light2">Email</th>
-            <th class="light2">Nombre</th>
-            <th class="light2">Apellidos</th>
-            <th class="light2">Mensajes sin leer</th>
-            <th class="col-md-1"></th>
-        </tr>
-        </thead>
-        <tbody id="tablaCuerpo">
 
-        </tbody>
-    </table>
-    <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
-        <div class="card-header">Header</div>
-        <div class="card-body">
-            <h5 class="card-title">Dark card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        </div>
+    <div class="list-group" id="tablaCuerpo">
     </div>
+
 </div>
+
 <script>
 
     window.history.pushState("", "", "/cliente.html?w=amigos");
@@ -152,12 +136,11 @@
             for (j = 0; j < usuarios.length; j++) {
                 if (userMostrar == usuarios[j].email)
                     $("#tablaCuerpo").append(
-                        "<tr onclick=chatearCon('" + userMostrar + "') id=" + amigosAMostrar[i]._id + ">" +
-                        "<td class='light2'>" + userMostrar + "</td>" +
-                        "<td class='light2'>" + usuarios[j].name + "</td>" +
-                        "<td class='light2'>" + usuarios[j].lastname + "</td>" +
-                        "<td class='light2'>" + numMensajesSinLeer + " mensajes nuevos" + "</td>" +
-                        "</tr>");
+                        "<a href=\"#\" class=\"list-group-item list-group-item-action list-group-item-dark\" onclick=chatearCon('" + userMostrar + "') id=" + amigosAMostrar[i]._id + ">" +
+                        "<h5>" + userMostrar + "</h5>" +
+                        "<small>" + usuarios[j].name + " " + usuarios[j].lastname + " </small>" +
+                        "<span class=\"badge badge-primary badge-pill\">" + numMensajesSinLeer + "</span>");
+
             }
         }
     }

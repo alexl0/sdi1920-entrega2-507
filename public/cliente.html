@@ -41,8 +41,8 @@
 
 <script>
     var token;
-    //var URLbase = "https://chatwithyouwant.herokuapp.com/api";
-    var URLbase = "http://localhost:8081/api";
+    var URLbase = window.location.href.includes("chatwithyouwant") ?
+        "https://chatwithyouwant.herokuapp.com/api" : "http://localhost:8081/api";
     var loggedUserEmail;
     var chattingWithEmail;
 
