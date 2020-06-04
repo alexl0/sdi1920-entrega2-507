@@ -1,31 +1,26 @@
 <div id="widget-chat">
     <h4 class="light" id="ususario-chateando">Chat con: </h4>
-
     <div class="stuck" id="panel-mensajes">
         <table class="table" id="tabla-mensajes">
             <thead>
             <tr>
-                <th class="col-md-1"></th>
-                <th class="col-md-1"></th>
+                <th class="col-lg-1"></th>
+                <th class="col-lg-1"></th>
             </tr>
             </thead>
-            <tbody id="body-tabla-mensajes">
-
-            </tbody>
+            <tbody id="body-tabla-mensajes"></tbody>
         </table>
     </div>
-
     <div class="grid-container">
         <div class="item1">
             <input type="text" class="form-control" placeholder="Escribir mensaje"
-                   id="escribir-mensaje" required="true"/>
+                   id="escribir-mensaje" required="true">
         </div>
         <div class="item2">
-            <button id="botonEnviarMensaje" onclick="insertarMensaje()" class="btn btn-primary" disabled="true">Enviar
-            </button>
+            <button id="botonEnviarMensaje" onclick="insertarMensaje()" class="btn btn-primary"
+                    disabled="true">Enviar</button>
         </div>
     </div>
-
 </div>
 
 <script>
