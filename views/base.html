@@ -27,19 +27,18 @@
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
                 {% if email!=null %}
-                    <li id="mVerUsuarios"><a href="/verUsuarios">Ver usuarios</a></li>
-                    <li class="invitaciones" id="mInvitaciones"><a href="/invitaciones">Peticiones recibidas</a></li>
-                    <li class="amigos" id="mAmigos"><a href="/amigos">Amigos</a></li>
+                    <li id="mVerUsuarios"><a href="/verUsuarios">List all users</a></li>
+                    <li class="invitaciones" id="mInvitaciones"><a href="/invitaciones">Received friend requests</a></li>
+                    <li class="amigos" id="mAmigos"><a href="/amigos">Friends</a></li>
                     <li><a href="/cliente.html?w=login">Chat</a></li>
-                    <li><img src="img/new.png"/></li>
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 {% if email==null %}
-                    <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Registrate</a></li>
-                    <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Identifícate</a></li>
+                    <li><a href="/registrarse"><span class="glyphicon glyphicon-user"></span> Sign up</a></li>
+                    <li><a href="/identificarse"><span class="glyphicon glyphicon-log-in"></span> Log in</a></li>
                 {% else %}
-                    <li><a href="/desconectarse"><span class="glyphicon glyphicon-log-out"></span> Desconectarse</a></li>
+                    <li><a href="/desconectarse"><span class="glyphicon glyphicon-log-out"></span> Log out</a></li>
                 {% endif %}
             </ul>
         </div>

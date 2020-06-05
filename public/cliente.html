@@ -28,6 +28,8 @@
             </li>
             <li class="nav-item"><a onclick="widgetLogin()" id="desconectarse" class="nav-link"></a>
             </li>
+            <li class="nav-item"><a onclick="widgetAdd()" id="agregarNuevosAgmios" class="nav-link">Add friends</a>
+            </li>
         </ul>
         <small class="light2 nav-link" id="ususario-logueado"></small>
         <ul class="nav navbar-nav ml-auto" id="barra-menu-derecha">
@@ -46,6 +48,8 @@
     var token;
     var URLbase = window.location.href.includes("chatwithyouwant") ?
         "https://chatwithyouwant.herokuapp.com/api" : "http://localhost:8081/api";
+    var URLapplicationBase = window.location.href.includes("chatwithyouwant") ?
+        "https://chatwithyouwant.herokuapp.com/" : "http://localhost:8081/";
     var loggedUserEmail;
     var chattingWithEmail;
 
@@ -72,6 +76,10 @@
 
     function widgetLogin() {
         $("#contenedor-principal").load("widget-login.html")
+    }
+
+    function widgetAdd() {
+        window.location.href = URLapplicationBase;
     }
 
 </script>

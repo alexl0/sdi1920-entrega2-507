@@ -3,46 +3,46 @@
 {% block titulo %} Registrar usuario {% endblock %} 
 
 {% block contenido_principal %}
-  <h2>Registrar usuario</h2>
+  <h2>Sign up</h2>
   <form class="form-horizontal" method="post" action="/registrarse" >
     <div class="form-group">
       <label class="control-label col-sm-2" for="email">Email:</label>
       <div class="col-sm-10">
         <input type="email" class="form-control" name="email"
-            placeholder="email@email.com" required="true" />
+            placeholder="Email" required="true" />
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="name">Nombre:</label>
+      <label class="control-label col-sm-2" for="name">Name:</label>
       <div class="col-sm-10">
         <input type="name" class="form-control" name="name"
-               placeholder="Alejandro" required="true" />
+               placeholder="Name" required="true" />
       </div>
     </div>
     <div class="form-group">
       <label class="control-label col-sm-2" for="lastname">Apellidos:</label>
       <div class="col-sm-10">
         <input type="lastname" class="form-control" name="lastname"
-               placeholder="León" required="true" />
+               placeholder="Lastname" required="true" />
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="password">Contraseña:</label>
+      <label class="control-label col-sm-2" for="password">Password:</label>
       <div class="col-sm-10">          
         <input type="password"  class="form-control" name="password" 
-        	placeholder="contraseña" required="true" />
+        	placeholder="Password" required="true" />
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="repeatPassword">Repetir contraseña:</label>
+      <label class="control-label col-sm-2" for="repeatPassword">Repeat password:</label>
       <div class="col-sm-10">
         <input type="password"  class="form-control" name="repeatPassword"
-               placeholder="repetir contraseña" required="true" />
+               placeholder="Repeat password" required="true" />
       </div>
     </div>
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="submit" class="btn btn-primary">Sign up</button>
       </div>
     </div>
   </form>

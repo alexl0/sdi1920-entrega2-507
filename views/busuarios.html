@@ -11,7 +11,7 @@
             <div
                     class="input-group col-xs-8 col-sm-6 col-md-4 col-lg-5 pull-right">
                 <input type="text" id="searchText" class="search-query form-control"
-                       placeholder="Buscar personas" name="busqueda"/>
+                       placeholder="Search people" name="busqueda"/>
                 <span class="input-group-btn">
                     <button id="searchButton" class="btn" type="submit">
                         <span class="glyphicon glyphicon-search"></span>
@@ -24,13 +24,13 @@
 
 
 
-<h2>Usuarios</h2>
+<h2>Users</h2>
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>
         <tr>
-            <th>Nombre</th>
-            <th>Apellidos</th>
+            <th>Name</th>
+            <th>Lastname</th>
             <th>email</th>
             <th class="col-md-1"></th>
         </tr>
@@ -43,9 +43,9 @@
                     <td>{{ usuario.lastname }}</td>
                     <td>{{ usuario.email }}</td>
                     {% if usuario.esAmigo=="false" %}
-                        <td><a class="btn btn-primary" href="/usuario/invitar/{{ usuario.email.toString() }}">Agregar</a></td>
+                        <td><a class="btn btn-primary" href="/usuario/invitar/{{ usuario.email.toString() }}">Add</a></td>
                     {% else %}
-                        <td><a class="btn btn-primary" disabled="disabled" title="Petición en curso o ya es amigo" href="/usuario/invitar/{{ usuario.email.toString() }}">Agregar</a></td>
+                        <td><a class="btn btn-primary" disabled="disabled" title="Petición en curso o ya es amigo" href="/usuario/invitar/{{ usuario.email.toString() }}">Add</a></td>
                     {% endif %}
                 </tr>
             {% endif %}
@@ -61,7 +61,7 @@
 <div class="row text-center">
     <ul class="pagination">
         <li class="page-item">
-            <a class="page-link" href="/verUsuarios?pg=1{{ txtBusqueda }}">Primera</a>
+            <a class="page-link" href="/verUsuarios?pg=1{{ txtBusqueda }}">First</a>
         </li>
         {% if actual-1 >= 1 %}
         <li class="page-item">
@@ -77,7 +77,7 @@
         </li>
         {% endif %}
         <li class="page-item">
-            <a class="page-link" href="/verUsuarios?pg={{ ultimaPg }}{{ txtBusqueda }}">Última</a>
+            <a class="page-link" href="/verUsuarios?pg={{ ultimaPg }}{{ txtBusqueda }}">Last</a>
         </li>
     </ul>
 </div>

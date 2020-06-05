@@ -1,16 +1,16 @@
 {% extends "base.html" %} {% block titulo %} Peticiones de amistad {% endblock %}
 
 {% block contenido_principal %}
-<h2>Peticiones de amistad recibidas</h2>
+<h2>Received friend requests</h2>
 
 <div class="table-responsive">
 	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>email</th>
-				<th>Nombre</th>
-				<th>Apellidos</th>
-				<th>Aceptar invitación de amistad</th>
+				<th>Name</th>
+				<th>Lastname</th>
+				<th>Accept</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,7 +21,7 @@
 						<td>{{ invitacion.usuarioFrom }}</td>
 						<td>{{ usuario.name }}
 						<td>{{ usuario.lastname }}</td>
-						<td><a class="btn btn-primary" href="/usuario/aceptar/{{ invitacion.usuarioFrom }}">Aceptar</a></td>
+						<td><a class="btn btn-primary" href="/usuario/aceptar/{{ invitacion.usuarioFrom }}">Accept</a></td>
 					</tr>
 				{% endif %}
 			{% endfor %}

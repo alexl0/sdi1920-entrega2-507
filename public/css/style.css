@@ -3,6 +3,10 @@ Fixed div
 https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fixed-element-scrollable-only-when-it-exceeds-t
 */
 
+#chatwithyouwant{
+    font-weight: bold;
+}
+
 @media (min-width: 992px) {
     #contenedor-principal {
         padding: 4% !important;
