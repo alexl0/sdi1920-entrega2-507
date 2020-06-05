@@ -22,11 +22,14 @@
     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#myNavbar">&#x2630;</button>
     <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav" id="barra-menu">
-            <li class="nav-item"><a onclick="widgetAmigos()" class="nav-link">Amigos</a>
+            <li class="nav-item"><a class="light2 nav-link" id="chatwithyouwant">Chat with who you want</a>
             </li>
-            <li class="nav-item"><a class="light2 nav-link" id="ususario-logueado"></a>
+            <li class="nav-item"><a onclick="widgetAmigos()" id="amigos" class="nav-link"></a>
+            </li>
+            <li class="nav-item"><a onclick="widgetLogin()" id="desconectarse" class="nav-link"></a>
             </li>
         </ul>
+        <small class="light2 nav-link" id="ususario-logueado"></small>
         <ul class="nav navbar-nav ml-auto" id="barra-menu-derecha">
             <!-- Opciones de menú aqui -->
         </ul>
@@ -65,6 +68,10 @@
 
     function widgetAmigos() {
         $("#contenedor-principal").load("widget-amigos.html")
+    }
+
+    function widgetLogin() {
+        $("#contenedor-principal").load("widget-login.html")
     }
 
 </script>
