@@ -68,7 +68,8 @@
                 if (!(amigos && tienenTiemposIguales(amigos, respuesta))) {
                     amigos = respuesta;
                     obtenerMensajesRecibidosDelUsuarioEnSesion();
-                }
+                } else
+                    actualizarTabla(amigos);
             },
             error: function (error) {
                 $("#contenedor-principal").load("widget-login.html");
