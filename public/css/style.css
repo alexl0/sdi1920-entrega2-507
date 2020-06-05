@@ -3,6 +3,11 @@ Fixed div
 https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fixed-element-scrollable-only-when-it-exceeds-t
 */
 
+.list-group-item {
+    background-color: #343a40 !important;
+    color: #9d9d9d !important;
+}
+
 .table-chat {
     table-layout: fixed;
     width: 100%;
@@ -20,7 +25,7 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
     padding: 0% !important;
 }
 
-#grid-send-message{
+#grid-send-message {
     padding-right: 5% !important;
 }
 
@@ -68,7 +73,7 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
 }
 
 .dark2 {
-    background-color: #46464b !important;
+    background-color: #343a40 !important;
     color: white !important;
     font-weight: bold;
 }

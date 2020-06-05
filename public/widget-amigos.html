@@ -137,7 +137,7 @@
             for (j = 0; j < usuarios.length; j++) {
                 if (userMostrar == usuarios[j].email)
                     $("#tablaCuerpo").append(
-                        "<a href=\"#\" class=\"list-group-item list-group-item-action list-group-item-dark\" onclick=chatearCon('" + userMostrar + "') id=" + amigosAMostrar[i]._id + ">" +
+                        "<a href=\"#\" class=\"list-group-item list-group-item-action\" onclick=chatearCon('" + userMostrar + "') id=" + amigosAMostrar[i]._id + ">" +
                         "<div class='float-left'><h5>" + userMostrar + "</h5>" +
                         "<small>" + usuarios[j].name + " " + usuarios[j].lastname + " </small></div>" +
                         "<div class='float-right'><span class=\"badge badge-primary badge-pill\">" + numMensajesSinLeer + "</span></div></a>");
