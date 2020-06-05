@@ -7,14 +7,32 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
     #contenedor-principal {
         padding: 4% !important;
     }
+
+    .stuck {
+        position: fixed;
+        top: 17%;
+        left: 0%;
+        bottom: 11%;
+        right: 0%;
+        overflow-y: scroll;
+    }
 }
 
 @media (max-width: 992px) {
     #contenedor-principal {
-        padding: 13% !important;
+        padding: 9% !important;
+        padding-top: 14% !important;
+    }
+
+    .stuck {
+        position: fixed;
+        top: 14%;
+        left: 0%;
+        bottom: 11%;
+        right: 0%;
+        overflow-y: scroll;
     }
 }
-
 
 .loginForm {
     max-width: 300px !important;
@@ -70,15 +88,6 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
 
 .form-control::placeholder {
     color: #9d9d9d;
-}
-
-.stuck {
-    position: fixed;
-    top: 17%;
-    left: 0%;
-    bottom: 11%;
-    right: 0%;
-    overflow-y: scroll;
 }
 
 .item1 {
