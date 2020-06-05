@@ -10,6 +10,12 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
 #div-ususario-chateando {
     background-color: #343a40;
     border-radius: .25rem;
+    text-align: center;
+}
+
+#ususario-chateando {
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 .list-group-item {
@@ -93,6 +99,7 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
 
 .light2 {
     color: #9d9d9d !important;
+
 }
 
 .form-group {
