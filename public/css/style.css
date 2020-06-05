@@ -12,8 +12,16 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
     width: 50%;
 }
 
-#txt-send-message, #btn-send-message{
+#txt-send-message {
     padding: 0% !important;
+}
+
+#btn-send-message {
+    padding: 0% !important;
+}
+
+#grid-send-message{
+    padding-right: 5% !important;
 }
 
 .container {
