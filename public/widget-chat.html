@@ -1,24 +1,25 @@
 <div id="widget-chat">
     <h4 class="light2" id="ususario-chateando">Chat con: </h4>
     <div class="stuck container" id="panel-mensajes">
-        <table class="table" id="tabla-mensajes">
+        <table class="table table-chat" id="tabla-mensajes">
             <thead>
             <tr>
-                <th class="col-xl-1"></th>
-                <th class="col-xl-1"></th>
+                <th class="th-table-chat" scope="col"></th>
+                <th class="th-table-chat"  scope="col"></th>
             </tr>
             </thead>
             <tbody id="body-tabla-mensajes"></tbody>
         </table>
     </div>
-    <div class="grid-container">
-        <div class="item1 container">
+    <div class="grid-container container">
+        <div id="txt-send-message" class="item1 container">
             <input type="text" class="dark2 form-control" placeholder="Escribir mensaje"
                    id="escribir-mensaje" required="true">
         </div>
-        <div class="item2 container">
+        <div id="btn-send-message" class="item2 container">
             <button id="botonEnviarMensaje" onclick="insertarMensaje()" class="btn btn-primary"
-                    disabled="true">Enviar</button>
+                    disabled="true">Enviar
+            </button>
         </div>
     </div>
 </div>
@@ -100,15 +101,15 @@
                         if (loggedUserEmail == mensajes[i].usuarioFrom)
                             $("#body-tabla-mensajes").append(
                                 "<tr id=" + mensajes[i]._id + ">" +
-                                "<td></td>" +
-                                "<td><h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + (mensajes[i].leido ? ' ✔' : '') + mensajes[i].contenido + "</h5></td>" +
+                                "<td class=\"th-table-chat\" ></td>" +
+                                "<td class=\"th-table-chat\" ><h5 id=" + mensajes[i]._id + " align=\"right\" class='alert alert-success'>" + (mensajes[i].leido ? ' ✔' : '') + mensajes[i].contenido + "</h5></td>" +
                                 "</tr>"
                             );
                         else
                             $("#body-tabla-mensajes").append(
                                 "<tr id=" + mensajes[i]._id + ">" +
-                                "<td><h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + (mensajes[i].leido ? ' ✔' : '') + "</h5></td>" +
-                                "<td></td>" +
+                                "<td class=\"th-table-chat\" ><h5 id=" + mensajes[i]._id + " align=\"left\" class='alert alert-info'>" + mensajes[i].contenido + (mensajes[i].leido ? ' ✔' : '') + "</h5></td>" +
+                                "<td class=\"th-table-chat\" ></td>" +
                                 "</tr>"
                             );
                     }

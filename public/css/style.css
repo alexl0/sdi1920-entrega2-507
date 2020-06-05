@@ -2,6 +2,20 @@
 Fixed div
 https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fixed-element-scrollable-only-when-it-exceeds-t
 */
+
+.table-chat {
+    table-layout: fixed;
+    width: 100%;
+}
+
+.th-table-chat {
+    width: 50%;
+}
+
+#txt-send-message, #btn-send-message{
+    padding: 0% !important;
+}
+
 .container {
     padding: 1% !important;
 }
@@ -16,10 +30,10 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
 
 .stuck {
     position: fixed;
-    top: 8em;
-    left: 2%;
-    bottom: 10%;
-    right: 2%;
+    top: 17%;
+    left: 0%;
+    bottom: 11%;
+    right: 0%;
     overflow-y: scroll;
 }
 
