@@ -32,6 +32,10 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
         right: 0%;
         overflow-y: scroll;
     }
+
+    #grid-send-message {
+        padding-right: 5% !important;
+    }
 }
 
 .loginForm {
@@ -72,10 +76,6 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
 
 #btn-send-message {
     padding: 0% !important;
-}
-
-#grid-send-message {
-    padding-right: 5% !important;
 }
 
 .container {
