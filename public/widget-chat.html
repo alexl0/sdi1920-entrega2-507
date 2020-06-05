@@ -1,5 +1,5 @@
 <div id="widget-chat">
-    <div class="container" id="div-ususario-chateando"><h4 class="light2" id="ususario-chateando">Chat con: </h4></div>
+    <div class="container" id="div-ususario-chateando"><h4 class="light2" id="ususario-chateando">Chatting with: </h4></div>
     <div class="stuck container" id="panel-mensajes">
         <table class="table table-chat" id="tabla-mensajes">
             <thead>
@@ -13,12 +13,12 @@
     </div>
     <div id="grid-send-message" class="grid-container container">
         <div id="txt-send-message" class="item1 container">
-            <input type="text" class="dark2 form-control" placeholder="Escribir mensaje"
-                   id="escribir-mensaje" required="true">
+            <input type="text" class="dark2 form-control" placeholder="Write message"
+                   id="escribir-mensaje" required="true" maxlength="390">
         </div>
         <div id="btn-send-message" class="item2 container">
             <button id="botonEnviarMensaje" onclick="insertarMensaje()" class="btn btn-primary"
-                    disabled="true">Enviar
+                    disabled="true">Send
             </button>
         </div>
     </div>
@@ -138,7 +138,7 @@
 
         //Comprobaciones
         if (mensaje.contenido == "")
-            $("#escribir-mensaje").val("No se puede mandar mensajes vacíos");
+            $("#escribir-mensaje").val("");
         else if (mensaje.contenido.length > 400)
             $("#escribir-mensaje").val("No se puede mandar mensajes de más de 400 caracteres");
         else {
