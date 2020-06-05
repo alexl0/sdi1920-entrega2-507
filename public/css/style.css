@@ -11,6 +11,7 @@ https://stackoverflow.com/questions/18894400/how-can-i-make-the-contents-of-a-fi
     background-color: #343a40;
     border-radius: .25rem;
     text-align: center;
+    padding: 0.01% !important;
 }
 
 #ususario-chateando {
