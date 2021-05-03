@@ -15,13 +15,16 @@
         </div>
     </form>
     <footer>
-        <p>
-            Type of your connection: {{ navigator.connection.type }}
-            Downlink: {{ navigator.connection.downlink }} Mb/s
-            rtt: {{ navigator.connection.rtt }} ms
-            downlinkMax: {{ navigator.connection.downlinkMax }} Mb/s
-            effectiveType: {{ navigator.connection.effectiveType }}
-            saveData: {{ navigator.connection.saveData }}
+        <p style="color: white">
+            <script>document.write(
+                "Type of your connection: " + navigator.connection.type + "\n" +
+                "Downlink: " + navigator.connection.downlink +" Mb/s" + "\n" +
+                "rtt: " + navigator.connection.rtt + " ms" + "\n" +
+                "downlinkMax: " + navigator.connection.downlinkMax + " Mb/s" + "\n" +
+                "effectiveType: " + navigator.connection.effectiveType + "\n" +
+                "saveData: " + navigator.connection.saveData
+            );
+            </script>
         </p>
     </footer>
 </div>
@@ -65,27 +68,27 @@
 
     function logNetworkInfo() {
         // Network type that browser uses
-        log('         type: ' + navigator.connection.type);
+        console.log('         type: ' + navigator.connection.type);
 
         // Effective bandwidth estimate
-        log('     downlink: ' + navigator.connection.downlink + ' Mb/s');
+        console.log('     downlink: ' + navigator.connection.downlink + ' Mb/s');
 
         // Effective round-trip time estimate
-        log('          rtt: ' + navigator.connection.rtt + ' ms');
+        console.log('          rtt: ' + navigator.connection.rtt + ' ms');
 
         // Upper bound on the downlink speed of the first network hop
-        log('  downlinkMax: ' + navigator.connection.downlinkMax + ' Mb/s');
+        console.log('  downlinkMax: ' + navigator.connection.downlinkMax + ' Mb/s');
 
         // Effective connection type determined using a combination of recently
         // observed rtt and downlink values: ' +
-        log('effectiveType: ' + navigator.connection.effectiveType);
+        console.log('effectiveType: ' + navigator.connection.effectiveType);
 
         // True if the user has requested a reduced data usage mode from the user
         // agent.
-        log('     saveData: ' + navigator.connection.saveData);
+        console.log('     saveData: ' + navigator.connection.saveData);
 
         // Add whitespace for readability
-        log('');
+        console.log('');
     }
 
     logNetworkInfo();
